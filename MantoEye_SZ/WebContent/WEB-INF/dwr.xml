@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dwr PUBLIC
+"-//GetAhead Limited//DTD Direct Web Remoting 1.0//EN"
+    "http://www.getahead.ltd.uk/dwr/dwr10.dtd">
+
+<dwr>
+	<allow>
+		<!--  <create creator="new" javascript="user">
+			<param name="class" value="jo.web.userifno.action.UserInfoAction" />
+		</create>
+		<create creator="spring" javascript="FlowAjax">
+			<param name="beanName" value="flowAjax" />
+		</create>
+		<create creator="spring" javascript="QueryAjax">
+			<param name="beanName" value="queryAjax" />
+		</create>-->
+	</allow>
+</dwr>

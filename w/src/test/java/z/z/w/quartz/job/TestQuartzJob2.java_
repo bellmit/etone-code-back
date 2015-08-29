@@ -1,0 +1,100 @@
+/**
+ * z.z.w.quartz.job.TestQuartzJob.java
+ */
+package z.z.w.quartz.job;
+
+import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+import org.quartz.StatefulJob;
+
+import z.z.w.common.DateTools;
+import z.z.w.common.ThreadTools;
+import z.z.w.quartz.IUserJob;
+import z.z.w.quartz.job.thread.JobThreadTest;
+import z.z.w.quartz.job.thread.QueueTest;
+
+/**
+ * @author Wu Zhenzhen
+ * @version Dec 19, 2012 7:36:34 PM
+ */
+public class TestQuartzJob2 implements StatefulJob, IUserJob {
+
+	private ExecutorService threadPool = null;
+	private static int queueIndex = 0;
+
+	/**
+	 * <br>
+	 * Created on: Dec 19, 2012 7:36:34 PM
+	 */
+	public TestQuartzJob2() {
+		// System.out.println();
+		// System.out.println();
+		// System.out.println("     TestQuartzJob2 constructor : 0/3 * * * * ? ");
+		// threadPool = Executors.newFixedThreadPool(3);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.quartz.Job#execute(org.quartz.JobExecutionContext)
+	 */
+	public void execute(JobExecutionContext arg0) throws JobExecutionException {
+		// System.out.println("  " + DateTools.getCurrentDateStr());
+		//
+		// + " - " + index + " ---- EXCEUTE TestQuartzJob2---"
+		// + Thread.currentThread().getName());
+		int index = 0;
+		try {
+
+			// DateTools.getDate("fdsfsd");
+			// } catch (ParseException e) {
+			// throw new JobExecutionException("ERROR");
+
+			// System.out
+			// .println(" - pre time : ["
+			// + ((DataTools.isEmpty(arg0.getPreviousFireTime())) ? "NON"
+			// : DateTools.getParseDateToStr(arg0
+			// .getPreviousFireTime()))
+			// // +
+			// // DateTools.getParseDateToStr(arg0.getPreviousFireTime())
+			// + "] "
+			// + " ScheduledFireTime : ["
+			// + DateTools.getParseDateToStr(arg0
+			// .getScheduledFireTime())
+			// + "]"
+			// + " next fire time : ["
+			// + DateTools.getParseDateToStr(arg0
+			// .getNextFireTime()) + "]");
+
+			Random rand = new Random(System.currentTimeMillis());
+			index = (rand.nextInt(9999) % (9999 - 1 + 1) + 1);
+			// System.out.println(" thread sleep : [" + (index * 1.0 / 1000)
+			// + "]s.");
+			// ThreadTools.sleepSeconds(5);
+			ThreadTools.sleep(index);
+			System.out.println("Index : " + index);
+
+			for (int i = 0; i < index; i++)
+				QueueTest.TASK_STATISTICS_QUEUE.add(queueIndex++);
+
+			threadPool = Executors.newFixedThreadPool(3);
+
+			int i = 3;
+			while (i-- > 0)
+				threadPool.execute(new JobThreadTest());
+
+		} finally {
+			// System.out.println("******** ");
+		}
+
+		System.out.println(DateTools.getCurrentDateStr() + " END use time :["
+				+ (index * 1.0 / 1000) + "]s.-- TestQuartzJob2 -"
+				+ Thread.currentThread().getName());
+		System.out.println();
+
+	}
+}

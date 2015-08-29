@@ -1,0 +1,94 @@
+ 
+.dialog_main_class {
+	text-align: left;
+	display: none;
+	background: #eceef3;
+	border: 1px solid #336699;
+	z-index: 99;
+	position: absolute;
+	width: 347px;
+	height: 230px;
+	display: none;
+	overflow-x: hidden;
+	overflow-y: hidden;
+}
+.dialog_main_class_1 {
+	text-align: left;
+	display: none;
+	background: #eceef3;
+	border: 1px solid #336699;
+	z-index: 99;
+	position: absolute;
+	width: 280px;
+	height: 230px;
+	display: none;
+	overflow-x: hidden;
+	overflow-y: hidden;
+}
+
+.dialog_head_class {
+	padding: 0px;
+	position: relative;
+	height: 20px;
+	width: 100%;
+	border-bottom: 1px solid #b0c7d7;
+	background-image: url(/mantoeye/dialog/toolbar_bg.gif);
+}
+
+.dialog_table_class input {
+	margin: 15px 0 0 0px;
+	height: 14px;
+	width: 180px;
+}
+
+.dialog_table_class tr td {
+	padding-left: 20px;
+}
+
+.dialog_table_class select {
+	height: 20px;
+	width: 185px;
+}
+
+.dialog_head_icon_class {
+	float: left;
+	display: block;
+	margin: 2px;
+}
+
+.dialog_head_title_class {
+	float: left;
+	margin-top: 3px;
+}
+
+.dialog_button_class {
+	width: 99%;
+	text-align: center;
+}
+
+.dialog_button_class button {
+	margin: 8px;
+}
+
+.dialog_button_class .dialog_button {
+	vertical-align: middle;
+	line-height: 18px;
+	height: 21px;
+	border: 1px solid #336699;
+	background: url(/mantoeye/dialog/input_button_bg.gif) repeat-x 0px -2px;
+}
+
+.dialog_msg_class {
+	height: 55px;
+	width: 220px;
+	background: #eceef3;
+	border: 1px solid #336699;
+	position: absolute;
+	z-index: 100;
+	display: none;
+}
+
+.dialog_msg_class img {
+	margin-left: 10px;
+	margin-top: 8px;
+}

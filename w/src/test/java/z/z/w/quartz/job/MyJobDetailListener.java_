@@ -1,0 +1,59 @@
+/**
+ * z.z.w.quartz.job.MyJobDetailListener.java
+ */
+package z.z.w.quartz.job;
+
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+import org.quartz.JobListener;
+
+import z.z.w.common.DateTools;
+
+/**
+ * @author Wu Zhenzhen
+ * @version Dec 23, 2012 11:51:49 PM
+ */
+public class MyJobDetailListener implements JobListener {
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.quartz.JobListener#getName()
+	 */
+	public String getName() {
+		return "MyJobDetailListener";
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.quartz.JobListener#jobExecutionVetoed(org.quartz.JobExecutionContext)
+	 */
+	public void jobExecutionVetoed(JobExecutionContext arg0) {
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.quartz.JobListener#jobToBeExecuted(org.quartz.JobExecutionContext)
+	 */
+	public void jobToBeExecuted(JobExecutionContext arg0) {
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.quartz.JobListener#jobWasExecuted(org.quartz.JobExecutionContext,
+	 * org.quartz.JobExecutionException)
+	 */
+	public void jobWasExecuted(JobExecutionContext arg0,
+			JobExecutionException arg1) {
+		System.out.println(DateTools.getCurrentDateStr()
+				+ "  ---- jobWasExecuted -- " + arg0.getJobDetail().getName()
+				+ " -- " + Thread.currentThread().getName());
+	}
+
+}

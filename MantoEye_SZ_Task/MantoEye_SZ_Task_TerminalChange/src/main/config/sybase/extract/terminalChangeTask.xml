@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 初始化終端升級任務 -->
+	<statement id="init_terminal_change">
+		<![CDATA[
+		set temporary option TEMP_EXTRACT_NAME1='';
+		set temporary option TEMP_EXTRACT_APPEND='OFF';
+		]]>
+	</statement>
+
+	<!-- 終端升級任務 -->
+	<select id="getTerminalChangeTaskList"
+		resultClass="com.etone.mantoeye.analyse.domain.terminal.TerminalChangeTask">
+		<![CDATA[
+		select nmTerminalChangeIdTaskId,nmTerminalChangeId,vcTaskName,dtOrderTime,vcTaskOrder,
+		       dtTaskStartTime,dtTaskEndTime,bitTaskActiveFlag,intTaskStatus
+		  from ftbStatTerminalChangeTask
+		 where 1 = 1 
+		   and dtTaskStartTime <= getDate()
+		   and bitTaskActiveFlag = 1 and intTaskStatus = 0
+	  order by dtTaskStartTime 	 
+		]]>
+	</select>
+
+	<!-- 更新終端升級任務状态 -->
+	<update id="updateTerminalChangeTask"
+		parameterClass="com.etone.mantoeye.analyse.domain.terminal.TerminalChangeTask">
+		<![CDATA[
+		update ftbStatTerminalChangeTask 
+		   set intTaskStatus = #intTaskStatus#,dtTaskEndTime = #dtTaskEndTime# 
+		 where nmTerminalChangeIdTaskId = #nmTerminalChangeIdTaskId#
+		]]>
+	</update>
+
+	<!-- 更新終端升級任務状态 -->
+	<update id="completeTerminalChangeTask"
+		parameterClass="com.etone.mantoeye.analyse.domain.terminal.TerminalChangeTask">
+		<![CDATA[
+		update ftbStatTerminalChangeTask 
+		   set intTaskStatus = #intTaskStatus#,dtTaskEndTime = #dtTaskEndTime# 
+		 where nmTerminalChangeIdTaskId = #nmTerminalChangeIdTaskId#
+		]]>
+	</update>
+
+	<!-- 取得終端升級統計數據 -->
+	<select id="getTerminalChange"
+		resultClass="com.etone.mantoeye.analyse.domain.terminal.TerminalChange">
+		<![CDATA[
+		select nmTerminalChangeId,nmOldTerminalId,nmNewTerminalId,intAreaType,intAreaId,
+		       intUserNum,dtStatTime,intDateType,intYear,intMonth,intWeek,intDay
+		  from ftbStatTerminalChange
+		 where 1 = 1 
+		   and nmTerminalChangeId = #nmTerminalChangeId#
+		]]>
+	</select>
+
+	<!-- 取得終端升級日誌中的IMSI -->
+	<select id="getImsiList"
+		parameterClass="com.etone.mantoeye.analyse.domain.terminal.TerminalChangeLogParam"
+		remapResults="true" resultClass="java.lang.String">
+		<![CDATA[
+		select distinct nmImsi 
+	      from ftbStatTerminalChangeLog fl
+    inner join ftbStatTerminalChange f
+            on fl.nmOldTerminalId = f.nmOldTerminalId
+           and fl.nmNewTerminalId = f.nmNewTerminalId
+           and fl.intYear = f.intYear
+           and fl.intMonth = f.intMonth
+               $sourcesSql$  
+		 where f.nmTerminalChangeId = #nmTerminalChangeId#
+		       $whereSql$
+		  	]]>
+	</select>
+
+	<!-- param的Map影射 -->
+	<parameterMap id="getterTerminalChangeTask" class="map">
+		<parameter property="dtStartTime" jdbcType="VARCHAR"
+			javaType="java.lang.String" mode="INOUT" />
+		<parameter property="dtEndTime" jdbcType="VARCHAR" javaType="java.lang.String"
+			mode="INOUT" />
+		<parameter property="oldCondition" jdbcType="VARCHAR"
+			javaType="java.lang.String" mode="INOUT" />
+		<parameter property="newCondition" jdbcType="VARCHAR"
+			javaType="java.lang.String" mode="INOUT" />
+		<parameter property="nmTerminalChangeIdTaskId" jdbcType="VARCHAR"
+			javaType="java.lang.Long" mode="INOUT" />
+	</parameterMap>
+
+	<!-- 終端升級任務定制的存儲過程 -->
+	<procedure id="proc_terminalChangeTask" parameterMap="getterTerminalChangeTask"
+		resultClass="java.lang.String">
+		<![CDATA[
+		{call proc_terminalChangeTask(?,?,?,?,?)}
+		]]>
+	</procedure>
+
+	<!-- 更新数据提取任务状态 -->
+	<update id="updateTerminalChangeData"
+		parameterClass="com.etone.mantoeye.analyse.domain.terminal.TerminalChangeTask">
+		<![CDATA[
+		update $vcTaskName$ set vcLocalIP = #vcLocalIP#
+		where nmTerminalChangeIdTaskId=#nmTerminalChangeIdTaskId#
+		]]>
+	</update>
+
+</sqlMap>

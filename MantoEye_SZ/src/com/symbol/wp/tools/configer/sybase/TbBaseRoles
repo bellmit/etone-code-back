@@ -1,0 +1,98 @@
+package com.symbol.wp.core.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+/**
+ * TbBaseRoles entity. @author MyEclipse Persistence Tools
+ */
+@Entity
+@Table(name = "tbBaseRoles", schema = "dbo", catalog = "WCMP")
+public class TbBaseRoles implements java.io.Serializable {
+
+	// Fields
+
+	private Long nmRolesId;//主键
+	private String vcRolesName;//角色名称
+	private String vcRoleNo;//标识符
+	private String txtRolesMemo;//描述
+	private Integer nmRolesLevel;//级别
+	private String vcRoleGroupNo;//组别
+
+	// Constructors
+
+	/** default constructor */
+	public TbBaseRoles() {
+	}
+
+	/** full constructor */
+	public TbBaseRoles(String vcRolesName, String vcRoleNo,
+			String txtRolesMemo, Integer nmRolesLevel, String vcRoleGroupNo) {
+		this.vcRolesName = vcRolesName;
+		this.vcRoleNo = vcRoleNo;
+		this.txtRolesMemo = txtRolesMemo;
+		this.nmRolesLevel = nmRolesLevel;
+		this.vcRoleGroupNo = vcRoleGroupNo;
+	}
+
+	// Property accessors
+	@Id
+	@GeneratedValue
+	@Column(name = "nmRolesId", unique = true, nullable = false, precision = 10, scale = 0)
+	public Long getNmRolesId() {
+		return this.nmRolesId;
+	}
+
+	public void setNmRolesId(Long nmRolesId) {
+		this.nmRolesId = nmRolesId;
+	}
+
+	@Column(name = "vcRolesName", length = 30)
+	public String getVcRolesName() {
+		return this.vcRolesName;
+	}
+
+	public void setVcRolesName(String vcRolesName) {
+		this.vcRolesName = vcRolesName;
+	}
+
+	@Column(name = "vcRoleNo", length = 64)
+	public String getVcRoleNo() {
+		return this.vcRoleNo;
+	}
+
+	public void setVcRoleNo(String vcRoleNo) {
+		this.vcRoleNo = vcRoleNo;
+	}
+
+	@Column(name = "txtRolesMemo")
+	public String getTxtRolesMemo() {
+		return this.txtRolesMemo;
+	}
+
+	public void setTxtRolesMemo(String txtRolesMemo) {
+		this.txtRolesMemo = txtRolesMemo;
+	}
+
+	@Column(name = "nmRolesLevel", precision = 5, scale = 0)
+	public Integer getNmRolesLevel() {
+		return this.nmRolesLevel;
+	}
+
+	public void setNmRolesLevel(Integer nmRolesLevel) {
+		this.nmRolesLevel = nmRolesLevel;
+	}
+
+	@Column(name = "vcRoleGroupNo", length = 64)
+	public String getVcRoleGroupNo() {
+		return this.vcRoleGroupNo;
+	}
+
+	public void setVcRoleGroupNo(String vcRoleGroupNo) {
+		this.vcRoleGroupNo = vcRoleGroupNo;
+	}
+
+}

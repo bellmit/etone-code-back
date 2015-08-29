@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+
+	<!-- extends="struts-default" 繼承默認struts包才能實現模型驅動 -->
+	<package name="resourceRoteAction" extends="zzwPackage">
+		<action name="resourceRoteAction_*" class="z.z.w.project.spending.action.ResourceRoteAction"
+			method="{1}">
+		</action>
+	</package>
+	<package name="spendingAction" extends="zzwPackage">
+		<action name="spendingAction_*" class="z.z.w.project.spending.action.SpendingAction"
+			method="{1}">
+		</action>
+	</package>
+</struts>

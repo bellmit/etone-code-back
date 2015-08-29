@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+
+	<!-- 5.2.2.1 全网数据业务流量分布呈现（小时）2011年11月21日22:34:57 -->
+	<statement id="load_ftbStatHourGprsTotalFlush" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourGprsTotalFlush ( intYear,intMonth,intWeek,intDay,intHour,nmAppUpFlush,nmAppDownFlush,
+		                                       nmUsers,nmFlush,dtStatTime,vcLocalIP,nmLocalFlush,nmLocalUsers )
+	      $option$
+		]]>
+	</statement>
+	<statement id="load_ftbStatHourGprsTotalFlush" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourGprsTotalFlush ( intYear,intMonth,intWeek,intDay,intHour,nmAppUpFlush,nmAppDownFlush,
+		                                       nmUsers,nmFlush,dtStatTime,vcLocalIP,nmLocalFlush,nmLocalUsers ,intRaitype)
+	      $option$
+		]]>
+	</statement>
+
+	<!-- 5.2.3.1 空间分析呈现（小时）BSC 2011年11月22日10:46:43 -->
+	<statement id="load_ftbStatHourBscGprsSpace" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourBscGprsSpace ( intBscId,intYear,intMonth,intWeek,intDay,intHour,nmAppUpFlush,nmAppDownFlush,
+				   							 nmUsers,nmFlush, dtStatTime,nmVisitCounts,intRaitype,vcLocalIP	  , nmLocalFlush,nmLocalUsers )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- SGSN 2011年11月22日11:07:14 -->
+	<statement id="load_ftbStatHourSgsnGprsSpace" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourSgsnGprsSpace ( intSgsnId,intYear,intMonth,intWeek,intDay,intHour,nmAppUpFlush,nmAppDownFlush,
+				   							  nmUsers,nmFlush,dtStatTime,nmVisitCounts,intRaitype,vcLocalIP	  , nmLocalFlush,nmLocalUsers )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- 街道办 2011年9月15日15:18:20 -->
+	<statement id="load_ftbStatHourStreetGprsSpace" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourStreetGprsSpace ( intStreetId,intYear,intMonth,intWeek,intDay,intHour,nmAppUpFlush,nmAppDownFlush,
+				   							    nmUsers,nmFlush,dtStatTime,nmVisitCounts,intRaitype,vcLocalIP	  , nmLocalFlush,nmLocalUsers )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- 营销片区 2011年9月15日15:20:12 -->
+	<statement id="load_ftbStatHourSaleAreaGprsSpace"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourSaleAreaGprsSpace ( intSaleAreaId,intYear,intMonth,intWeek,intDay,intHour,nmAppUpFlush,nmAppDownFlush,
+				   								  nmUsers,nmFlush,dtStatTime,nmVisitCounts,intRaitype,vcLocalIP	  , nmLocalFlush,nmLocalUsers )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- 分公司 2011年9月15日15:22:01 -->
+	<statement id="load_ftbStatHourCompanyGprsSpace" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourCompanyGprsSpace ( intBranchId,intYear,intMonth,intWeek,intDay,intHour,nmAppUpFlush,nmAppDownFlush,
+				      							 nmUsers,nmFlush,dtStatTime,nmVisitCounts,intRaitype,vcLocalIP	  , nmLocalFlush,nmLocalUsers )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- 5.2.3.2 空间分析呈现_业务维（小时） BSC 2011年9月15日15:27:49 -->
+	<statement id="load_ftbStatHourBscBussType" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourBscBussType ( intBscId,nmBussinessId,nmBussinessTypeId,intYear,intMonth,intWeek,intDay,intHour,
+				   						    nmAppUpFlush,nmAppDownFlush,nmUsers,nmFlush,dtStatTime,nmVisitCounts,intRaitype,vcLocalIP )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- SGSN 2011年9月15日16:20:26 -->
+	<statement id="load_ftbStatHourSgsnBussType" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourSgsnBussType ( intSgsnId,nmBussinessId,nmBussinessTypeId,intYear,intMonth,intWeek,intDay,intHour,
+				   							 nmAppUpFlush,nmAppDownFlush,nmUsers,nmFlush,dtStatTime,nmVisitCounts,intRaitype,vcLocalIP )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- 街道办 2011年9月15日16:22:47 -->
+	<statement id="load_ftbStatHourStreetBussType" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourStreetBussType ( intStreetId,nmBussinessId,nmBussinessTypeId,intYear,intMonth,intWeek,intDay,intHour,
+				   							   nmAppUpFlush,nmAppDownFlush,nmUsers,nmFlush,dtStatTime,nmVisitCounts,intRaitype,vcLocalIP )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- 营销片区2011年9月15日16:29:43 -->
+	<statement id="load_ftbStatHourSaleAreaBussType" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourSaleAreaBussType ( intSaleAreaId,nmBussinessId,nmBussinessTypeId,intYear,intMonth,intWeek,intDay,intHour,
+				   							     nmAppUpFlush,nmAppDownFlush,nmUsers,nmFlush,dtStatTime,nmVisitCounts,intRaitype,vcLocalIP )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- 分公司 2011年9月15日16:30:51 -->
+	<statement id="load_ftbStatHourCompanyBussType" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourCompanyBussType ( intBranchId,nmBussinessId,nmBussinessTypeId,intYear,intMonth,intWeek,intDay,intHour,
+				   							    nmAppUpFlush,nmAppDownFlush,nmUsers,nmFlush,dtStatTime,nmVisitCounts,intRaitype,vcLocalIP )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- 5.2.4 全网数据业务分析之业务 2011年9月15日16:31:45 -->
+	<!-- nmUsersRate float(4), nmFlushRate float(4), nmVisitCounts int, -->
+	<statement id="load_ftbStatHourGprsBussType" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourGprsBussType ( nmBussinessTypeId,intYear,intMonth,intWeek,intDay,intHour,
+				                             nmAppUpFlush,nmAppDownFlush,nmUsers,nmFlush,dtStatTime,nmVisitCounts,intRaitype,vcLocalIP )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- 5.2.5 全网数据业务分析之APN ftbGnSessionData 2011年9月15日16:32:30 -->
+	<statement id="load_ftbStatHourApn" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourApn ( intApnId,intApnTypeId,intYear,intMonth,intWeek,intDay,intHour,
+				                    nmAppUpFlush,nmAppDownFlush,nmUsers,nmFlush,dtStatTime,intRaitype,vcLocalIP )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- 2011年9月15日17:44:40 -->
+	<statement id="load_ftbStatHourApnType" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourApnType ( intApnTypeId,intYear,intMonth,intWeek,intDay,intHour,
+				   						nmAppUpFlush,nmAppDownFlush,nmUsers,nmFlush,dtStatTime,intRaitype,vcLocalIP )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- 5.2.6 全网数据业务分析之协议 2011年9月15日17:48:17 -->
+	<statement id="load_ftbStatHourTcpProtocol" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourTcpProtocol ( intProtocolTypeId,intYear,intMonth,intWeek,intDay,intHour,
+				  							nmAppUpFlush,nmAppDownFlush,nmUsers,nmFlush,dtStatTime,intRaitype,vcLocalIP )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- 2011年9月15日17:53:11 -->
+	<statement id="load_ftbStatHourWapProtocol" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourWapProtocol ( intWapId,intYear,intMonth,intWeek,intDay,intHour,
+		   									nmAppUpFlush,nmAppDownFlush,nmUsers,nmFlush,dtStatTime,intRaitype,vcLocalIP )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- 5.2.7 全网数据业务分析之用户归属 ftbGnSignalData 2011年9月15日17:59:26 -->
+	<statement id="load_ftbStatHourUserBelong" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourUserBelong ( intUserBelongId,intYear,intMonth,intWeek,intDay,intHour,
+				   						   nmAppUpFlush,nmAppDownFlush,nmUsers,nmFlush,dtStatTime,intRaitype,vcLocalIP )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- 5.2.8 全网数据业务分析之TOP100小区呈现 2011年9月15日18:02:39 -->
+	<statement id="load_ftbStatHourCgiFlush" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourCgiFlush ( intYear,intMonth,intWeek,intDay,intHour,vcCGI,
+				   					     nmAppUpFlush,nmAppDownFlush,nmUsers,nmFlush,dtStatTime,intRaitype,vcLocalIP )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- 5.2.9 集团业务行为分析之空间 BSC -->
+	<statement id="load_ftbStatHourApnBsc" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourApnBsc ( intBscId,intApnId,intApnTypeId,intYear,intMonth,intWeek,intDay,intHour,
+				   				       nmAppUpFlush,nmAppDownFlush,nmUsers,nmFlush,dtStatTime,intRaitype,vcLocalIP )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- SGSN 2011年9月15日18:11:18 -->
+	<statement id="load_ftbStatHourApnSgsn" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourApnSgsn ( intSgsnId,intApnId,intApnTypeId,intYear,intMonth,intWeek,intDay,intHour,
+				   					    nmAppUpFlush,nmAppDownFlush,nmUsers,nmFlush,dtStatTime,intRaitype,vcLocalIP )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- 街道办 -->
+	<statement id="load_ftbStatHourApnStreet" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourApnStreet ( intStreetId,intApnId,intApnTypeId,intYear,intMonth,intWeek,intDay,intHour,
+				   						  nmAppUpFlush,nmAppDownFlush,nmUsers,nmFlush,dtStatTime,intRaitype,vcLocalIP )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- 营销片区 2011年9月15日18:18:47 -->
+	<statement id="load_ftbStatHourApnSaleArea" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourApnSaleArea ( intSaleAreaId,intApnId,intApnTypeId,intYear,intMonth,intWeek,intDay,intHour,
+				   					        nmAppUpFlush,nmAppDownFlush,nmUsers,nmFlush,dtStatTime,intRaitype,vcLocalIP )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- 分公司 2011年9月15日18:21:30 -->
+	<statement id="load_ftbStatHourApnCompany" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourApnCompany ( intBranchId,intApnId,intApnTypeId,intYear,intMonth,intWeek,intDay,intHour,
+				   						   nmAppUpFlush,nmAppDownFlush,nmUsers,nmFlush,dtStatTime,intRaitype,vcLocalIP )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- 5.2.10 集团业务行为分析之用户归属 ftbGnSessionData 2011年9月15日18:24:25 -->
+	<statement id="load_ftbStatHourApnUserBelong" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourApnUserBelong ( intUserBelongId,intApnTypeId,intApnId,intYear,intMonth,intWeek,intDay,intHour,
+				                              nmAppUpFlush,nmAppDownFlush,nmUsers,nmFlush,dtStatTime,intRaitype,vcLocalIP )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- 2011年9月15日18:28:15 -->
+	<statement id="load_ftbStatHourGprsBuss" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourGprsBuss ( nmBussinessId,intYear,intMonth,intWeek,intDay,intHour,
+				   						 nmAppUpFlush,nmAppDownFlush,nmUsers,nmFlush,dtStatTime,nmVisitCounts,intRaitype,vcLocalIP )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- 5.2.11.1 大流量用户时间点分布(小时) -->
+	<statement id="load_ftbStatTimeOverFlush" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatTimeOverFlush
+		( nmImsi,nmMsisdn,intUserBelongId,
+		  intYear ,
+		  intMonth ,
+		  intWeek,
+		  intDay ,
+		  intHour,
+		  nmAppUpFlush,
+		  nmAppDownFlush,
+		  nmFlush,
+		  dtStatTime,vcLocalIP)
+		    $option$
+		]]>
+	</statement>
+
+	<!-- APN按区域分布(新增) hyjun 20100222 -->
+	<statement id="load_ftbStatHourBscApnType" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourBscApnType
+		( intBscId,intApnTypeId,
+		  intYear ,
+		  intMonth ,
+		  intWeek,
+		  intDay ,
+		  intHour,
+		  nmAppUpFlush,
+		  nmAppDownFlush,
+		  nmUsers,
+		  nmFlush,
+		  dtStatTime,intRaitype,vcLocalIP)
+		    $option$
+		]]>
+	</statement>
+
+	<!-- SGSN -->
+	<statement id="load_ftbStatHourSgsnApnType" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourSgsnApnType
+		( intSgsnId,intApnTypeId,
+		  intYear ,
+		  intMonth ,
+		  intWeek,
+		  intDay ,
+		  intHour,
+		  nmAppUpFlush,
+		  nmAppDownFlush,
+		  nmUsers,
+		  nmFlush,
+		  dtStatTime,intRaitype,vcLocalIP)
+		    $option$
+		]]>
+	</statement>
+
+
+	<!-- 街道办 -->
+	<statement id="load_ftbStatHourStreetApnType" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourStreetApnType
+		( intStreetId,intApnTypeId,
+		  intYear ,
+		  intMonth ,
+		  intWeek,
+		  intDay ,
+		  intHour,
+		  nmAppUpFlush,
+		  nmAppDownFlush,
+		  nmUsers,
+		  nmFlush,
+		  dtStatTime,intRaitype,vcLocalIP)
+		    $option$
+		]]>
+	</statement>
+
+	<!-- 营销片区 -->
+	<statement id="load_ftbStatHourSaleAreaApnType" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourSaleAreaApnType
+		( intSaleAreaId,intApnTypeId,
+		  intYear ,
+		  intMonth ,
+		  intWeek,
+		  intDay ,
+		  intHour,
+		  nmAppUpFlush,
+		  nmAppDownFlush,
+		  nmUsers,
+		  nmFlush,
+		  dtStatTime,intRaitype,vcLocalIP)
+		    $option$
+		]]>
+	</statement>
+
+	<!-- 分公司 -->
+	<statement id="load_ftbStatHourCompanyApnType" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourCompanyApnType
+		( intBranchId,intApnTypeId,
+		  intYear ,
+		  intMonth ,
+		  intWeek,
+		  intDay ,
+		  intHour,
+		  nmAppUpFlush,
+		  nmAppDownFlush,
+		  nmUsers,
+		  nmFlush,
+		  dtStatTime,intRaitype,vcLocalIP)
+		    $option$
+		]]>
+	</statement>
+	<statement id="load_ftbStatHourApnActive" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourApnActive
+		( intApnId,intApnTypeId,
+		  intYear ,
+		  intMonth ,
+		  intWeek,
+		  intDay ,
+		  intHour,
+		  dtStatTime,
+		  nmActiveCounts,intRaitype)
+		    $option$
+		]]>
+	</statement>
+
+	<statement id="load_ftbStatHourApnTypeActive" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourApnTypeActive
+		( intApnTypeId,
+		  intYear ,
+		  intMonth ,
+		  intWeek,
+		  intDay ,
+		  intHour,
+		  dtStatTime,
+		  nmActiveCounts,intRaitype)
+		    $option$
+		]]>
+	</statement>
+
+	<statement id="load_ftbStatHourUserBelongActive" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourUserBelongActive
+		( intUserBelongId,
+		  intYear ,
+		  intMonth ,
+		  intWeek,
+		  intDay ,
+		  intHour,
+		  dtStatTime,
+		  nmActiveCounts,intRaitype)
+		    $option$
+		]]>
+	</statement>
+
+
+	<statement id="load_ftbStatHourApnUserBelongActive"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourApnUserBelongActive
+		( intUserBelongId,intApnTypeId,intApnId,
+		  intYear ,
+		  intMonth ,
+		  intWeek,
+		  intDay ,
+		  intHour,
+		  dtStatTime,
+		  nmActiveCounts,intRaitype)
+		    $option$
+		]]>
+	</statement>
+
+	<statement id="load_ftbStatHourBscApnTypeActive" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourBscApnTypeActive
+		( intBscId,intApnTypeId,
+		  intYear ,
+		  intMonth ,
+		  intWeek,
+		  intDay ,
+		  intHour,
+		  dtStatTime,nmActiveCounts,intRaitype)
+		    $option$
+		]]>
+	</statement>
+
+	<statement id="load_ftbStatHourSgsnApnTypeActive"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourSgsnApnTypeActive
+		( intSgsnId,intApnTypeId,
+		  intYear ,
+		  intMonth ,
+		  intWeek,
+		  intDay ,
+		  intHour,
+		  dtStatTime,nmActiveCounts,intRaitype)
+		    $option$
+		]]>
+	</statement>
+
+
+
+	<statement id="load_ftbStatHourStreetApnTypeActive"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourStreetApnTypeActive
+		( intStreetId,intApnTypeId,
+		  intYear ,
+		  intMonth ,
+		  intWeek,
+		  intDay ,
+		  intHour,
+		  dtStatTime,nmActiveCounts,intRaitype)
+		    $option$
+		]]>
+	</statement>
+
+
+	<statement id="load_ftbStatHourSaleAreaApnTypeActive"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourSaleAreaApnTypeActive
+		( intSaleAreaId,intApnTypeId,
+		  intYear ,
+		  intMonth ,
+		  intWeek,
+		  intDay ,
+		  intHour,
+		  dtStatTime,nmActiveCounts,intRaitype)
+		    $option$
+		]]>
+	</statement>
+	<statement id="load_ftbStatHourCompanyApnTypeActive"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourCompanyApnTypeActive
+		( intBranchId,intApnTypeId,
+		  intYear ,
+		  intMonth ,
+		  intWeek,
+		  intDay ,
+		  intHour,
+		  dtStatTime,nmActiveCounts,intRaitype)
+		    $option$
+		]]>
+	</statement>
+
+
+	<!-- add 20110801 自定义小区集分析呈现（小时）AREA -->
+	<statement id="load_ftbStatHourGroupAreaGprsSpace"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourGroupAreaGprsSpace
+		( nmAreaId,
+		  intYear ,
+		  intMonth ,
+		  intWeek,
+		  intDay ,
+		  intHour,
+		  nmAppUpFlush,
+		  nmAppDownFlush,
+		  nmUsers,
+		  nmFlush,
+		  dtStatTime,nmVisitCounts,intRaitype,vcLocalIP)
+		    $option$
+		]]>
+	</statement>
+
+
+
+
+	<!-- wuzhenzhen add 20110804 自定义小区集析呈现_业务维（小时）GROUPAREA -->
+	<statement id="load_ftbStatHourGroupAreaBussType"
+		resultClass="java.lang.String"> 
+		<![CDATA[
+		LOAD TABLE FtbStatHourGroupAreaBussType
+		( nmAreaId,nmBussinessId,nmBussinessTypeId,
+		  intYear ,
+		  intMonth ,
+		  intWeek,
+		  intDay ,
+		  intHour,
+		  nmAppUpFlush,
+		  nmAppDownFlush,
+		  nmUsers,
+		  nmFlush,
+		  dtStatTime,
+		  nmVisitCounts,intRaitype,vcLocalIP)
+		    $option$
+		]]>
+	</statement>
+
+
+	<!-- Wu Zhenzhen 终端的区域分布_全網 add by 2011年10月24日9:48:08 -->
+	<statement id="load_ftbStatHourTerminalTypeGprsSpace"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourTerminalTypeGprsSpace (
+		           nmTerminalId,intYear,intMonth,intWeek,intDay,intHour,
+		           nmAppUpFlush,nmAppDownFlush,nmUsers,nmFlush,
+		           dtStatTime,nmVisitCounts,intRaitype,vcLocalIP )
+		  $option$
+		]]>
+	</statement>
+
+
+	<!-- Wu Zhenzhen 终端的区域分布_全網_業務 add by 2011年10月24日9:48:08 -->
+	<statement id="load_ftbStatHourTerminalTypeBussType"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourTerminalTypeBussType (
+		           nmTerminalId,nmBussinessId,nmBussinessTypeId,
+		           intYear,intMonth,intWeek,intDay,intHour,
+		           nmAppUpFlush,nmAppDownFlush,nmUsers,nmFlush,
+		           dtStatTime,nmVisitCounts,intRaitype,vcLocalIP )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- Wu Zhenzhen 终端的区域分布_BSC add by 2011年10月24日9:48:08 -->
+	<statement id="load_ftbStatBscHourTerminalTypeGprsSpace"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatBscHourTerminalTypeGprsSpace (
+		           nmTerminalId,intBscId,intYear,intMonth,intWeek,intDay,intHour,
+		           nmAppUpFlush,nmAppDownFlush,nmUsers,nmFlush,
+		           dtStatTime,nmVisitCounts,intRaitype,vcLocalIP )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- Wu Zhenzhen 终端的区域分布_BSC_業務 add by 2011年10月24日9:48:08 -->
+	<statement id="load_ftbStatBscHourTerminalTypeBussType"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatBscHourTerminalTypeBussType (
+		           nmTerminalId,intBscId,nmBussinessId,nmBussinessTypeId,
+		           intYear,intMonth,intWeek,intDay,intHour,
+		           nmAppUpFlush,nmAppDownFlush,nmUsers,nmFlush,
+		           dtStatTime,nmVisitCounts,intRaitype,vcLocalIP )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- Wu Zhenzhen 终端的区域分布_SGSN add by 2011年10月24日9:48:08 -->
+	<statement id="load_ftbStatSgsnHourTerminalTypeGprsSpace"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatSgsnHourTerminalTypeGprsSpace (
+		           nmTerminalId,intSgsnId,intYear,intMonth,intWeek,intDay,intHour,
+		           nmAppUpFlush,nmAppDownFlush,nmUsers,nmFlush,
+		           dtStatTime,nmVisitCounts,intRaitype,vcLocalIP )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- Wu Zhenzhen 终端的区域分布_SGSN_業務 add by 2011年10月24日9:48:08 -->
+	<statement id="load_ftbStatSgsnHourTerminalTypeBussType"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatSgsnHourTerminalTypeBussType (
+		           nmTerminalId,intSgsnId,nmBussinessId,nmBussinessTypeId,
+		           intYear,intMonth,intWeek,intDay,intHour,
+		           nmAppUpFlush,nmAppDownFlush,nmUsers,nmFlush,
+		           dtStatTime,nmVisitCounts,intRaitype,vcLocalIP )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- Wu Zhenzhen 终端的区域分布_分公司 add by 2011年10月24日9:48:08 -->
+	<statement id="load_ftbStatBranchHourTerminalTypeGprsSpace"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatBranchHourTerminalTypeGprsSpace (
+		           nmTerminalId,intBranchId,intYear,intMonth,intWeek,intDay,intHour,
+		           nmAppUpFlush,nmAppDownFlush,nmUsers,nmFlush,
+		           dtStatTime,nmVisitCounts,intRaitype,vcLocalIP )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- Wu Zhenzhen 终端的区域分布_分公司_業務 add by 2011年10月24日9:48:08 -->
+	<statement id="load_ftbStatBrachHourTerminalTypeBussType"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatBrachHourTerminalTypeBussType (
+		           nmTerminalId,intBranchId,nmBussinessId,nmBussinessTypeId,
+		           intYear,intMonth,intWeek,intDay,intHour,
+		           nmAppUpFlush,nmAppDownFlush,nmUsers,nmFlush,
+		           dtStatTime,nmVisitCounts,intRaitype,vcLocalIP )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- Wu Zhenzhen 终端的区域分布_營銷片區 add by 2011年10月24日9:48:08 -->
+	<statement id="load_ftbStatSaleAreaHourTerminalTypeGprsSpace"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatSaleAreaHourTerminalTypeGprsSpace (
+		           nmTerminalId,intSaleAreaId,intYear,intMonth,intWeek,intDay,intHour,
+		           nmAppUpFlush,nmAppDownFlush,nmUsers,nmFlush,
+		           dtStatTime,nmVisitCounts,intRaitype,vcLocalIP )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- Wu Zhenzhen 终端的区域分布_營銷片區_業務 add by 2011年10月24日9:48:08 -->
+	<statement id="load_ftbStatSaleAreaHourTerminalTypeBussType"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatSaleAreaHourTerminalTypeBussType (
+		           nmTerminalId,intSaleAreaId,nmBussinessId,nmBussinessTypeId,
+		           intYear,intMonth,intWeek,intDay,intHour,
+		           nmAppUpFlush,nmAppDownFlush,nmUsers,nmFlush,
+		           dtStatTime,nmVisitCounts,intRaitype,vcLocalIP )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- Wu Zhenzhen 终端的区域分布_街道 add by 2011年10月24日9:48:08 -->
+	<statement id="load_ftbStatStreetHourTerminalTypeGprsSpace"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatStreetHourTerminalTypeGprsSpace (
+		           nmTerminalId,intStreetId,intYear,intMonth,intWeek,intDay,intHour,
+		           nmAppUpFlush,nmAppDownFlush,nmUsers,nmFlush,
+		           dtStatTime,nmVisitCounts,intRaitype,vcLocalIP )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- Wu Zhenzhen 终端的区域分布_街道_業務 add by 2011年10月24日9:48:08 -->
+	<statement id="load_ftbStatStreetHourTerminalTypeBussType"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatStreetHourTerminalTypeBussType (
+		           nmTerminalId,intStreetId,nmBussinessId,nmBussinessTypeId,
+		           intYear,intMonth,intWeek,intDay,intHour,
+		           nmAppUpFlush,nmAppDownFlush,nmUsers,nmFlush,
+		           dtStatTime,nmVisitCounts,intRaitype,vcLocalIP )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- Wu Zhenzhen 流量分層 add by 2011年11月3日10:22:42 -->
+	<statement id="load_ftbFlushLayering" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbFlushLayering (
+		           nmTerminalId,nmBussinessId,nmImsi,nmMsisdn,nmUpFlush,nmDownFlush,
+		           intYear,intMonth,intWeek,intDay,intHour,
+		           dtStatTime,intRaitype,vcLocalIP )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- 流量分層小時臨時表 2011年12月29日15:04:19 -->
+	<procedure id="proc_tempUsersFlushLayering"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 {call proc_data_users_flush_layering(#dtLoadedTime#,$sourceTableName$)}
+			]]>
+	</procedure>
+
+</sqlMap>

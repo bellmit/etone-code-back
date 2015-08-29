@@ -1,0 +1,20 @@
+<root>
+<chart id="1" name="2009年10月1日流量APN分布图">
+<data label="CMNET" value="444"/>
+<data label="CMWAP" value="494"/>
+<data label="企业APN" value="474"/>
+<data label="其他其他其他其他其他其他" value="594"/>
+</chart>
+<chart id="1" name="2009年10月1日用户数APN分布图">
+<data label="CMNET" value="1200"/>
+<data label="CMWAP"  value="1400"/>
+<data label="企业APN"  value="1800"/>
+<data label="其他其他其他其他其他其他"  value="7300"/>
+</chart>
+<chart id="1" name="2009年10月1日激活次数APN分布图">
+<data label="CMNET"  value="70" />
+<data label="CMWAP"  value="901" />
+<data label="企业APN"  value="781" />
+<data label="其他其他"  value="41" />
+</chart>
+</root>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<!--
+		//////////////////////////////////////////大运保障///////////////////////////////////
+	-->
+	<!-- 重要客户 -->
+	<package name="importantCustomer" extends="system-default">
+		<action name="importantCustomer_*"
+			class="com.symbol.app.mantoeye.web.action.sports.ImportantCustomerAction"
+			method="{1}">
+			<result name="index">
+				/mantoeye/sports/imortant_customer.jsp
+			</result>
+		</action>
+	</package>
+
+	<!-- 业务排名 -->
+	<package name="topBusiness" extends="system-default">
+		<action name="topBusiness_*"
+			class="com.symbol.app.mantoeye.web.action.sports.TopBusinessAction"
+			method="{1}">
+			<result name="index">
+				/mantoeye/sports/topBusiness.jsp
+			</result>
+		</action>
+	</package>
+	
+	
+		<!--集团客户-->
+	<package name="sportcustomer" extends="system-default">
+		<action name="sportcustomer_*"
+			class="com.symbol.app.mantoeye.web.action.sports.CustomerAction"
+			method="{1}">
+		</action>
+	</package>
+	
+	<!-- 集团号码--> 
+ 	<package name="aggregatenum" extends="system-default">
+ 		<action name="aggregatenum_*" class="com.symbol.app.mantoeye.web.action.sports.AggregateNumAction" method="{1}">
+  			<result name="edit">/mantoeye/sports/aggregateNum/aggregatenum_edit.jsp</result> 
+  			<result name="input">/mantoeye/sports/aggregateNum/aggregatenum_input.jsp</result> 
+  			<result name="index">/mantoeye/sports/aggregateNum/aggregatenum-index.jsp</result> 
+  		</action>
+  </package>
+	
+	
+	<!--无线业务-->
+	<package name="wirelessbusiness" extends="system-default">
+		<action name="wirelessbusiness_*"
+			class="com.symbol.app.mantoeye.web.action.sports.WirelessBusinessAction"
+			method="{1}">
+		</action>
+	</package>
+	
+	<!--重要客户号码-->
+	<package name="impCustomerNum" extends="system-default">
+		<action name="impCustomerNum_*"
+			class="com.symbol.app.mantoeye.web.action.sports.ImpCustomerNumAction"
+			method="{1}">
+			<result name="edit">/mantoeye/sports/customer_number/customer_number_edit.jsp</result>
+			<result name="input">/mantoeye/sports/customer_number/customer_number_input.jsp</result>
+			<result name="index">/mantoeye/sports/customer_number/customer_number_index.jsp</result>
+		</action>
+	</package>
+	
+	<!--保障区域-->
+	<package name="areaMapCell" extends="system-default">
+		<action name="areaMapCell_*"
+			class="com.symbol.app.mantoeye.web.action.sports.AreaMapCellAction"
+			method="{1}">
+			<result name="edit">/mantoeye/sports/area_map_cell/area_map_cell_edit.jsp</result>
+			<result name="input">/mantoeye/sports/area_map_cell/area_map_cell_input.jsp</result>
+			<result name="index">/mantoeye/sports/area_map_cell/area_map_cell_index.jsp</result>
+		</action>
+	</package>
+</struts>

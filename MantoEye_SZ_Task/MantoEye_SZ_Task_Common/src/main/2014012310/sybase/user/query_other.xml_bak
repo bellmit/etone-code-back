@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+
+<!-- 2012年11月15日10:28:51 深圳高交會新增需求 -->
+<select id="user_HiTechFairElexconData" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"	resultClass="java.lang.String">
+	<![CDATA[     $option$          set temporary option TEMP_EXTRACT_COLUMN_DELIMITER='|';      	   select 		convert(varchar(4),#intYear#)+'-'+convert(varchar(2),#intMonth#)+'-'+convert(varchar(2),#intDay#)+' '+convert(varchar(2),#intHour#,)+':00',			sourceTable.vccgi ,dtbGroupTree.vcDimensName 			,isnull(count(distinct(sourceTable.nmImsi)),0) as totalUser,			isnull(sum(sourceTable.intAppUpFlush+sourceTable.intAppDownFlush),0) as totalFlush		 		from  $sourceTableName$ sourceTable		inner join dtbGroupTree on sourceTable.ProductDimens = dtbGroupTree.nmDimensId		inner join ftbAreaMapCell on ftbAreaMapCell.nmAreaId = sourceTable.nmAreaId		where ftbAreaMapCell.nmAreaId =  624 		  and dtbGroupTree.nmTypeId = 1		  and dtbGroupTree.nmLevelsId = 2		 group by sourceTable.vccgi,dtbGroupTree.vcDimensName,intRaitype		order by totalUser desc, totalFlush desc	]]>
+</select>
+
+
+
+
+
+	<!-- wuzhenzhen add 2011-09-01 省公司需求數據CMNET 2011年9月25日15:36:36 -->
+
+	<select id="user_MobileCMNETData" parameterClass="com.etone.mantoeye.analyse.domain.CmnetAnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+	     $option$
+		   select convert(varchar(19),dtEndTime),nmMsisdn,vcWapUrl
+		     from $sourceTableName$
+		    where intApnTypeId = 1 and vcWapUrl <> '' 
+		      and dtEndTime >= convert(datetime,#startTime#) 
+		      and dtEndTime < convert(datetime,#endTime#) 
+		]]>
+	</select>
+
+	<!-- 終端升級天統計 add by Wu Zhenzhen 2011年12月28日15:25:52 分佈式 -->
+	<select id="query_ftbStatTerminalChange" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+	     $option$
+		   select nmOldTerminalId,nmNewTerminalId,intAreaType,intAreaId,intUserNum,getDate(),intYear,intMonth,intWeek,intDay,intDateType,#vcLocalIP#
+		     from temp_ftbStatTerminalChange
+            where intYear = datepart(yy,#dtLoadedTime#) 
+		      and intMonth = datepart(mm,#dtLoadedTime#) 
+		      and intDay = datepart(dd,#dtLoadedTime#)  
+		]]>
+	</select>
+
+	<!-- 終端升級月統計 add by Wu Zhenzhen 2011年12月28日15:25:52 分佈式 -->
+	<select id="query_ftbStatTerminalChange_month" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+	     $option$
+		   select nmOldTerminalId,nmNewTerminalId,intAreaType,intAreaId,intUserNum,getDate(),intYear,intMonth,intDateType,#vcLocalIP#
+		     from ftbStatTerminalChange_month
+            where intYear = datepart(yy,#dtLoadedTime#) 
+		      and intMonth = datepart(mm,#dtLoadedTime#) 
+		]]>
+	</select>
+
+	<!-- 導出數據，根據不同表名，字段，條件 -->
+	<select id="query_disSysTaskData" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		   $option$
+		     select $targetTableName$,#vcLocalIP#
+		       from $sourceTableName$
+		      where $idColumnName$=#taskId#
+		]]>
+	</select>
+
+</sqlMap>

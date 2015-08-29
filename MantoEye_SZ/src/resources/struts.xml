@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
+	<constant name="struts.multipart.maxSize" value="1000000000" />
+	<package name="system-default" extends="struts-default">
+		<interceptors>
+			<interceptor name="login"
+				class="com.symbol.wp.core.web.common.CheckLoginInterceptor" />
+			<interceptor-stack name="teamwareStack">
+				<interceptor-ref name="login" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="teamwareStack" />
+		<global-results>
+			<result name="success">/include/success.jsp</result>
+			<result name="error">/include/error.jsp</result>
+			<result name="timeout">/include/timeout.jsp</result>
+			<result name="input">/include/exception.jsp</result>
+			<!-- <result name="invalid.token">/include/token.jsp</result> -->
+		</global-results>
+	</package>
+
+	<!-- 包含其他功能的配置文件-->
+	<include file="struts-wcmp.xml"></include>
+	<include file="struts-flush.xml"></include>
+	<include file="struts-terminal.xml"></include>
+	<include file="struts-mms.xml"></include>
+	<include file="struts-blackberry.xml"></include>
+	<include file="struts-rules.xml"></include>
+	<include file="struts-mantoeye.xml"></include>
+	<include file="struts-sports.xml"></include>
+		<include file="struts-bishealth.xml"></include>
+</struts>

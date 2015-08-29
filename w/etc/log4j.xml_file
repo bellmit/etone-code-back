@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="commonFile" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="etc/logs/info.log" />
+		<param name="Encoding" value="UTF-8" />
+		<param name="maxFileSize" value="52428800" />
+		<param name="maxBackupIndex" value="10" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<!-- <param name="ConversionPattern" -->
+			<!-- value="[%d{yyyy-MM-dd HH\:mm\:ss}]%5p - %m%n-MainClass:[%l][%t]%n" 
+				/> -->
+			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH\:mm\:ss}]%5p 
+				- %m%n" />
+		</layout>
+	</appender>
+
+	<!-- 文件記錄錯誤日誌 ERROR 簡單記錄 -->
+	<appender name="errorFile" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="etc/logs/errorFile.log" />
+		<param name="Encoding" value="UTF-8" />
+		<!-- file size 50M -->
+		<param name="maxFileSize" value="52428800" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%n[%d{yyyy-MM-dd HH\:mm\:ss}] -------------------------------------------------------Error Start--------------------------------------------------------%n [%t] %-5p %m : %l%n[%d{yyyy-MM-dd HH\:mm\:ss}] --------------------------------------------------------Error End---------------------------------------------------------%n%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="levelMin" value="ERROR" />
+			<param name="levelMax" value="ERROR" />
+		</filter>
+	</appender>
+
+	<logger name="z.z.w">
+		<level value="info" />
+		<appender-ref ref="errorFile" />
+	</logger>
+
+	<root>
+		<level value="error" />
+		<appender-ref ref="commonFile" />
+	</root>
+
+</log4j:configuration>

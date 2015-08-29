@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+
+	<adapter name="Reader" priority="10">
+		<type name="ServiceRuleReader" class="z.z.w.project.read.file.ServiceRuleReader"
+			localPath="etc/data" backPath="" filePrefix="tbServiceRule"
+			fileSuffix=".csv" fieldSplit="\x2c" delete="0" backup="0" startRow="0"
+			readInterval="10h">
+
+			<field index="0" name="intSubServId" srcindex="0" />
+			<field index="1" name="vcSubServ" srcindex="1" />
+			<field index="2" name="vcIp" srcindex="2" />
+			<field index="3" name="vcUrl" srcindex="3" />
+
+		</type>
+	</adapter>
+
+</server>

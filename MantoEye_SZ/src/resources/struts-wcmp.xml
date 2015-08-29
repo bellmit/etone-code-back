@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="login" extends="system-default">
+		<action name="login_in" class="com.symbol.wp.core.web.action.LoginAction"
+			method="login_in">
+			<result name="success">/login_act.jsp</result>
+			<result name="input">/login.jsp</result>
+		</action>
+		<action name="login_sso" class="com.symbol.wp.core.web.action.LoginSsoAction"
+			method="login_sso">
+			<result name="success">/login_act.jsp</result>
+			<result name="input">/login.jsp</result>
+		</action>
+		<action name="login_out" class="com.symbol.wp.core.web.action.LoginOutAction">
+			<result name="success">/login_out.jsp</result>
+		</action>
+		<action name="login_exit" class="com.symbol.wp.core.web.action.LoginOutAction">
+			<result name="success">/login_exit.jsp</result>
+		</action>
+		<action name="logonCheck_*" method="{1}"
+			class="com.symbol.wp.core.web.action.LogonCheckAction">
+		</action>
+	</package>
+
+	<!--系统日志 -->
+	<package name="log" extends="system-default">
+		<action name="log_*"
+			class="com.symbol.wp.core.web.action.sysdata.LogInfoAction" method="{1}">
+			<result name="index">/sysdata/logs/index.jsp</result>
+			<result name="input">/sysdata/logs/input.jsp</result>
+		</action>
+	</package>
+
+	<!--用户管理 -->
+	<package name="user" extends="system-default">
+		<action name="user_*"
+			class="com.symbol.wp.core.web.action.sysdata.UserInfoAction" method="{1}">
+			<result name="input">/sysdata/user/user_input.jsp</result>
+			<result name="index">/sysdata/user/user_index.jsp</result>
+			<result name="edit">/sysdata/user/user_edit.jsp</result>
+			<result name="permtree">
+				/sysdata/user/permis/user_permis.jsp
+			</result>
+			<result name="change_pwd">
+				/sysdata/user/modify_pwd.jsp
+			</result>
+			<result name="associate">
+				/sysdata/role/associate.jsp
+			</result>
+		</action>
+	</package>
+
+	<!--角色组管理 -->
+	<package name="rolegroup" extends="system-default">
+		<action name="rolegroup_*"
+			class="com.symbol.wp.core.web.action.sysdata.RoleGroupAction" method="{1}">
+			<result name="edit">/sysdata/rolegroup/edit.jsp</result>
+			<result name="input">/sysdata/rolegroup/input.jsp</result>
+			<result name="index">/sysdata/rolegroup/index.jsp</result>
+		</action>
+	</package>
+
+	<!--角色管理 -->
+	<package name="role" extends="system-default">
+		<action name="role_*" class="com.symbol.wp.core.web.action.sysdata.RoleAction"
+			method="{1}">
+			<result name="input">/sysdata/role/role_input.jsp</result>
+			<result name="index">/sysdata/role/role_index.jsp</result>
+			<result name="permis">/sysdata/role/role_permis.jsp</result>
+			<result name="edit">/sysdata/role/role_edit.jsp</result>
+		</action>
+	</package>
+	<!-- 部门信息 -->
+	<package name="dept" extends="system-default">
+		<action name="dept_*"
+			class="com.symbol.wp.core.web.action.sysdata.DepartmentAction"
+			method="{1}">
+			<result name="input">/sysdata/dept/input.jsp</result>
+			<result name="index">/sysdata/dept/index.jsp</result>
+			<result name="edit">/sysdata/dept/edit.jsp</result>
+		</action>
+	</package>
+	<!-- 模块管理 -->
+	<package name="menu" extends="system-default">
+		<action name="menu_*"
+			class="com.symbol.wp.core.web.action.sysdata.PermissionAction"
+			method="{1}">
+			<result name="edit">/sysdata/permis/permis_edit.jsp</result>
+			<result name="input">/sysdata/permis/permis_input.jsp</result>
+			<result name="index">/sysdata/permis/permis_index.jsp</result>
+
+		</action>
+	</package>
+	<!-- 问题反馈 -->
+	<package name="feedback" extends="system-default">
+		<action name="feedback_*"
+			class="com.symbol.app.mantoeye.web.action.FeedbackAction" method="{1}">
+			<result name="edit">/sysdata/feedback/feedback_edit.jsp</result>
+			<result name="input">/sysdata/feedback/feedback_input.jsp</result>
+			<result name="index">/sysdata/feedback/feedback_index.jsp</result>
+			<result name="view">/sysdata/feedback/feedback_view.jsp</result>
+		</action>
+	</package>
+
+	<!--事件日志 -->
+	<package name="eventLog" extends="system-default">
+		<action name="eventLog_*"
+			class="com.symbol.wp.core.web.action.sysdata.EventLogAction" method="{1}">
+			<result name="add">/sysdata/eventlogs/add.jsp</result>
+			<result name="edit">/sysdata/eventlogs/edit.jsp</result>
+		</action>
+	</package>
+	
+	<!-- 本地號碼批量過濾  -->
+	<package name="localUserMsisdnCheck" extends="system-default">
+		<action name="localUserMsisdnCheck_*"
+			class="com.symbol.app.mantoeye.web.action.ub.LocalUserMsisdnCheckAction"
+			method="{1}">
+			<result name="index">/sysdata/userBelong/localUserMsisdnCheck.jsp</result>
+		</action>
+	</package>
+</struts>

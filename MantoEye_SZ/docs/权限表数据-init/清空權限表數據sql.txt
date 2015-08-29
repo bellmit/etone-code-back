@@ -1,0 +1,6 @@
+﻿truncate table tbBasePermissions    ;
+truncate table tbBaseRoleGroup     ;
+truncate table tbBaseRolePermis    ;
+truncate table tbBaseRoles             ; 
+truncate table tbBaseUserInfo        ;
+truncate table tbBaseUserRole       ;

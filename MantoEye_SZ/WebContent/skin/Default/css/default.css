@@ -1,0 +1,378 @@
+@charset "utf-8";
+
+body,div {
+	font-size: 12px;
+}
+
+/* Login */
+#login-container {
+	height: 100%;
+	width: 100%;
+	background-color: #004186;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 12px;
+}
+
+#login-top {
+	background: url(../images/login-top-title.png ) no-repeat center;
+	vertical-align: middle;
+}
+
+#login-gmcc-logo {
+	background: url( ../images/gmcc.png ) no-repeat top left;
+}
+
+#login-box {
+	background: url(../images/bg1.gif ) no-repeat center;
+	width: 560px;
+	height: 300px;
+	margin-right: auto; /*Firefox support*/
+	margin-left: auto; /*Firefox support*/
+}
+
+#login-box-bg {
+	background: url(../images/login-box-bg.png) repeat-x;
+	height: 449px;
+	width: 100%;
+}
+.login-box-table{
+	font: 宋体;
+	font-size: 9pt;
+	color:#333333; 
+	text-align: left;
+	}
+	
+.login-box-input{
+	height:20px;
+	width:136px;
+	border:1px solid #7F9DB9 ;
+	}
+.login-box-button{
+	height:20px;
+	width:auto;
+	align:right;
+	margin-left:13px;
+	margin-right:13px;
+	margin-top:4px;
+	margin-bottom:5px;
+	border:1px solid #7F9DB9 ;
+	cursor: pointer; 	
+	}
+
+.icon-activity {
+	background-image: url(../images/icon/16/activity.gif) !important;
+}
+
+.icon-add {
+	background-image: url(../images/icon/16/add.gif) !important;
+}
+
+.icon-add-comment {
+	background-image: url(../images/icon/16/add_comment.gif) !important;
+}
+
+.icon-add-file {
+	background-image: url(../images/icon/16/add_file.gif) !important;
+}
+
+.icon-add-folder {
+	background-image: url(../images/icon/16/add_folder.gif) !important;
+}
+
+.icon-alert {
+	background-image: url(../images/icon/16/alert.gif) !important;
+}
+
+.icon-arrow-down {
+	background-image: url(../images/icon/16/arrow_down.gif) !important;
+}
+
+.icon-arrow-l {
+	background-image: url(../images/icon/16/arrow_l.gif) !important;
+}
+
+.icon-arrow-r {
+	background-image: url(../images/icon/16/arrow_r.gif) !important;
+}
+
+.icon-arrow-up {
+	background-image: url(../images/icon/16/arrow_up.gif) !important;
+}
+
+.icon-book {
+	background-image: url(../images/icon/16/book.gif) !important;
+}
+
+.icon-briefcase {
+	background-image: url(../images/icon/16/briefcase.gif) !important;
+}
+
+.icon-bullet {
+	background-image: url(../images/icon/16/bullet.gif) !important;
+}
+
+.icon-bullet-bw {
+	background-image: url(../images/icon/16/bullet_bw.gif) !important;
+}
+
+.icon-check {
+	background-image: url(../images/icon/16/check.gif) !important;
+}
+
+.icon-clipboard {
+	background-image: url(../images/icon/16/clipboard.gif) !important;
+}
+
+.icon-clipboard-plain {
+	background-image: url(../images/icon/16/clipboard_plain.gif) !important;
+}
+
+.icon-close {
+	background-image: url(../images/icon/16/close.gif) !important;
+}
+
+.icon-comment {
+	background-image: url(../images/icon/16/comment.gif) !important;
+}
+
+.icon-config {
+	background-image: url(../images/icon/16/config.gif) !important;
+}
+
+.icon-delete-comment {
+	background-image: url(../images/icon/16/delete_comment.gif) !important;
+}
+
+.icon-delete-file {
+	background-image: url(../images/icon/16/delete_file.gif) !important;
+}
+
+.icon-delete-folder {
+	background-image: url(../images/icon/16/delete_folder.gif) !important;
+}
+
+.icon-device {
+	background-image: url(../images/icon/16/device.gif) !important;
+}
+
+.icon-edit {
+	background-image: url(../images/icon/16/edit.gif) !important;
+}
+
+.icon-eject {
+	background-image: url(../images/icon/16/eject.gif) !important;
+}
+
+.icon-email {
+	background-image: url(../images/icon/16/email.gif) !important;
+}
+
+.icon-email-open {
+	background-image: url(../images/icon/16/email_open.gif) !important;
+}
+
+.icon-fforward {
+	background-image: url(../images/icon/16/fforward.gif) !important;
+}
+
+.icon-file {
+	background-image: url(../images/icon/16/file.gif) !important;
+}
+
+.icon-folder {
+	background-image: url(../images/icon/16/folder.gif) !important;
+}
+
+.icon-folder-box {
+	background-image: url(../images/icon/16/folder_box.gif) !important;
+}
+
+.icon-folder-open {
+	background-image: url(../images/icon/16/folder_open.gif) !important;
+}
+
+.icon-help {
+	background-image: url(../images/icon/16/help.gif) !important;
+}
+
+.icon-home {
+	background-image: url(../images/icon/16/home.gif) !important;
+}
+
+.icon-images {
+	background-image: url(../images/icon/16/images.gif) !important;
+}
+
+.icon-info {
+	background-image: url(../images/icon/16/info.gif) !important;
+}
+
+.icon-ipod {
+	background-image: url(../images/icon/16/ipod.gif) !important;
+}
+
+.icon-locked {
+	background-image: url(../images/icon/16/locked.gif) !important;
+}
+
+.icon-move-file {
+	background-image: url(../images/icon/16/move_file.gif) !important;
+}
+
+.icon-page-attach {
+	background-image: url(../images/icon/16/page_attach.gif) !important;
+}
+
+.icon-pages {
+	background-image: url(../images/icon/16/pages.gif) !important;
+}
+
+.icon-pause {
+	background-image: url(../images/icon/16/pause.gif) !important;
+}
+
+.icon-play {
+	background-image: url(../images/icon/16/play.gif) !important;
+}
+
+.icon-printer {
+	background-image: url(../images/icon/16/printer.gif) !important;
+}
+
+.icon-refresh {
+	background-image: url(../images/icon/16/refresh.gif) !important;
+}
+
+.icon-rewind {
+	background-image: url(../images/icon/16/rewind.gif) !important;
+}
+
+.icon-save {
+	background-image: url(../images/icon/16/save.gif) !important;
+}
+
+.icon-search {
+	background-image: url(../images/icon/16/search.gif) !important;
+}
+
+.icon-send {
+	background-image: url(../images/icon/16/send.gif) !important;
+}
+
+.icon-shopping-bag {
+	background-image: url(../images/icon/16/shopping_bag.gif) !important;
+}
+
+.icon-shopping-cart {
+	background-image: url(../images/icon/16/shopping_cart.gif) !important;
+}
+
+.icon-stop {
+	background-image: url(../images/icon/16/stop.gif) !important;
+}
+
+.icon-trash {
+	background-image: url(../images/icon/16/trash.gif) !important;
+}
+
+.icon-unlocked {
+	background-image: url(../images/icon/16/unlocked.gif) !important;
+}
+
+.icon-user {
+	background-image: url(../images/icon/16/user.gif) !important;
+}
+
+.icon-users {
+	background-image: url(../images/icon/16/users.gif) !important;
+}
+
+.icon-website {
+	background-image: url(../images/icon/16/website.gif) !important;
+}
+
+.icon-website-blue {
+	background-image: url(../images/icon/16/website_blue.gif) !important;
+}
+
+.icon-plus {
+	display: block;
+	background-color: transparent;
+	background-image: url(../images/icon/16/plus-nl.gif) !important;
+	background-repeat: no-repeat;
+	width: 60px;
+	height: 25px;
+	margin: 5px auto;
+	padding: 5px 0 0 0;
+	text-align: center;
+	text-decoration: none;
+}
+
+.icon-minus {
+	display: block;
+	background-color: transparent;
+	background-image: url(../images/icon/16/minus-nl.gif) !important;
+	background-repeat: no-repeat;
+	width: 60px;
+	height: 25px;
+	margin: 5px auto;
+	padding: 5px 0 0 0;
+	text-align: center;
+	text-decoration: none;
+}
+
+.suborderFrame{border: 0px solid #000000;padding:3px;background-color:#ffffff;}
+.sectionTitle{height:22px; font-size: 14px; font-weight: bold;	
+	border-bottom-width: 0px;
+	border-bottom-style: solid;
+	border-bottom-color: #000000;
+	padding:3px;background-color:#ffffff;
+}
+.fi_k{margin-top:10px}
+.fi_borderstyle{border:1px solid #A8CFEB; margin-bottom:10px;}
+.fi_borderstyle1{border:0px solid #A8CFEB;}
+.fi_l{height:22px; background-color:#F1F6FF;padding-left:3px;width:100px;}
+.fi_m{}
+.fi_r{background-color:#FAFCFF;padding-left:3px;}
+.fi_r input{border:1px solid #A8CFEB;}
+.txt_import{border:1px solid #A8CFEB; background-image:url(../images/txt_import.gif);}
+
+.fi_l1{height:22px; background-color:#ECF2FA;padding-left:3px;width:100px;}
+.fi_m1{}
+.fi_r1{background-color:#ffffff;padding:3px;line-height:18px;}
+
+.fi_l2{height:22px; background-color:#F1F1F3;padding-left:3px;width:100px;}
+.fi_m2{}
+.fi_r2{padding:3px;background-color:#ffffff;}
+.fi_headerstyle{font-size:16px;font-weight:bold;margin-top:10px;margin-bottom:5px;}
+
+
+.fi_b_k{}
+
+.icon-btn1 {
+	background-image: url(../images/icon/16/top_btn1.gif) !important;
+}
+.icon-btn2 {
+	background-image: url(../images/icon/16/top_btn2.gif) !important;
+}
+.icon-btn3 {
+	background-image: url(../images/icon/16/top_btn3.gif) !important;
+}
+.icon-btn4 {
+	background-image: url(../images/icon/16/top_btn4.gif) !important;
+}
+.icon-btn5 {
+	background-image: url(../images/icon/16/top_btn5.gif) !important;
+}
+
+.redStar {
+	vertical-align: middle;
+	text-align: center;
+	color: red;
+	font-size: 14px;
+}
+
+.peglBill td {
+	border-right : 1px solid #EDEDED;
+}

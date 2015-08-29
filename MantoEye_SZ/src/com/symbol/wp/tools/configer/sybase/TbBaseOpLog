@@ -1,0 +1,145 @@
+package com.symbol.wp.core.entity;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+/**
+ * TbBaseOpLog entity. @author MyEclipse Persistence Tools
+ */
+@Entity
+@Table(name = "tbBaseOpLog", schema = "dbo", catalog = "WCMP")
+public class TbBaseOpLog implements java.io.Serializable {
+
+	// Fields
+
+	private Long nmLogId;//主键
+	private Date dtRecordTime;
+	private String vcLoginIp;
+	private String vcLoginUser;
+	private String vcLogContent;
+	private String vcOpMenu;
+	private String vcOpSubAction;
+	private String vcOpObject;
+	private String vcSysLogType;
+
+	// Constructors
+
+	/** default constructor */
+	public TbBaseOpLog() {
+	}
+
+	/** minimal constructor */
+	public TbBaseOpLog(Date dtRecordTime, String vcLoginIp,
+			String vcLoginUser) {
+		this.dtRecordTime = dtRecordTime;
+		this.vcLoginIp = vcLoginIp;
+		this.vcLoginUser = vcLoginUser;
+	}
+
+	/** full constructor */
+	public TbBaseOpLog(Date dtRecordTime, String vcLoginIp,
+			String vcLoginUser, String vcLogContent, String vcOpMenu,
+			String vcOpSubAction, String vcOpObject, String vcSysLogType) {
+		this.dtRecordTime = dtRecordTime;
+		this.vcLoginIp = vcLoginIp;
+		this.vcLoginUser = vcLoginUser;
+		this.vcLogContent = vcLogContent;
+		this.vcOpMenu = vcOpMenu;
+		this.vcOpSubAction = vcOpSubAction;
+		this.vcOpObject = vcOpObject;
+		this.vcSysLogType = vcSysLogType;
+	}
+
+	// Property accessors
+	@Id
+	@GeneratedValue
+	@Column(name = "nmLogId", unique = true, nullable = false, precision = 10, scale = 0)
+	public Long getNmLogId() {
+		return this.nmLogId;
+	}
+
+	public void setNmLogId(Long nmLogId) {
+		this.nmLogId = nmLogId;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "dtRecordTime", nullable = false, length = 23)
+	public Date getDtRecordTime() {
+		return this.dtRecordTime;
+	}
+
+	public void setDtRecordTime(Date dtRecordTime) {
+		this.dtRecordTime = dtRecordTime;
+	}
+
+	@Column(name = "vcLoginIp", nullable = false, length = 20)
+	public String getVcLoginIp() {
+		return this.vcLoginIp;
+	}
+
+	public void setVcLoginIp(String vcLoginIp) {
+		this.vcLoginIp = vcLoginIp;
+	}
+
+	@Column(name = "vcLoginUser", nullable = false, length = 64)
+	public String getVcLoginUser() {
+		return this.vcLoginUser;
+	}
+
+	public void setVcLoginUser(String vcLoginUser) {
+		this.vcLoginUser = vcLoginUser;
+	}
+
+	@Column(name = "vcLogContent", length = 256)
+	public String getVcLogContent() {
+		return this.vcLogContent;
+	}
+
+	public void setVcLogContent(String vcLogContent) {
+		this.vcLogContent = vcLogContent;
+	}
+
+	@Column(name = "vcOpMenu", length = 256)
+	public String getVcOpMenu() {
+		return this.vcOpMenu;
+	}
+
+	public void setVcOpMenu(String vcOpMenu) {
+		this.vcOpMenu = vcOpMenu;
+	}
+
+	@Column(name = "vcOpSubAction", length = 128)
+	public String getVcOpSubAction() {
+		return this.vcOpSubAction;
+	}
+
+	public void setVcOpSubAction(String vcOpSubAction) {
+		this.vcOpSubAction = vcOpSubAction;
+	}
+
+	@Column(name = "vcOpObject", length = 128)
+	public String getVcOpObject() {
+		return this.vcOpObject;
+	}
+
+	public void setVcOpObject(String vcOpObject) {
+		this.vcOpObject = vcOpObject;
+	}
+
+	@Column(name = "vcSysLogType", length = 20)
+	public String getVcSysLogType() {
+		return this.vcSysLogType;
+	}
+
+	public void setVcSysLogType(String vcSysLogType) {
+		this.vcSysLogType = vcSysLogType;
+	}
+
+}

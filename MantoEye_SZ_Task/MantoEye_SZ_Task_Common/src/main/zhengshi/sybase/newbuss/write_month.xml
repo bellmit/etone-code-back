@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- ===========空间分析呈现_业务维（月）BSC 2012年3月22日15:17:30 =========== -->
+	<!-- =======业务表========= -->
+	<statement id="load_ftbStatMonthBscBussTypeUsers_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatMonthBscBussTypeUsers_V2 ( intBscId,nmParentId,nmGroupId,intRaitype,nmUsers,intYear,intMonth,
+		                                            dtStatTime,vcLocalIP )
+	      $option$
+		]]>
+	</statement>
+	<statement id="load_ftbStatMonthBscBussTypeUsersConTent_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatMonthBscBussTypeUsers_V2 ( intBscId,nmDimensId,nmGroupId,intRaitype,nmUsers,intYear,intMonth,
+		                                            dtStatTime,vcLocalIP )
+	      $option$
+		]]>
+	</statement>
+
+	<!-- =======内容表========= -->
+	<statement id="load_ftbStatMonthBscContentTypeUsers_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatMonthBscContentTypeUsers_V2 ( intBscId,nmParentId,nmGroupId,intRaitype,nmUsers,intYear,intMonth,
+		                                               dtStatTime,vcLocalIP )
+	      $option$
+		]]>
+	</statement>
+	<statement id="load_ftbStatMonthBscContentTypeUsersConDetails_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatMonthBscContentTypeUsers_V2 ( intBscId,nmDimensId,nmGroupId,intRaitype,nmUsers,intYear,intMonth,
+		                                               dtStatTime,vcLocalIP )
+	      $option$
+		]]>
+	</statement>
+
+	<!-- ===========空间分析呈现_业务维（月）SGSN 2012年3月22日15:27:20 =========== -->
+	<!-- =======业务表========= -->
+	<statement id="load_ftbStatMonthSgsnBussTypeUsers_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatMonthSgsnBussTypeUsers_V2 ( intSgsnId,nmParentId,nmGroupId,intRaitype,nmUsers,intYear,intMonth,
+		                                             dtStatTime,vcLocalIP )
+	      $option$
+		]]>
+	</statement>
+	<statement id="load_ftbStatMonthSgsnBussTypeUsersConTent_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatMonthSgsnBussTypeUsers_V2 ( intSgsnId,nmDimensId,nmGroupId,intRaitype,nmUsers,intYear,intMonth,
+		                                             dtStatTime,vcLocalIP )
+	      $option$
+		]]>
+	</statement>
+
+	<!-- =======内容表========= -->
+	<statement id="load_ftbStatMonthSgsnContentTypeUsers_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatMonthSgsnContentTypeUsers_V2 ( intSgsnId,nmParentId,nmGroupId,intRaitype,nmUsers,intYear,intMonth,
+		                                                dtStatTime,vcLocalIP )
+	      $option$
+		]]>
+	</statement>
+	<!-- =======内容表========= -->
+	<statement id="load_ftbStatMonthSgsnContentTypeUsersConDetails_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatMonthSgsnContentTypeUsers_V2 ( intSgsnId,nmDimensId,nmGroupId,intRaitype,nmUsers,intYear,intMonth,
+		                                                dtStatTime,vcLocalIP )
+	      $option$
+		]]>
+	</statement>
+
+	<!-- ===========空间分析呈现_业务维（月）STREET 2012年3月22日15:28:45 =========== -->
+	<!-- =======业务表========= -->
+	<statement id="load_ftbStatMonthStreetBussTypeUsers_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatMonthStreetBussTypeUsers_V2 ( intStreetId,nmParentId,nmGroupId,intRaitype,nmUsers,intYear,intMonth,
+		                                               dtStatTime,vcLocalIP )
+	      $option$
+		]]>
+	</statement>
+	<statement id="load_ftbStatMonthStreetBussTypeUsersConTent_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatMonthStreetBussTypeUsers_V2 ( intStreetId,nmDimensId,nmGroupId,intRaitype,nmUsers,intYear,intMonth,
+		                                               dtStatTime,vcLocalIP )
+	      $option$
+		]]>
+	</statement>
+
+	<!-- =======内容表========= -->
+	<statement id="load_ftbStatMonthStreetContentTypeUsers_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatMonthStreetContentTypeUsers_V2 ( intStreetId,nmParentId,nmGroupId,intRaitype,nmUsers,intYear,intMonth,
+		                                                  dtStatTime,vcLocalIP )
+	      $option$
+		]]>
+	</statement>
+	<statement id="load_ftbStatMonthStreetContentTypeUsersConDetails_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatMonthStreetContentTypeUsers_V2 ( intStreetId,nmDimensId,nmGroupId,intRaitype,nmUsers,intYear,intMonth,
+		                                                  dtStatTime,vcLocalIP )
+	      $option$
+		]]>
+	</statement>
+
+	<!-- ===========空间分析呈现_业务维（月）SALEAREA 2012年3月22日15:29:50 =========== -->
+	<!-- =======业务表========= -->
+	<statement id="load_ftbStatMonthSaleAreaBussTypeUsers_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatMonthSaleAreaBussTypeUsers_V2 ( intSaleAreaId,nmParentId,nmGroupId,intRaitype,nmUsers,intYear,intMonth,
+		                                                 dtStatTime,vcLocalIP )
+	      $option$
+		]]>
+	</statement>
+	<statement id="load_ftbStatMonthSaleAreaBussTypeUsersConTent_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatMonthSaleAreaBussTypeUsers_V2 ( intSaleAreaId,nmDimensId,nmGroupId,intRaitype,nmUsers,intYear,intMonth,
+		                                                 dtStatTime,vcLocalIP )
+	      $option$
+		]]>
+	</statement>
+
+	<!-- =======内容表========= -->
+	<statement id="load_ftbStatMonthSaleAreaContentTypeUsers_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatMonthSaleAreaContentTypeUsers_V2 ( intSaleAreaId,nmParentId,nmGroupId,intRaitype,nmUsers,intYear,intMonth,
+		                                                    dtStatTime,vcLocalIP )
+	      $option$
+		]]>
+	</statement>
+	<statement id="load_ftbStatMonthSaleAreaContentTypeUsersConDetails_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatMonthSaleAreaContentTypeUsers_V2 ( intSaleAreaId,nmDimensId,nmGroupId,intRaitype,nmUsers,intYear,intMonth,
+		                                                    dtStatTime,vcLocalIP )
+	      $option$
+		]]>
+	</statement>
+
+	<!-- ===========空间分析呈现_业务维（月）Company 2012年3月22日15:30:49 =========== -->
+	<!-- =======业务表========= -->
+	<statement id="load_ftbStatMonthCompanyBussTypeUsers_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatMonthCompanyBussTypeUsers_V2 ( intCompanyId,nmParentId,nmGroupId,intRaitype,nmUsers,intYear,intMonth,
+		                                                dtStatTime,vcLocalIP )
+	      $option$
+		]]>
+	</statement>
+	<statement id="load_ftbStatMonthCompanyBussTypeUsersConTent_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatMonthCompanyBussTypeUsers_V2 ( intCompanyId,nmDimensId,nmGroupId,intRaitype,nmUsers,intYear,intMonth,
+		                                                dtStatTime,vcLocalIP )
+	      $option$
+		]]>
+	</statement>
+
+	<!-- =======内容表========= -->
+	<statement id="load_ftbStatMonthCompanyContentTypeUsers_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatMonthCompanyContentTypeUsers_V2 ( intCompanyId,nmParentId,nmGroupId,intRaitype,nmUsers,intYear,intMonth,
+		                                                   dtStatTime,vcLocalIP )
+	      $option$
+		]]>
+	</statement>
+	<statement id="load_ftbStatMonthCompanyContentTypeUsersConDetails_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatMonthCompanyContentTypeUsers_V2 ( intCompanyId,nmDimensId,nmGroupId,intRaitype,nmUsers,intYear,intMonth,
+		                                                   dtStatTime,vcLocalIP )
+	      $option$
+		]]>
+	</statement>
+
+	<!-- ===========空间分析呈现_业务维（月）自定義小區集 2012年3月22日15:30:49 =========== -->
+	<!-- =======业务表========= -->
+	<statement id="load_ftbStatMonthGroupAreaBussTypeUsers_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatMonthGroupAreaBussTypeUsers_V2 ( nmAreaId,nmParentId,nmGroupId,intRaitype,nmUsers,intYear,intMonth,
+		                                                dtStatTime,vcLocalIP )
+	      $option$
+		]]>
+	</statement>
+	<statement id="load_ftbStatMonthGroupAreaBussTypeUsersConTent_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatMonthGroupAreaBussTypeUsers_V2 ( nmAreaId,nmDimensId,nmGroupId,intRaitype,nmUsers,intYear,intMonth,
+		                                                dtStatTime,vcLocalIP )
+	      $option$
+		]]>
+	</statement>
+
+	<!-- =======内容表========= -->
+	<statement id="load_ftbStatMonthGroupAreaContentTypeUsers_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatMonthGroupAreaContentTypeUsers_V2 ( nmAreaId,nmParentId,nmGroupId,intRaitype,nmUsers,intYear,intMonth,
+		                                                   dtStatTime,vcLocalIP )
+	      $option$
+		]]>
+	</statement>
+	<statement id="load_ftbStatMonthGroupAreaContentTypeUsersConDetails_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatMonthGroupAreaContentTypeUsers_V2 ( nmAreaId,nmDimensId,nmGroupId,intRaitype,nmUsers,intYear,intMonth,
+		                                                   dtStatTime,vcLocalIP )
+	      $option$
+		]]>
+	</statement>
+
+	<!-- ===========全网数据业务流量分布呈现_业务维（月） 2012年3月22日15:33:56 =========== -->
+	<!-- =======业务表========= -->
+	<!-- 统计业务第1层 -->
+	<statement id="load_ftbStatMonthGprsBussTypeUsers_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatMonthGprsBussTypeUsers_V2 ( nmParentId,intRaitype,nmUsers,intYear,intMonth,
+		                                             dtStatTime,vcLocalIP,nmLocalUsers )
+	      $option$
+		]]>
+	</statement>
+
+	<!-- =======内容表========= -->
+	<!-- 统计业务第1层 -->
+	<statement id="load_ftbStatMonthGprsContentTypeUsers_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatMonthGprsContentTypeUsers_V2 ( nmParentId,intRaitype,nmUsers,intYear,intMonth,
+		                                                dtStatTime,vcLocalIP ,nmLocalUsers)
+	      $option$
+		]]>
+	</statement>
+
+	<!-- =======业务表========= -->
+	<!-- 统计业务第2层 -->
+	<statement id="load_ftbStatMonthGprsBussUsers_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatMonthGprsBussUsers_V2 ( nmParentId,nmGroupId,intRaitype,nmUsers,intYear,intMonth,
+		                                             dtStatTime,vcLocalIP,nmLocalUsers )
+	      $option$
+		]]>
+	</statement>
+
+	<!-- =======内容表========= -->
+	<!-- 统计业务第2层 -->
+	<statement id="load_ftbStatMonthGprsContentUsers_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatMonthGprsContentUsers_V2 ( nmParentId,nmGroupId,intRaitype,nmUsers,intYear,intMonth,
+		                                                dtStatTime,vcLocalIP ,nmLocalUsers)
+	      $option$
+		]]>
+	</statement>
+
+	<!-- =======业务表========= -->
+	<!-- 统计业务第3层 -->
+	<statement id="load_ftbStatMonthGprsBussContentUsers_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatMonthGprsBussContentUsers_V2 ( nmDimensId,nmGroupId,intRaitype,nmUsers,intYear,intMonth,
+		                                             dtStatTime,vcLocalIP ,nmLocalUsers)
+	      $option$
+		]]>
+	</statement>
+
+	<!-- =======内容表========= -->
+	<!-- 统计业务第3层 -->
+	<statement id="load_ftbStatMonthGprsConDetailsUsers_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatMonthGprsConDetailsUsers_V2 ( nmDimensId,nmGroupId,intRaitype,nmUsers,intYear,intMonth,
+		                                                dtStatTime,vcLocalIP,nmLocalUsers )
+	      $option$
+		]]>
+	</statement>
+
+
+</sqlMap>

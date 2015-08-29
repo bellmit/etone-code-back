@@ -1,0 +1,69 @@
+.gt-panel-tool-button {
+	position: absolute;
+	right:3px;
+	top:3px;
+	width:15px;
+	border: 0px solid #ff0000;   	
+}
+.gt-panel-tool-button a{	
+	cursor: pointer ;
+	height: 15px;
+	display:block;
+	width:100%;
+	text-decoration : none;
+	-moz-opacity: 0.5;
+    opacity: .50;
+    filter: alpha(opacity=50);	
+    background:url(./skin/default/images/tool-sprites.gif) no-repeat -15px -210px;
+}
+.gt-panel-tool-button-down{	
+	cursor: pointer ;
+	height: 15px;
+	display:block;
+	width:100%;
+	text-decoration : none;
+	-moz-opacity: 0.5;
+    opacity: .50;
+    filter: alpha(opacity=50);	
+    background:url(./skin/default/images/tool-sprites.gif) no-repeat -15px -195px;
+}
+
+.gt-panel-head-blue {
+	position: relative;
+	z-index:2;
+	overflow:hidden;
+	text-align:left;
+	width:100%;
+	padding-left:0px;
+	background: #ebeadb url(./skin/default/images_blue/hd_row_over_bg.gif) repeat-x;
+}
+.gt-panel-head-blue {
+	position: static;
+	z-index:1;
+	font-weight:bold ;
+	color : #333333 ; 
+	padding : 0px;
+	height: 22px;
+	border-bottom : 1px solid #cccccc;
+}
+
+.gt-panel-head-blue span {
+	display:block;
+	margin:4px 1px 0px 4px;
+}
+/*
+.x-tool-up {
+		background : url(./skin/default/images/tool-sprites.gif) no-repeat 0px -210px;  
+}
+.x-tool-up-over {
+		background : url(./skin/default/images/tool-sprites.gif) no-repeat 0px 0px;
+    background-position:-15px -210px;
+}
+.x-tool-down {
+		background : url(./skin/default/images/tool-sprites.gif) no-repeat 0px 0px;
+    background-position:0 -195px;
+}
+.x-tool-down-over {
+		background : url(./skin/default/images/tool-sprites.gif) no-repeat 0px 0px;
+    background-position:-15px -195px;
+}*/

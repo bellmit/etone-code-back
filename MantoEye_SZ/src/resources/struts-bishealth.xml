@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<!--
+		//////////////////////////////////////////业务健康度///////////////////////////////////
+	-->
+	
+	<!-- 业务健康度 -->
+	<package name="bishealth" extends="system-default">
+		<action name="bishealth_*"
+			class="com.symbol.app.mantoeye.web.action.bishealth.BisHealthAction"
+			method="{1}">
+			<result name="index">
+				/mantoeye/bis_health/bis_health_index.jsp
+			</result>
+			<result name="add">
+				/mantoeye/bis_health/bis_health_add.jsp
+			</result>
+			<result name="edit">
+				/mantoeye/bis_health/bis_health_edit.jsp
+			</result>
+				<result name="NETWORKTESULT">
+				/mantoeye/bis_health/bis_health_detial.jsp
+			</result>
+		</action>
+	</package>
+</struts>

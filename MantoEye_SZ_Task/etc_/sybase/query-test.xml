@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	
+	<select id="query_object" resultClass="java.lang.Long">
+		select count(1) from
+		tbtaskinfo 
+	</select>
+
+	<select id="query_list" resultClass="java.lang.Integer">
+		select 1 from tbtaskinfo
+	</select>
+
+	<select id="q_wzz_test_p" resultClass="java.lang.Long" parameterClass="java.lang.String">
+		select userId from wzz_test where userName = #userName#
+	</select>
+
+	<select id="q_o_wzz_test_param" resultClass="java.lang.Long" parameterClass="java.lang.String">
+		select userId from wzz_test where userName = #userName#
+	</select>
+
+</sqlMap>

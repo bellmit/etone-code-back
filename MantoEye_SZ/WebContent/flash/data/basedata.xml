@@ -1,0 +1,10 @@
+<root>
+<chart id="1" name="全局数据">
+<data label="10-1" total="444" up="383" down="111" imsis="70" count="421" value="1200"/>
+<data label="10-2" total="494" up="373" down="21" imsis="80" count="901" value="1400"/>
+<data label="10-3" total="474" up="363" down="611" imsis="750" count="781" value="1800"/>
+<data label="10-4" total="644" up="353" down="181" imsis="700" count="41" value="7300"/>
+<data label="10-5" total="49" up="343" down="141" imsis="270" count="121" value="5200"/>
+<data label="10-6" total="143" up="333" down="211" imsis="170" count="661" value="4700"/>
+</chart>
+</root>

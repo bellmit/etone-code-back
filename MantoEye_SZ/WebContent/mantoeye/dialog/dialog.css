@@ -1,0 +1,137 @@
+.dialog_main_class {
+	text-align: left;
+	color: black;
+	display: none;
+	background: #eceef3;
+	border: 1px solid #336699;
+	z-index: 999;
+	position: absolute;
+	width: 500px;
+	height: 440px;
+	display: none;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	display: none;
+}
+
+.dialog_head_class {
+	padding: 0px;
+	color: black;
+	position: relative;
+	height: 20px;
+	width: 100%;
+	border-bottom: 1px solid #b0c7d7;
+	background-image: url(toolbar_bg.gif);
+}
+
+.dialog_table_class select {
+	height: 20px;
+	width: 150px;
+	color: black;
+}
+
+.dialog_table_class .dialog_query_space {
+	color: black;
+	width: 70px;
+}
+
+.dialog_table_class input {
+	height: 14px;
+	width: 152px;
+	color: black;
+}
+
+.dialog_table_class img {
+	padding-left: 5px;
+	color: black;
+}
+
+.dialog_top_div_class {
+	width: 180px;
+	height: 150px;
+	color: black;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	border: 1px groove;
+	background: #FFFFFF;
+}
+
+.dialog_left_list_class {
+	text-align: center;
+	width: 182px;
+	height: 160px;
+	color: black;
+}
+
+.dialog_right_list_class {
+	text-align: center;
+	width: 180px;
+	height: 330px;
+	color: black;
+}
+
+.dialog_head_icon_class {
+	float: left;
+	display: block;
+	margin: 2px;
+	color: black;
+}
+
+.dialog_head_title_class {
+	float: left;
+	margin-top: 3px;
+	color: black;
+}
+
+#dialog_div_content_body {
+	float: left;
+	display: inline;
+	margin: 5px;
+	overflow: auto;
+	background: #eceef3;
+	float: none;
+	display: block;
+	width: 100%;
+	height: 100%;
+	color: black;
+}
+
+.dialog_button_class {
+	width: 99%;
+	text-align: center;
+	color: black;
+}
+
+.dialog_button_class button {
+	margin: 8px;
+	color: black;
+}
+
+.dialog_button_class .dialog_button {
+	vertical-align: middle;
+	line-height: 18px;
+	height: 21px;
+	border: 1px solid #336699;
+	color: black;
+	background: url(input_button_bg.gif) repeat-x 0px -2px;
+}
+
+/**����� */
+.dialog_msg_class {
+	height: 55px;
+	width: 250px;
+	color: black;
+	background: #eceef3;
+	border: 1px solid #336699;
+	position: absolute;
+	z-index: 9999;
+	display: block;
+	margin-top: 120px;
+	margin-left: 70px;
+}
+
+.dialog_msg_class img {
+	margin-left: 10px;
+	margin-top: 8px;
+	color: black;
+}

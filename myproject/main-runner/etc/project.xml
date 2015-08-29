@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+
+	<!-- <adapter name="FsTestSpaceMoniter" priority="10"> -->
+	<!-- <type name="TestSpaceMoniter" class="z.z.w.project.fs.space.moniter.TestSpaceMoniter" -->
+	<!-- local="D:/09_study/media/TAKARAZUKA" detelehour="1h" fileSuffix=".csv" -->
+	<!-- timeDelay="30s" filePrefix="*G" /> -->
+	<!-- </adapter> -->
+	<adapter name="SybaseIqOpertor_LiuHuaYang" priority="10">
+		<type name="SybaseIqOpertor_LiuHuaYang" class="z.z.w.project.dbop.SybaseIqOpertor_LiuHuaYang" />
+	</adapter>
+	<!-- <adapter name="Moniter" priority="100"> -->
+	<!-- <type name="Moniter" class="z.z.w.project.moniter.Moniter" -->
+	<!-- timeInterval="10s" /> -->
+	<!-- </adapter> -->
+
+</server>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!-- 表信息管理  -->
+	<package name="main" extends="system-default">
+		<action name="mainIndex_*"
+			class="com.symbol.app.mantoeye.web.action.MainIndexAction" method="{1}">
+		</action>
+	</package>
+	<package name="multiDialog" extends="system-default">
+		<action name="multiDialog_*"
+			class="com.symbol.app.mantoeye.web.action.MultiDialogAction" method="{1}">
+			<result name="phone">/mantoeye/dialog/dialog.jsp</result>
+			<result name="business">
+				/mantoeye/component/businessMultiDialog.jsp
+			</result>
+			<result name="area">
+				/mantoeye/component/areaMultiDialog.jsp
+			</result>
+		</action>
+	</package>
+
+	<!-- 终端选择对话框  -->
+	<package name="terminalDialog" extends="system-default">
+		<action name="terminalDialog_*"
+			class="com.symbol.app.mantoeye.web.action.TerminalDialogAction"
+			method="{1}">
+		</action>
+	</package>
+	<!-- 表信息管理  -->
+	<package name="tableMap" extends="system-default">
+		<action name="tableMap_*"
+			class="com.symbol.app.mantoeye.web.action.TableMapAction" method="{1}">
+			<result name="add">/mantoeye/table/add.jsp</result>
+			<result name="edit">/mantoeye/table/edit.jsp</result>
+		</action>
+	</package>
+	<!-- 表字段信息管理  -->
+	<package name="tableColumnMap" extends="system-default">
+		<action name="tableColumnMap_*"
+			class="com.symbol.app.mantoeye.web.action.TableColumnMapAction"
+			method="{1}">
+			<result name="add">/mantoeye/table/column_add.jsp</result>
+			<result name="edit">/mantoeye/table/column_edit.jsp</result>
+		</action>
+	</package>
+
+	<package name="indexNoteAction" extends="system-default">
+		<action name="indexNote_*" class="indexNoteAction" method="{1}">
+			<result name="editPrePare">
+				/sysdata/note/edit.jsp
+			</result>
+		</action>
+	</package>
+</struts>

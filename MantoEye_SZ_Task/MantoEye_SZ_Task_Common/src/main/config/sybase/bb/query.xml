@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 5.2.15.1 黑莓用户流量(小时) ftbBlackberry 2011年11月28日21:16:36-->
+	<select id="query_ftbStatHourBbUserFlush" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$
+		   select intStreetId,intSaleAreaId,intBranchId,intSgsnId,intBscId,intCountryId,intIdcId,nmImsi,nmMsisdn,
+		          intYear,intMonth,intWeek,intDay,intHour,sum(nmUpFlow),sum(nmDownFlow),getdate()
+		     from ftbBlackberry
+		    where intYear =	datepart(yy,#dtLoadedTime#) 
+		      and intMonth = datepart(mm,#dtLoadedTime#) 
+		      and intDay = datepart(dd,#dtLoadedTime#) 
+		      and intHour = datepart(hh,#dtLoadedTime#) 
+		 group by intStreetId,intSaleAreaId,intBranchId,intSgsnId,intBscId,intCountryId,intIdcId,nmImsi,nmMsisdn,
+			      intYear,intMonth,intWeek,intDay,intHour
+		]]>
+	</select>
+</sqlMap>

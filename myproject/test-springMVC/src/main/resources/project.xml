@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<subscription>
+	<packages name="全球通上网套餐">
+
+		<grades fee="58" caller="50" called="0" dataTraffic="200" buss="来电显示"
+			permin="0.25" permega="0.5" />
+
+		<grades fee="88" caller="200" called="0" dataTraffic="300"
+			buss="来电显示" permin="0.19" permega="0.5" />
+
+		<grades fee="128" caller="420" called="0" dataTraffic="400"
+			buss="来电显示" permin="0.19" permega="0.5" />
+
+		<grades fee="158" caller="510" called="0" dataTraffic="450"
+			buss="来电显示" permin="0.19" permega="0.5" />
+
+		<grades fee="188" caller="600" called="0" dataTraffic="500"
+			buss="来电显示" permin="0.19" permega="0.5" />
+
+		<grades fee="288" caller="1000" called="0" dataTraffic="750"
+			buss="来电显示" permin="0.19" permega="0.5" />
+
+		<grades fee="388" caller="1400" called="0" dataTraffic="1000"
+			buss="来电显示" permin="0.19" permega="0.5" />
+
+		<grades fee="588" caller="2200" called="0" dataTraffic="2000"
+			buss="来电显示" permin="0.19" permega="0.5" />
+
+		<grades fee="888" caller="3600" called="0" dataTraffic="3000"
+			buss="来电显示" permin="0.19" permega="0.5" />
+
+	</packages>
+
+	<packages name="全球通商旅套餐">
+
+		<grades fee="58" caller="150" called="0" dataTraffic="30" buss="来电显示"
+			permin="0.25" permega="0.5" />
+
+		<grades fee="88" caller="350" called="0" dataTraffic="30" buss="来电显示"
+			permin="0.19" permega="0.5" />
+
+		<grades fee="128" caller="650" called="0" dataTraffic="30"
+			buss="来电显示" permin="0.19" permega="0.5" />
+
+		<grades fee="158" caller="900" called="0" dataTraffic="30"
+			buss="来电显示" permin="0.19" permega="0.5" />
+
+		<grades fee="188" caller="1200" called="0" dataTraffic="30"
+			buss="来电显示" permin="0.19" permega="0.5" />
+
+		<grades fee="288" caller="1900" called="0" dataTraffic="30"
+			buss="来电显示" permin="0.19" permega="0.5" />
+
+		<grades fee="388" caller="2600" called="0" dataTraffic="30"
+			buss="来电显示" permin="0.19" permega="0.5" />
+
+		<grades fee="588" caller="4000" called="0" dataTraffic="30"
+			buss="来电显示" permin="0.19" permega="0.5" />
+
+		<grades fee="888" caller="6000" called="0" dataTraffic="30"
+			buss="来电显示" permin="0.19" permega="0.5" />
+
+	</packages>
+
+	<superpositionPackages name="无叠加套餐" fee="0"
+		dataTraffic="0" />
+	<superpositionPackages name="5元套餐" fee="5"
+		dataTraffic="30" />
+	<superpositionPackages name="10元套餐" fee="10"
+		dataTraffic="70" />
+	<superpositionPackages name="20元套餐" fee="20"
+		dataTraffic="150" />
+	<superpositionPackages name="30元套餐" fee="30"
+		dataTraffic="280" />
+	<superpositionPackages name="50元套餐" fee="50"
+		dataTraffic="500" />
+	<superpositionPackages name="100元套餐" fee="100"
+		dataTraffic="2048" />
+
+</subscription>
+
+ 

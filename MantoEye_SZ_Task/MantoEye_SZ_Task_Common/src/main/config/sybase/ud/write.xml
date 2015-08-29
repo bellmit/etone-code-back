@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+
+	<!-- 宏观呈现平台之宏观呈现 -->
+
+	<!-- 2011年9月19日11:23:58 -->
+	<statement id="load_ftbOverView" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbOverView( 
+		           intYear,
+				   intMonth,
+				   intWeek,
+				   intDay,
+				   intHour,
+				   nmUsers,
+				   nmFlush,
+				   dtStatTime,vcCGI,intType )
+		  $option$
+		]]>
+	</statement>
+
+	<!-- 2011年9月19日11:34:08 -->
+	<statement id="exec_tbUDTime2APP"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam">
+		<![CDATA[
+		insert into tbUDTime(dtStatTime,intType,bitIsUploaded,intStatus)
+		     values (#dtLoadedTime#,1,0,0);
+		]]>
+	</statement>
+
+	<!-- 2011年9月19日12:06:11 -->
+	<statement id="exec_tbUDTime2BB"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam">
+		<![CDATA[
+		insert into tbUDTime (dtStatTime,intType,bitIsUploaded,intStatus)
+		     values (#dtLoadedTime#,2,0,0);
+		]]>
+	</statement>
+
+	<!-- 2012年3月27日16:29:33 增加上傳狀態 -->
+	<statement id="udpate_status"
+		parameterClass="com.etone.mantoeye.analyse.domain.ui.TbUDTimeBean">
+		<![CDATA[
+		update tbUDTime 
+	       set intStatus = #intStatus# 
+	     where dtStatTime=#dtStatTime# 
+	       and intType=#intType#
+		]]>
+	</statement>
+
+	<select id="getTbUDTime" resultClass="com.etone.mantoeye.analyse.domain.ui.TbUDTimeBean">
+		<![CDATA[
+		select top 1 dtStatTime,intType 
+		  from tbUDTime 
+		 where bitIsUploaded = 0 
+		   and intStatus = 0
+    order by 1 desc
+    ]]>
+	</select>
+
+	<select id="getRunningUIData" resultClass="com.etone.mantoeye.analyse.domain.ui.TbUDTimeBean">
+		<![CDATA[
+		select top 1 dtStatTime,intType 
+		  from tbUDTime 
+		 where bitIsUploaded = 0 
+		   and intStatus = 1
+    order by 1 desc
+    ]]>
+	</select>
+
+	<select id="getRunningUDTask" resultClass="java.lang.Integer">
+		<![CDATA[
+		 select count(1) 
+			 from tbUDTime
+			where 1=1 
+			  and intstatus = 1 
+    ]]>
+	</select>
+
+	<!-- 2012年5月16日19:03:40 -->
+	<update id="inittbUDTimeStatus">
+		<![CDATA[
+		 update tbUDTime
+		    set intstatus = 0
+		  where intstatus = 1
+			]]>
+	</update>
+
+	<select id="getFtbOverViewData" resultClass="java.lang.Long"
+		parameterClass="com.etone.mantoeye.analyse.domain.ui.TbUDTimeBean">
+		<![CDATA[
+		 select count(1)
+		   from ftbOverView
+		  where intYear = datepart(yy,#dtStatTime#)
+		    and intMonth = datepart(mm,#dtStatTime#)
+			and intDay = datepart(dd,#dtStatTime#)
+			and intHour = datepart(hh,#dtStatTime#) 
+		]]>
+	</select>
+
+	<!-- 用于生成FTP文件的查询 -->
+	<select id="getFtbOverView" parameterClass="com.etone.mantoeye.analyse.domain.ui.TbUDTimeBean"
+		resultClass="java.lang.String">
+		<![CDATA[
+		select convert(varchar(4),intYear)+'-'+convert(varchar(2),intMonth)+'-'+convert(varchar(2),intDay)+' '+convert(varchar(2),intHour)+':00'+'|'+
+    	vcCGI+'|'+convert(varchar(15),nmFlush)+'|'+convert(varchar(15),nmUsers) as line
+		from ftbOverView
+		where intYear =	datepart(yy,#dtStatTime#) 
+		  and intMonth = datepart(mm,#dtStatTime#) 
+		  and intDay = datepart(dd,#dtStatTime#) 
+		  and intHour = datepart(hh,#dtStatTime#)
+		  and intType = #intType#
+		]]>
+	</select>
+
+	<!-- 用于生成FTP文件的查询 -->
+	<select id="getFtbOverView2All" parameterClass="com.etone.mantoeye.analyse.domain.ui.TbUDTimeBean"
+		resultClass="java.lang.String">
+		<![CDATA[
+		select convert(varchar(4),a.intYear)+'-'+convert(varchar(2),a.intMonth)+'-'+convert(varchar(2),a.intDay)+' '+convert(varchar(2),a.intHour)+':00'+'|'+
+    	a.vcCGI
+    	+'|'+convert(varchar(15),a.nmFlush)+'|'+convert(varchar(15),a.nmUsers)
+    	+'|'+convert(varchar(15),isnull(b.nmFlush,0))+'|'+convert(varchar(15),isnull(b.nmUsers,0))
+    	+'|'+convert(varchar(15),isnull(c.nmFlush,0))+'|'+convert(varchar(15),isnull(c.nmUsers,0))
+    	+'|'+convert(varchar(15),isnull(d.nmFlush,0))+'|'+convert(varchar(15),isnull(d.nmUsers,0))
+    	+'|'+convert(varchar(15),isnull(e.nmFlush,0))+'|'+convert(varchar(15),isnull(e.nmUsers,0))
+    	 as line
+		from 
+		(select intYear,intMonth,intDay,intHour,nmFlush,nmUsers,vcCGI
+		from ftbOverView
+		where intYear =	datepart(yy,#dtStatTime#) 
+		  and intMonth = datepart(mm,#dtStatTime#) 
+		  and intDay = datepart(dd,#dtStatTime#) 
+		  and intHour = datepart(hh,#dtStatTime#)
+		  and intType = 3 ) as a ,
+		(select intYear,intMonth,intDay,intHour,nmFlush,nmUsers,vcCGI
+		from ftbOverView
+		where intYear =	datepart(yy,#dtStatTime#) 
+		  and intMonth = datepart(mm,#dtStatTime#) 
+		  and intDay = datepart(dd,#dtStatTime#) 
+		  and intHour = datepart(hh,#dtStatTime#)
+		  and intType = 6 ) as b ,
+		 (select intYear,intMonth,intDay,intHour,nmFlush,nmUsers,vcCGI
+		from ftbOverView
+		where intYear =	datepart(yy,#dtStatTime#) 
+		  and intMonth = datepart(mm,#dtStatTime#) 
+		  and intDay = datepart(dd,#dtStatTime#) 
+		  and intHour = datepart(hh,#dtStatTime#)
+		  and intType = 7 ) as c,
+		 (select intYear,intMonth,intDay,intHour,nmFlush,nmUsers,vcCGI
+		from ftbOverView
+		where intYear =	datepart(yy,#dtStatTime#) 
+		  and intMonth = datepart(mm,#dtStatTime#) 
+		  and intDay = datepart(dd,#dtStatTime#) 
+		  and intHour = datepart(hh,#dtStatTime#)
+		  and intType = 8 ) as d,
+		 (select intYear,intMonth,intDay,intHour,nmFlush,nmUsers,vcCGI
+		from ftbOverView
+		where intYear =	datepart(yy,#dtStatTime#) 
+		  and intMonth = datepart(mm,#dtStatTime#) 
+		  and intDay = datepart(dd,#dtStatTime#) 
+		  and intHour = datepart(hh,#dtStatTime#)
+		  and intType = 9 ) as e		  
+		 where a.intYear = b.intYear
+		   and a.intMonth = b.intMonth
+		   and a.intDay = b.intDay
+		   and a.intHour = b.intHour
+		   and a.vcCGI *= b.vcCGI
+		   and a.intYear = c.intYear
+		   and a.intMonth = c.intMonth
+		   and a.intDay = c.intDay
+		   and a.intHour = c.intHour
+		   and a.vcCGI *= c.vcCGI
+		   and a.intYear = d.intYear
+		   and a.intMonth = d.intMonth
+		   and a.intDay = d.intDay
+		   and a.intHour = d.intHour
+		   and a.vcCGI *= d.vcCGI
+		   and a.intYear = e.intYear
+		   and a.intMonth = e.intMonth
+		   and a.intDay = e.intDay
+		   and a.intHour = e.intHour
+		   and a.vcCGI *= e.vcCGI
+		]]>
+	</select>
+
+	<select id="getFtbOverView2Wireless" parameterClass="com.etone.mantoeye.analyse.domain.ui.TbUDTimeBean"
+		resultClass="java.lang.String">
+		<![CDATA[
+		select convert(varchar(4),a.intYear)+'-'+convert(varchar(2),a.intMonth)+'-'+convert(varchar(2),a.intDay)+' '+convert(varchar(2),a.intHour)+':00'+'|'+
+    	a.vcCGI
+    	+'|'+convert(varchar(15),isnull(b.nmFlush,0))+'|'+convert(varchar(15),isnull(b.nmUsers,0))
+    	+'|'+convert(varchar(15),isnull(c.nmFlush,0))+'|'+convert(varchar(15),isnull(c.nmUsers,0))
+    	+'|'+convert(varchar(15),isnull(d.nmFlush,0))+'|'+convert(varchar(15),isnull(d.nmUsers,0))
+    	+'|'+convert(varchar(15),isnull(e.nmFlush,0))+'|'+convert(varchar(15),isnull(e.nmUsers,0))
+    	+'|'+convert(varchar(15),isnull(f.nmFlush,0))+'|'+convert(varchar(15),isnull(f.nmUsers,0))
+    	+'|'+convert(varchar(15),isnull(g.nmFlush,0))+'|'+convert(varchar(15),isnull(g.nmUsers,0))
+    	+'|'+convert(varchar(15),isnull(h.nmFlush,0))+'|'+convert(varchar(15),isnull(h.nmUsers,0))
+    	+'|'+convert(varchar(15),isnull(i.nmFlush,0))+'|'+convert(varchar(15),isnull(i.nmUsers,0))
+    	 as line
+		from 
+		(select intYear,intMonth,intDay,intHour,nmFlush,nmUsers,vcCGI
+		from ftbOverView
+		where intYear =	datepart(yy,#dtStatTime#) 
+		  and intMonth = datepart(mm,#dtStatTime#) 
+		  and intDay = datepart(dd,#dtStatTime#) 
+		  and intHour = datepart(hh,#dtStatTime#)
+		  and intType = 10 ) as a ,
+		(select intYear,intMonth,intDay,intHour,nmFlush,nmUsers,vcCGI
+		from ftbOverView
+		where intYear =	datepart(yy,#dtStatTime#) 
+		  and intMonth = datepart(mm,#dtStatTime#) 
+		  and intDay = datepart(dd,#dtStatTime#) 
+		  and intHour = datepart(hh,#dtStatTime#)
+		  and intType = 11 ) as b ,
+		 (select intYear,intMonth,intDay,intHour,nmFlush,nmUsers,vcCGI
+		from ftbOverView
+		where intYear =	datepart(yy,#dtStatTime#) 
+		  and intMonth = datepart(mm,#dtStatTime#) 
+		  and intDay = datepart(dd,#dtStatTime#) 
+		  and intHour = datepart(hh,#dtStatTime#)
+		  and intType = 12 ) as c,
+		 (select intYear,intMonth,intDay,intHour,nmFlush,nmUsers,vcCGI
+		from ftbOverView
+		where intYear =	datepart(yy,#dtStatTime#) 
+		  and intMonth = datepart(mm,#dtStatTime#) 
+		  and intDay = datepart(dd,#dtStatTime#) 
+		  and intHour = datepart(hh,#dtStatTime#)
+		  and intType = 13 ) as d,
+		 (select intYear,intMonth,intDay,intHour,nmFlush,nmUsers,vcCGI
+		from ftbOverView
+		where intYear =	datepart(yy,#dtStatTime#) 
+		  and intMonth = datepart(mm,#dtStatTime#) 
+		  and intDay = datepart(dd,#dtStatTime#) 
+		  and intHour = datepart(hh,#dtStatTime#)
+		  and intType = 14 ) as e,
+		 (select intYear,intMonth,intDay,intHour,nmFlush,nmUsers,vcCGI
+		from ftbOverView
+		where intYear =	datepart(yy,#dtStatTime#) 
+		  and intMonth = datepart(mm,#dtStatTime#) 
+		  and intDay = datepart(dd,#dtStatTime#) 
+		  and intHour = datepart(hh,#dtStatTime#)
+		  and intType = 15 ) as f,
+		 (select intYear,intMonth,intDay,intHour,nmFlush,nmUsers,vcCGI
+		from ftbOverView
+		where intYear =	datepart(yy,#dtStatTime#) 
+		  and intMonth = datepart(mm,#dtStatTime#) 
+		  and intDay = datepart(dd,#dtStatTime#) 
+		  and intHour = datepart(hh,#dtStatTime#)
+		  and intType = 16 ) as g,
+		 (select intYear,intMonth,intDay,intHour,nmFlush,nmUsers,vcCGI
+		from ftbOverView
+		where intYear =	datepart(yy,#dtStatTime#) 
+		  and intMonth = datepart(mm,#dtStatTime#) 
+		  and intDay = datepart(dd,#dtStatTime#) 
+		  and intHour = datepart(hh,#dtStatTime#)
+		  and intType = 17 ) as h,
+		  (select intYear,intMonth,intDay,intHour,nmFlush,nmUsers,vcCGI
+		from ftbOverView
+		where intYear =	datepart(yy,#dtStatTime#) 
+		  and intMonth = datepart(mm,#dtStatTime#) 
+		  and intDay = datepart(dd,#dtStatTime#) 
+		  and intHour = datepart(hh,#dtStatTime#)
+		  and intType = 18 ) as i	  
+		 where a.intYear = b.intYear
+		   and a.intMonth = b.intMonth
+		   and a.intDay = b.intDay
+		   and a.intHour = b.intHour
+		   and a.vcCGI *= b.vcCGI
+		   and a.intYear = c.intYear
+		   and a.intMonth = c.intMonth
+		   and a.intDay = c.intDay
+		   and a.intHour = c.intHour
+		   and a.vcCGI *= c.vcCGI
+		   and a.intYear = d.intYear
+		   and a.intMonth = d.intMonth
+		   and a.intDay = d.intDay
+		   and a.intHour = d.intHour
+		   and a.vcCGI *= d.vcCGI
+		   and a.intYear = e.intYear
+		   and a.intMonth = e.intMonth
+		   and a.intDay = e.intDay
+		   and a.intHour = e.intHour
+		   and a.vcCGI *= e.vcCGI
+		   and a.intYear = f.intYear
+		   and a.intMonth = f.intMonth
+		   and a.intDay = f.intDay
+		   and a.intHour = f.intHour
+		   and a.vcCGI *= f.vcCGI
+		   and a.intYear = g.intYear
+		   and a.intMonth = g.intMonth
+		   and a.intDay = g.intDay
+		   and a.intHour = g.intHour
+		   and a.vcCGI *= g.vcCGI
+		   and a.intYear = h.intYear
+		   and a.intMonth = h.intMonth
+		   and a.intDay = h.intDay
+		   and a.intHour = h.intHour
+		   and a.vcCGI *= h.vcCGI
+		   and a.intYear = i.intYear
+		   and a.intMonth = i.intMonth
+		   and a.intDay = i.intDay
+		   and a.intHour = i.intHour
+		   and a.vcCGI *= i.vcCGI
+		]]>
+	</select>
+
+	<!-- 存储过程 产生用户数的辅助表 -->
+	<parameterMap id="paramBussTop" class="map">
+		<parameter property="statdate" jdbcType="VARCHAR" javaType="java.lang.String"
+			mode="INOUT" />
+	</parameterMap>
+	<procedure id="proc_buss_top" parameterMap="paramBussTop"
+		resultClass="java.lang.String">
+		{call proc_buss_top(?)}
+	</procedure>
+
+	<select id="getFtbOverViewSport" parameterClass="com.etone.mantoeye.analyse.domain.ui.TbUDTimeBean"
+		resultClass="java.lang.String">
+		<![CDATA[
+		select context as line	from ftbOverView_sport
+		where statdate = #dtStatTime#
+		  and intType = #intType#
+		]]>
+	</select>
+
+	<!-- update tbUDTime set dtStatTime = dateadd(hh,1,dtStatTime) -->
+	<update id="updateStatTime" parameterClass="com.etone.mantoeye.analyse.domain.ui.TbUDTimeBean">
+		<![CDATA[
+		   update tbUDTime 
+		      set bitIsUploaded = 1,intStatus = 2
+		    where dtStatTime =#dtStatTime# 
+		      and intType=#intType#
+		]]>
+	</update>
+
+</sqlMap>

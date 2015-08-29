@@ -1,0 +1,187 @@
+/****************************************/
+	/********** XHTMLOA style V2.0 **********/
+	/****************************************/
+ @charset "utf-8";
+
+body {
+	margin: 0px;
+	border: 0;
+	font: 9px ËÎÌו, tahoma, arial, helvetica, sans-serif;
+	height: 100%
+}
+
+html {
+	overflow-y: hidden;
+	height: 100%;
+}
+
+table {
+	padding: 0px;
+	margin: 0px;
+	width: 100%;
+	border: 0px;
+}
+
+div {
+	margin: 0px;
+	padding: 0px
+}
+
+#mainarea {
+	width: 100%;
+	height: 100%; 
+}
+
+#mainarea #leftpanl {
+	position: relative;
+	width: 198px;
+	height: 600px;
+	float: left;
+	margin: 0px;
+	padding: 0px;
+	margin-right: -3px;
+}
+
+#leftpanl .userinfo {
+	width: 197px;
+	height: 26px;
+	_height: 20px;
+	border-top: 0px;
+	border-left: 1px solid #8DB2E3;
+	border-bottom: 0px;
+	background-image: url(/skin/Default/images/MantoEye/submenu/small.gif);
+}
+
+#leftpanl .headimg {
+	width: 15px;
+	height: 16px;
+	_height: 16px;
+	float: left;
+	margin: 5px 5px 5px 10px;
+	background: url('/skin/Default/images/MantoEye/submenu/hand.gif')
+		no-repeat;
+}
+
+#leftpanl .userorle {
+	height: 100%;
+	_height: 12px;
+	width: 120px; *
+	width: 80px;
+	_width: 80px;
+	padding: 6px 5px 5px 0px;
+	height: 13px;
+}
+
+#leftpanl .userorle span {
+	font-size: 12px;
+	color: #13519E;
+	font-weight: bold;
+}
+
+#leftpanl .fullinsert {
+	width: 198px;
+	height: 2px;
+	font-size: 0px;
+	background-color: #DEECFD;
+	border-bottom: 1px solid #8DB2E3;
+}
+
+#leftpanl .jx { 198px;
+	height: 2px;
+	background-color: #D3E0F2;
+}
+
+/* define submenu css*/
+#master {
+	height: 100%
+}
+
+#master #container {
+	padding: 0px;
+	padding-left: 1px;
+	height: 100%;
+}
+
+.submenu {
+	width: 193px;
+	height: 600px;
+	float: left;
+	border: 0px;
+	position: absolute
+}
+
+.submenu h2 {
+	background-image: url(../images/MantoEye/submenu/last.gif);
+	font-size: 9pt;
+	font-weight: bold;
+	color: #ffffff;
+	width: 182px;
+	height: 15px;
+	margin: 0px;
+	margin-left: 1px;
+	padding-top: 10px;
+	padding-left: 10px;
+	padding-bottom: 5px;
+	cursor: pointer;
+}
+
+.submenu h2 img {
+	margin: 0px 3px 0px 108px;
+}
+
+.submenu h3 {
+	
+}
+
+.submenu .navigation {
+	margin-left: 1px;
+	width: 192px;
+	padding-bottom: 10px;
+	font-size: 9px;
+	color: #475570;
+	SCROLLBAR-FACE-COLOR: #F7F7F7;
+	SCROLLBAR-HIGHLIGHT-COLOR: #FFFFFF;
+	SCROLLBAR-SHADOW-COLOR: #FFFFFF;
+	SCROLLBAR-3DLIGHT-COLOR: #D4D0C8;
+	SCROLLBAR-ARROW-COLOR: #808080;
+	SCROLLBAR-TRACK-COLOR: #FFFFFF;
+	SCROLLBAR-DARKSHADOW-COLOR: #D4D0C8;
+}
+
+.submenu .navigation li {
+	
+}
+
+.submenu .navigation a:link,.submenu .navigation a:visited {
+	
+}
+
+.submenu .navigation a:hover {
+	
+}
+
+.submenu .navigation a.current:link,.Navigation a.current:visited {
+	
+}
+
+div#container_content {
+	margin: 0px;
+	padding: 0px;
+	background: #DDDDDD;
+}
+
+#leftpanl .middleline {
+	width: 5px;
+	height: 680px;
+	_height: 680px;
+	background-color: #D3E0F2;
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+	float: right;
+}
+
+#leftpanl #container_content {
+	width: 770px;
+	border: 0px;
+}

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="z.z.w.project.test.dao.IBackupDataDao">
+	<!-- #{id,jdbcType=INTEGER}, -->
+	<!-- #{name,jdbcType=VARCHAR} -->
+	<select id="getAllBackupTableNames" resultType="java.lang.String">
+	<![CDATA[
+		select distinct tname 
+		  from sys.syscolumns 
+		 where tname in ( 
+		          select distinct name from sysobjects 
+		           where type in ('U','V') 
+		             and ( name like 'ftbStatMonth%' 
+                      or name like 'ftbStatHour%' 
+                      or name like 'ftbStatDay%' 
+                      or name like 'ftbStatWeek%'  
+                        ) )
+		             and ( default_value is null 
+		              or default_value <> 'autoincrement' 
+		                 ) 
+       order by tname 
+       ]]>
+	</select>
+
+	<select id="getTableColumns" resultType="java.lang.String"
+		parameterType="java.lang.String">
+	<![CDATA[
+		select cname 
+		  from sys.syscolumns 
+		 where tname=#{tableName} 
+		   and ( default_value is null or default_value <> 'autoincrement')
+	  order by cname
+       ]]>
+	</select>
+
+	<select id="exportDataToFile" parameterType="z.z.w.project.test.vo.ExportData"
+		statementType="STATEMENT">
+		  <![CDATA[
+		   ${exportOption}
+		   select ${columns}
+		     from ${tableName}
+	        where dtStatTime >= dateadd(mm,-7,dateformat(getDate(),'yyyy-mm-dd')+' 00:00:00.000') 
+		  ]]>
+	</select>
+
+	<update id="loadDataFromFile" parameterType="z.z.w.project.test.vo.LoadData">
+	  <![CDATA[
+		  load table ${tableName} (${columns}) 
+	      from '${filePath}' 
+	     delimited by '|' escapes off quotes off with checkpoint off
+		  ]]>
+	</update>
+
+</mapper>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!-- ////////////////规则管理/////////////////// -->
+	<package name="businessSite" extends="system-default">
+		<!-- 业务配置 -->
+		<action name="businessSite_*"
+			class="com.symbol.app.mantoeye.web.action.business.BusinessSiteAction"
+			method="{1}">
+			 <result name="add">/mantoeye/business_rules/business_site/add.jsp</result>
+			<result name="edit">/mantoeye/business_rules/business_site/edit.jsp</result>
+			<result name="index">/mantoeye/business_rules/business_site/index.jsp</result>   
+		</action>
+	</package>
+	<package name="businessVetor" extends="system-default">
+	<!-- 规则配置 -->
+		<action name="businessVetor_*"
+			class="com.symbol.app.mantoeye.web.action.business.BusinessVetorAction"
+			method="{1}">
+			 <result name="add">/mantoeye/business_rules/vetor/add.jsp</result>
+			<result name="edit">/mantoeye/business_rules/vetor/edit.jsp</result>
+			<result name="index">/mantoeye/business_rules/vetor/index.jsp</result>   
+		</action> 
+	</package>
+	<package name="businessMainVetor" extends="system-default">
+		<!-- 主规则配置 -->
+		<action name="businessMainVetor_*"
+			class="com.symbol.app.mantoeye.web.action.business.BusinessMainVetorAction"
+			method="{1}">
+			<result name="add">/mantoeye/business_rules/vetor/main_add.jsp</result>
+			<result name="edit">/mantoeye/business_rules/vetor/main_edit.jsp</result>
+			<result name="index">/mantoeye/business_rules/vetor/main_index.jsp</result> 
+			<result name="associate">/mantoeye/business_rules/vetor/associate.jsp</result> 
+		</action>
+	</package>
+	<package name="businessAssistVetor" extends="system-default">
+		<!-- 辅规则配置 -->
+		<action name="businessAssistVetor_*"
+			class="com.symbol.app.mantoeye.web.action.business.BusinessAssistVetorAction"
+			method="{1}">
+			 <result name="add">/mantoeye/business_rules/vetor/assist_add.jsp</result>
+			<result name="edit">/mantoeye/business_rules/vetor/assist_edit.jsp</result>
+			<result name="index">/mantoeye/business_rules/vetor/assist_index.jsp</result>   
+		</action>
+	</package>
+	<!-- 业务流量排名-->
+	<package name="businessTopFlush" extends="system-default">
+		<action name="businessTopFlush_*"
+			class="com.symbol.app.mantoeye.web.action.business.TopBusinessFlushAction"
+			method="{1}">
+			<result name="index">/mantoeye/business_rules/topflush/index.jsp</result>   
+		</action>
+	</package>
+	<!-- 辅规则不匹配-->
+	<package name="assistRule" extends="system-default">
+		<action name="assistRule_*"
+			class="com.symbol.app.mantoeye.web.action.business.AssistRuleStatAction"
+			method="{1}">
+			<result name="index">/mantoeye/business_rules/assiststat/index.jsp</result>   
+		</action>
+	</package>
+	<!-- 主规则流量-->
+	<package name="businessMainFlush" extends="system-default">
+		<action name="businessMainFlush_*"
+			class="com.symbol.app.mantoeye.web.action.business.BusinessMainFlushAction"
+			method="{1}">
+			<result name="index">/mantoeye/business_rules/mainflush/index.jsp</result>   
+		</action>
+	</package>
+	<!-- 全向量自发现 -->
+	<package name="assistVetorRecognise" extends="system-default">
+		<action name="assistVetorRecognise_*"
+			class="com.symbol.app.mantoeye.web.action.business.AssistVetorRecogniseAction"
+			method="{1}">
+			<result name="index">/mantoeye/business_rules/recognise/index.jsp</result>   
+		</action>
+	</package>
+	<!-- 规则拨测维护-->
+	<package name="businessRuleTest" extends="system-default">
+		<action name="businessRuleTest_*"
+			class="com.symbol.app.mantoeye.web.action.business.BusinessRuleTestAction"
+			method="{1}">
+			<result name="index">/mantoeye/business_rules/ruletest/index.jsp</result>
+			<result name="old_add">/mantoeye/business_rules/ruletest/old_add.jsp</result>
+			<result name="old_edit">/mantoeye/business_rules/ruletest/old_edit.jsp</result>  
+			<result name="new_add">/mantoeye/business_rules/ruletest/new_add.jsp</result>
+			<result name="new_edit">/mantoeye/business_rules/ruletest/new_edit.jsp</result>  
+			<result name="detail">/mantoeye/business_rules/ruletest/detail.jsp</result>
+		</action>
+	</package>
+	<!--规则拨测维护(结果查看)-->
+	<package name="dataGetterBusiness" extends="system-default">
+		<action name="dataGetterBusiness_*"
+			class="com.symbol.app.mantoeye.web.action.business.DataGetterBusinessAction"
+			method="{1}">
+			<result name="detail">/mantoeye/business_rules/ruletest/result_list.jsp</result>   
+			<result name="detail_new">/mantoeye/business_rules/ruletest/result_list_new.jsp</result>  
+			<result name="file_list">/mantoeye/business_rules/ruletest/file_list.jsp</result> 
+			<result name="flush_list">/mantoeye/business_rules/ruletest/flush_list.jsp</result> 
+			<result name="busi_flush_list">/mantoeye/business_rules/ruletest/flush_business_list.jsp</result> 
+			<!-- <interceptor-ref name="token" /> -->
+		</action>
+	</package>
+		
+	<!-- 原始信令文件-->
+	<package name="fileInfo" extends="system-default">
+		<action name="fileInfo_*"
+			class="com.symbol.app.mantoeye.web.action.DataGetterTaskFileInfoAction"
+			method="{1}">
+			<result name="index">/mantoeye/business_rules/ruletest/file_list.jsp</result>   
+		</action>
+	</package>
+	
+	<!-- 二期开发 -->
+	<!-- 常驻人口配置 -->
+	<package name="populationConfigure" extends="system-default">
+		<action name="populationConfigure_*"
+			class="com.symbol.app.mantoeye.web.action.business.PopulationConfigureAction"
+			method="{1}">
+			<result name="edit">/mantoeye/business_rules/population_configure/edit.jsp</result> 
+		</action>
+	</package>
+	
+	<package name="webSiteConfigure" extends="system-default">
+		<action name="webSiteConfigure_*"
+			class="com.symbol.app.mantoeye.web.action.business.WebSiteConfigureAction"
+			method="{1}">
+		</action>
+	</package>
+	
+	<package name="businessSearch" extends="system-default">
+		<action name="businessSearch_*"
+			class="com.symbol.app.mantoeye.web.action.business.BusinessSearchAction"
+			method="{1}">
+		</action>
+	</package>
+</struts>

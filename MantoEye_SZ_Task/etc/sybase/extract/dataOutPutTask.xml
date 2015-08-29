@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 初始化自定義輸出任務 -->
+	<statement id="initDataOutput">
+		<![CDATA[
+		set temporary option TEMP_EXTRACT_NAME1='';
+		set temporary option TEMP_EXTRACT_APPEND='OFF';
+		]]>
+	</statement>			<!-- 更新数据提取任务状态 -->	<statement id="insertFactDataByTime"		parameterClass="com.etone.mantoeye.analyse.domain.extract.DataOutPutParam">		<![CDATA[insert into ftbDataOutPutTaskPre (nmDataOutPutTaskId,dtDataTime,bitTaskActiveFlag,intTaskStatus) values(#nmDataOutPutTaskId#,#tableName#,0,0);		]]>	</statement>
+
+	<!-- 自定義輸出任務 -->
+	<select id="getRunningOutPutTask" resultClass="java.lang.Integer">
+		<![CDATA[
+		select count(1)
+		  from ftbDataOutPutTask
+		 where 1 = 1 
+		   and intTaskStatus = -1 
+		]]>
+	</select>
+	<select id="getRunningOutPutTask2" resultClass="java.lang.Integer">
+		<![CDATA[
+		select count(1)
+		  from ftbDataOutPutTaskPre
+		 where 1 = 1 
+		   and intTaskStatus = 1 
+		]]>
+	</select>
+	<select id="getFtbDataOutPutStatusTask"
+		resultClass="com.etone.mantoeye.analyse.domain.extract.FtbDataOutPutTask">		<![CDATA[		select fo.nmDataOutPutTaskId,fo.intTaskDelong,fo.vcTaskName,fo.intTaskType,fo.dtOrderTime, 		       fo.vcTaskOrder,fo.dtStartTime,fo.bitTaskActiveFlag,fo.intTaskStatus, vcTableName,tp.nmDataOutPutTaskPreId from tbFactTableOperation ft,ftbDataOutPutTask fo,ftbDataOutPutTaskPre tp where chIndexComplete = '1' and chTaskCreated = '0' and fo.inttaskstatus=1and ft.dtloadedtime=tp.dtdatatime    order by  tp.dtdatatime 		]]>	</select>
+	<select id="getFtbDataOutPutTaskList2"
+		resultClass="com.etone.mantoeye.analyse.domain.extract.FtbDataOutPutTask">		<![CDATA[select fo.nmDataOutPutTaskId,fo.intTaskDelong,fo.vcTaskName,fo.intTaskType,fo.dtOrderTime, 		       fo.vcTaskOrder,fo.dtStartTime,fo.bitTaskActiveFlag,fo.intTaskStatus, vcTableName,tp.nmDataOutPutTaskPreId from  ftbDataOutPutTaskPre tp  inner join  tbFactTableOperation ft  on ft.dtloadedtime=tp.dtdatatime inner join ftbDataOutPutTask fo on  fo.nmDataOutPutTaskId = tp.nmDataOutPutTaskIdwhere chIndexComplete = '1' and chTaskCreated = '0' and fo.inttaskstatus=1 and tp.intTaskStatus=0 order by tp.dtdatatime		]]>	</select>
+	<!-- 自定義輸出任務 -->
+	<select id="getFtbDataOutPutTaskList"
+		resultClass="com.etone.mantoeye.analyse.domain.extract.FtbDataOutPutTask">
+		<![CDATA[
+		select nmDataOutPutTaskId,intTaskDelong,vcTaskName,intTaskType,dtOrderTime,
+		       vcTaskOrder,dtStartTime,dtEndTime,bitTaskActiveFlag,intTaskStatus
+		from ftbDataOutPutTask
+		where 1 = 1 and bitTaskActiveFlag = 1 and intTaskDelong = 1
+			 and intTaskStatus = 0 
+			 --and intTaskType in ( 1,2,3,4,5,6,7 )
+		]]>
+	</select>
+	<!-- or getdate() > dateadd(mi,30,dtEndTime) -->
+
+	<!-- 自定義輸出任務 2011年12月9日11:42:28 -->
+	<select id="getFtbDataOutPutTask"
+		resultClass="com.etone.mantoeye.analyse.domain.extract.FtbDataOutPutTask">
+		<![CDATA[
+		select top 1 
+		nmDataOutPutTaskId,intTaskDelong,vcTaskName,intTaskType,dtOrderTime,
+		       vcTaskOrder,dtStartTime,dtEndTime,bitTaskActiveFlag,intTaskStatus
+		from ftbDataOutPutTask
+		where 1 = 1 and bitTaskActiveFlag = 1 and intTaskDelong = 1
+			 and intTaskStatus = 0 
+			 --and intTaskType in ( 1,2,3,4,5,6,7 )
+		order by nmDataOutPutTaskId 
+		]]>
+	</select>
+	<select id="getCompTask"
+		resultClass="com.etone.mantoeye.analyse.domain.extract.FtbDataOutPutTask">		<![CDATA[		select vcTaskName,nmDataOutPutTaskId,dtEndTime from ftbDataOutPutTask  where  bitTaskActiveFlag = 1 and intTaskDelong = 1  and inttasktype<>3 and intTaskStatus = 1 		]]>
+	</select>
+
+	<!-- 更新数据提取任务状态 -->
+	<update id="updateFtbDataOutPutTask"
+		parameterClass="com.etone.mantoeye.analyse.domain.extract.FtbDataOutPutTask">
+		<![CDATA[
+		update ftbDataOutPutTask set intTaskStatus = #intTaskStatus#
+		where nmDataOutPutTaskId=#nmDataOutPutTaskId#
+		]]>
+	</update>
+	<update id="updateFtbFacTask"
+		parameterClass="com.etone.mantoeye.analyse.domain.extract.FtbDataOutPutTask">		<![CDATA[		update ftbDataOutPutTaskPre set intTaskStatus = #intTaskStatus#		where nmDataOutPutTaskPreId=#nmDataOutPutTaskPreId#		]]>
+	</update>
+
+	<!-- 数据提取之读输出列 限定条件 -->
+	<select id="getFtbOutPutTableColumn" parameterClass="java.lang.Long"
+		resultClass="com.etone.mantoeye.analyse.domain.extract.FtbOutPutTableColumn">
+		<![CDATA[
+		select ftbOutPutTableColumn.nmOutPutTableColumnId,
+		  case ftbOutPutTableColumn.vcColumnName when 'vcBussinessName' then 'vcDimensName' 
+		  else ftbOutPutTableColumn.vcColumnName end as vcColumnName,
+			   isnull(ftbOutPutTableColumn.vcColumnNickName,ftbOutPutTableColumn.vcColumnName) as vcColumnNickName
+		from ftbOutPutTableColumn  
+		inner join ftbOutPutColumnMapTask on ftbOutPutTableColumn.nmOutPutTableColumnId = ftbOutPutColumnMapTask.nmOutPutTableColumnId
+		where ftbOutPutColumnMapTask.nmDataOutPutTaskId = #nmDataOutPutTaskId#
+		order by ftbOutPutTableColumn.nmOutPutTableColumnId
+		  	]]>
+	</select>
+
+	<!-- 数据提取之读限定条件列 -->
+	<select id="getFtbOutPutColumnMap" parameterClass="java.lang.Long"
+		resultClass="com.etone.mantoeye.analyse.domain.extract.FtbOutPutColumnMap">
+		<![CDATA[
+		select nmDataOutPutTaskId,intMsisdnStatus,intURLStatus,intApnStatus,intCgiStatus,intImeiStatus,intbussinessStatus 
+		from ftbOutPutColumnMap
+		where nmDataOutPutTaskId = #nmDataOutPutTaskId#
+		  	]]>
+	</select>
+
+	<!-- 数据提取之读限定条件表 -->
+	<select id="getFtbOutPutFilterValue"
+		parameterClass="com.etone.mantoeye.analyse.domain.extract.DataOutPutParam"
+		remapResults="true" resultClass="java.lang.String">
+		<![CDATA[
+		select $columnName$ 
+		from $tableName$
+		where nmDataOutPutTaskId = #nmDataOutPutTaskId#
+		  	]]>
+	</select>
+
+	<!-- param的Map影射 -->
+	<parameterMap id="getterOutputData2TQParam" class="map">
+		<parameter property="nmDataOutPutTaskId" jdbcType="VARCHAR"
+			javaType="java.lang.Long" mode="INOUT" />
+		<parameter property="strColumn" jdbcType="VARCHAR" javaType="java.lang.String"
+			mode="INOUT" />
+		<parameter property="strCondition" jdbcType="VARCHAR"
+			javaType="java.lang.String" mode="INOUT" />
+		<parameter property="fileName" jdbcType="VARCHAR" javaType="java.lang.String"
+			mode="INOUT" />
+		<parameter property="strTitle" jdbcType="VARCHAR" javaType="java.lang.String"
+			mode="INOUT" />
+	</parameterMap>
+
+	<!-- 自定義輸出數據提取的存儲過程 -->
+	<procedure id="proc_create_view_GetterOutPutData2TQ"
+		parameterMap="getterOutputData2TQParam" resultClass="java.lang.String">
+		{call
+		proc_create_view_GetterOutPutData2TQ(?,?,?,?,?)}
+	</procedure>
+
+	<!-- param的Map影射 -->
+	<parameterMap id="getterCommonPhotographDataParam" class="map">
+		<parameter property="nmDataOutPutTaskId" jdbcType="VARCHAR"
+			javaType="java.lang.Long" mode="INOUT" />
+		<parameter property="nmDataOutPutTaskIdBak" jdbcType="VARCHAR"
+			javaType="java.lang.Long" mode="INOUT" />
+		<parameter property="strCondition" jdbcType="VARCHAR"
+			javaType="java.lang.String" mode="INOUT" />
+	</parameterMap>
+
+	<!-- 通用拍照功能數據鉆取存儲過程 -->
+	<procedure id="proc_create_CommonPhotographData"
+		parameterMap="getterCommonPhotographDataParam" resultClass="java.lang.String">
+		<![CDATA[
+		 {call proc_create_commonPhotograph(?,?)}
+		]]>
+	</procedure>
+	<procedure id="proc_create_commonPhotograph_v2_bak" parameterMap="getterCommonPhotographDataParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 {call proc_create_commonPhotograph_v2(?,?)}
+		]]>
+	</procedure>
+	<procedure id="proc_create_commonPhotograph_v2" parameterMap="getterCommonPhotographDataParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 {call proc_create_commonPhotograph_v3(?,?,?)}
+		]]>
+	</procedure>
+
+	<!-- 写数据提取任务的文件路径 -->
+	<insert id="insertFtbDataOutPutDecTask">
+		<![CDATA[
+	  	insert into ftbDataOutPutDecTask(nmDataOutPutTaskId,vcFileServerIp,vcFilePath,nmFileSize,vcFileName,vcFileFormat)
+		values(#nmDataOutPutTaskId#,#vcFileServerIp#,#vcFilePath#,#nmFileSize#,#vcFileName#,#vcFileFormat#)
+	  	]]>
+	</insert>
+
+	<!-- 查看表是否存在于數據庫中 -->
+	<select id="commonPhotographTableExist" resultClass="java.lang.Integer">
+		<![CDATA[
+		 select count(1) 
+		  from sysobjects 
+		 where type = 'U' 
+		   and name = #tableName#
+		]]>
+	</select>
+
+	<!-- 更新数据提取任务状态 -->
+	<update id="updateFtbDataOutPutTaskIP"
+		parameterClass="com.etone.mantoeye.analyse.domain.extract.FtbDataOutPutTask">
+		<![CDATA[
+		update $vcTaskName$ set vcLocalIP = #vcLocalIP#
+		where nmDataOutPutTaskId=#nmDataOutPutTaskId#
+		]]>
+	</update>
+
+</sqlMap>

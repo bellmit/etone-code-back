@@ -1,0 +1,144 @@
+package com.symbol.wp.core.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+/**
+ * TbBaseUserInfo entity. @author MyEclipse Persistence Tools
+ */
+@Entity
+@Table(name = "tbBaseUserInfo", schema = "dbo", catalog = "WCMP")
+public class TbBaseUserInfo implements java.io.Serializable {
+
+	// Fields
+
+	private Long nmUserId;
+	private String vcLoginName;
+	private String vcDeptNo;
+	private String vcUserName;
+	private String vcMobel;
+	private String vcEmail;
+	private String vcTelephone;
+	private Short tiUserType;
+	private String vcPassword;
+	private String vcUserNo;
+
+	// Constructors
+
+	/** default constructor */
+	public TbBaseUserInfo() {
+	}
+
+	/** full constructor */
+	public TbBaseUserInfo(String vcLoginName, String vcDeptNo,
+			String vcUserName, String vcMobel, String vcEmail,
+			String vcTelephone, Short tiUserType, String vcPassword,
+			String vcUserNo) {
+		this.vcLoginName = vcLoginName;
+		this.vcDeptNo = vcDeptNo;
+		this.vcUserName = vcUserName;
+		this.vcMobel = vcMobel;
+		this.vcEmail = vcEmail;
+		this.vcTelephone = vcTelephone;
+		this.tiUserType = tiUserType;
+		this.vcPassword = vcPassword;
+		this.vcUserNo = vcUserNo;
+	}
+
+	// Property accessors
+	@Id
+	@GeneratedValue
+	@Column(name = "nmUserId", unique = true, nullable = false, precision = 10, scale = 0)
+	public Long getNmUserId() {
+		return this.nmUserId;
+	}
+
+	public void setNmUserId(Long nmUserId) {
+		this.nmUserId = nmUserId;
+	}
+
+	@Column(name = "vcLoginName", length = 64)
+	public String getVcLoginName() {
+		return this.vcLoginName;
+	}
+
+	public void setVcLoginName(String vcLoginName) {
+		this.vcLoginName = vcLoginName;
+	}
+
+	@Column(name = "vcDeptNo", length = 64)
+	public String getVcDeptNo() {
+		return this.vcDeptNo;
+	}
+
+	public void setVcDeptNo(String vcDeptNo) {
+		this.vcDeptNo = vcDeptNo;
+	}
+
+	@Column(name = "vcUserName", length = 100)
+	public String getVcUserName() {
+		return this.vcUserName;
+	}
+
+	public void setVcUserName(String vcUserName) {
+		this.vcUserName = vcUserName;
+	}
+
+	@Column(name = "vcMobel", length = 100)
+	public String getVcMobel() {
+		return this.vcMobel;
+	}
+
+	public void setVcMobel(String vcMobel) {
+		this.vcMobel = vcMobel;
+	}
+
+	@Column(name = "vcEmail")
+	public String getVcEmail() {
+		return this.vcEmail;
+	}
+
+	public void setVcEmail(String vcEmail) {
+		this.vcEmail = vcEmail;
+	}
+
+	@Column(name = "vcTelephone", length = 100)
+	public String getVcTelephone() {
+		return this.vcTelephone;
+	}
+
+	public void setVcTelephone(String vcTelephone) {
+		this.vcTelephone = vcTelephone;
+	}
+
+	@Column(name = "tiUserType")
+	public Short getTiUserType() {
+		return this.tiUserType;
+	}
+
+	public void setTiUserType(Short tiUserType) {
+		this.tiUserType = tiUserType;
+	}
+
+	@Column(name = "vcPassword", length = 64)
+	public String getVcPassword() {
+		return this.vcPassword;
+	}
+
+	public void setVcPassword(String vcPassword) {
+		this.vcPassword = vcPassword;
+	}
+
+	@Column(name = "vcUserNo", length = 64)
+	public String getVcUserNo() {
+		return this.vcUserNo;
+	}
+
+	public void setVcUserNo(String vcUserNo) {
+		this.vcUserNo = vcUserNo;
+	}
+
+}

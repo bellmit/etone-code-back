@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+
+	<!-- 宏观呈现平台之宏观呈现 -->
+
+	<!-- intType 2.彩信,3.腾讯,4.飞信,5.139邮箱 20110504 赖志伟 要求多加以下二种业务: 6 IM_QQ 1737 
+		腾讯微博 7 腾讯微博 8 腾讯新闻 9 火炬传递 20110707 大运会:11 139说客 12 红段子 13 无线城市 14 无线官网 15 
+		飞信 16 移动MM 17 手机阅读 20110815 18 新浪微博 -->
+	<!-- select nmBussinessId from dtbBusinessSite where vcBussinessName in 
+		( '彩信') select nmBussinessId from dtbBusinessSite where vcBussinessName in 
+		( '移动梦网') select nmBussinessId from dtbBusinessSite where vcBussinessName 
+		in ( '腾讯','IM_QQ','QQMUSIC') select nmBussinessId from dtbBusinessSite where 
+		vcBussinessName in ( 'IM_Fetion') 2011年9月19日11:03:43 -->
+	<select id="query_ftbOverView" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.util.List">
+		<![CDATA[
+		$option$
+		  select intYear,intMonth,intWeek,intDay,intHour,count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),getdate(),vcCGI,2
+		    from $sourceTableName$ 
+		   where nmBussinessId in ( 1085 ) and vcCGI<>''
+		group by intYear,intMonth,intDay,intHour,intWeek,vcCGI
+	   union all
+		  select intYear,intMonth,intWeek,intDay,intHour,count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),getdate(),vcCGI,3
+		    from $sourceTableName$ 
+		   where nmBussinessId in ( 16,33 ) and vcCGI<>''
+		group by intYear,intMonth,intDay,intHour,intWeek,vcCGI
+	   union all
+		  select intYear,intMonth,intWeek,intDay,intHour,count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),getdate(),vcCGI,4
+		    from $sourceTableName$ 
+		   where nmBussinessId in (7 )  and vcCGI<>''
+		group by intYear,intMonth,intDay,intHour,intWeek,vcCGI
+	   union all
+		  select intYear,intMonth,intWeek,intDay,intHour,count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),getdate(),vcCGI,5
+		    from $sourceTableName$ 
+		   where nmBussinessId in ( 25 ) and vcCGI<>''
+		group by intYear,intMonth,intDay,intHour,intWeek,vcCGI
+	   union all
+		  select intYear,intMonth,intWeek,intDay,intHour,count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),getdate(),vcCGI,6
+		    from $sourceTableName$ 
+		   where nmBussinessId in ( 6 ) and vcCGI<>''
+		group by intYear,intMonth,intDay,intHour,intWeek,vcCGI
+	   union all
+		  select intYear,intMonth,intWeek,intDay,intHour,count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),getdate(),vcCGI,7
+		    from $sourceTableName$ 
+		   where nmBussinessId in ( 1737 ) and vcCGI<>''
+		group by intYear,intMonth,intDay,intHour,intWeek,vcCGI
+	   union all
+		  select intYear,intMonth,intWeek,intDay,intHour,count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),getdate(),vcCGI,8
+		    from $sourceTableName$ 
+		   where nmBussinessId in ( 1785 ) and vcCGI<>''
+		group by intYear,intMonth,intDay,intHour,intWeek,vcCGI
+	   union all
+		  select intYear,intMonth,intWeek,intDay,intHour,count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),getdate(),vcCGI,9
+		    from $sourceTableName$ 
+		   where nmBussinessId in ( 1797 ) and vcCGI<>''
+		group by intYear,intMonth,intDay,intHour,intWeek,vcCGI
+	   union all
+		  select intYear,intMonth,intWeek,intDay,intHour,0,0,getdate(),vcCGI,10
+		    from $sourceTableName$ 
+		   where nmBussinessId in ( 1741,1851,1888,7,1300,1680 ) and vcCGI<>''
+		group by intYear,intMonth,intDay,intHour,intWeek,vcCGI
+	   union all
+		  select intYear,intMonth,intWeek,intDay,intHour,count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),getdate(),vcCGI,11
+		    from $sourceTableName$ 
+		   where nmBussinessId in ( 1741 ) and vcCGI<>''
+		group by intYear,intMonth,intDay,intHour,intWeek,vcCGI
+	   union all
+		  select intYear,intMonth,intWeek,intDay,intHour,count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),getdate(),vcCGI,12
+		    from $sourceTableName$ 
+	       where nmBussinessId in ( 1085 ) and vcMmsFrom ='10658688' and vcCGI<>''
+		group by intYear,intMonth,intDay,intHour,intWeek,vcCGI
+	   union all
+		  select intYear,intMonth,intWeek,intDay,intHour,count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),getdate(),vcCGI,13
+		    from $sourceTableName$ 
+		   where nmBussinessId in ( 1851 ) and vcCGI<>''
+		group by intYear,intMonth,intDay,intHour,intWeek,vcCGI
+	   union all
+		  select intYear,intMonth,intWeek,intDay,intHour,count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),getdate(),vcCGI,14
+		    from $sourceTableName$ 
+		   where nmBussinessId in ( 1888 ) and vcCGI<>''
+		group by intYear,intMonth,intDay,intHour,intWeek,vcCGI
+	   union all
+		  select intYear,intMonth,intWeek,intDay,intHour,count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),getdate(),vcCGI,15
+		    from $sourceTableName$ 
+		   where nmBussinessId in ( 7 ) and vcCGI<>''
+		group by intYear,intMonth,intDay,intHour,intWeek,vcCGI
+	   union all
+		  select intYear,intMonth,intWeek,intDay,intHour,count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),getdate(),vcCGI,16
+		    from $sourceTableName$ 
+		   where nmBussinessId in ( 1300 ) and vcCGI<>''
+		group by intYear,intMonth,intDay,intHour,intWeek,vcCGI
+	   union all
+		  select intYear,intMonth,intWeek,intDay,intHour,count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),getdate(),vcCGI,17
+		    from $sourceTableName$ 
+		   where nmBussinessId in ( 1680 ) and vcCGI<>''
+		group by intYear,intMonth,intDay,intHour,intWeek,vcCGI 
+	   union all
+		  select intYear,intMonth,intWeek,intDay,intHour,count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),getdate(),vcCGI,18
+		    from $sourceTableName$ 
+		   where nmBussinessId in ( 1738 ) and vcCGI<>''
+		group by intYear,intMonth,intDay,intHour,intWeek,vcCGI 
+		]]>
+	</select>
+
+	<!-- 1 BB ftbBlackberry 2011年9月19日12:04:23 -->
+	<select id="query_ftbOverView_BB" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.util.List">
+		<![CDATA[
+		$option$
+		 select intYear,intMonth,intWeek,intDay,intHour,count(distinct(nmImsi)),
+		        sum(nmUpFlow+nmDownFlow),getdate(),vcCGI,1 as intType
+		   from $sourceTableName$ 
+		  where intYear = datepart(yy,#dtLoadedTime#) 
+		    and intMonth = datepart(mm,#dtLoadedTime#) 
+		    and intDay = datepart(dd,#dtLoadedTime#) 
+		    and intHour = datepart(hh,#dtLoadedTime#)
+	   group by	intYear,intMonth,intDay,intHour,intWeek,vcCGI
+		]]>
+	</select>
+
+
+</sqlMap>

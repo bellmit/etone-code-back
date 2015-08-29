@@ -1,0 +1,155 @@
+<%@ page contentType="text/html;charset=utf-8" language="java"%>
+<%@ page import="java.math.BigInteger"%>
+<%@ page import="com.symbol.wp.core.listener.*"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.symbol.wp.core.util.Common"%>
+<%@ page import="com.symbol.wp.core.dao.common.SqlBaseDao"%>
+<%@ page import="java.sql.ResultSet"%>
+<%@ page import="com.symbol.wp.core.constants.VarConstants"%>
+<%--
+<%@ include file="/include/menu.jsp"%> --%>
+<%
+	SqlBaseDao sqlBaseDAO = new SqlBaseDao();
+	String strSQL = "";
+	ResultSet rs = null;
+
+	LoginListener loginListener = (LoginListener) session
+	.getAttribute(VarConstants.LOGIN_LISTENER_KEY);
+	if (loginListener == null) {
+		out.println("<script language=javascript>");
+		out.println("window.open('/login.jsp', '_top', '');");
+		out.println("</script>");
+		return;
+	}
+	SessionContainer sessionContainer = loginListener
+	.getSessionContainer();
+	String USER_NO = sessionContainer.getUserNo();
+	String USER_NAME = sessionContainer.getUserName();
+	String USER_TYPE = sessionContainer.getUserType();
+	String permId = request.getParameter("permId");
+	request.setAttribute("permId", permId);
+%>
+<script>
+/*
+function nocontextmenu(){
+	event.cancelBubble = true
+	event.returnValue = false;
+	hidemenuie5();
+	return false;
+}
+
+function changeV(objID){
+	if(document.all("tbody_"+objID).style.display == "block"){
+		document.all("img_"+objID).src = "/skin/Default/images/icon/ico_have2.gif";
+		document.all("tbody_"+objID).style.display = "none"
+	}
+	else{
+		document.all("img_"+objID).src = "/skin/Default/images/icon/ico_nohave2.gif";
+		document.all("tbody_"+objID).style.display = "block"
+	}
+}
+function changeTV(objID){
+	if(document.all("tb_"+objID).style.display == "block")
+				{
+					document.all("img_"+objID).src = "/skin/Default/images/icon/ico_have2.gif";
+					document.all("tb_"+objID).style.display = "none"
+				}
+				else
+				{
+					document.all("img_"+objID).src = "/skin/Default/images/icon/ico_nohave2.gif";
+					document.all("tb_"+objID).style.display = "block"
+				}
+}
+function docheck(id)
+{
+var checkbox = document.getElementsByName(id);
+if(document.all("chk_all").checked == true)
+{	
+	for (var i = 0; i < checkbox.length; i++) {
+		checkbox[i].checked = true;
+	}
+}else{
+	for (var i = 0; i < checkbox.length; i++) {
+		checkbox[i].checked = false;
+	}
+}
+}
+function openApprovePage(url, target){
+
+		var W = screen.availWidth;
+		var H = screen.availHeight;
+		var PW = W-200;
+		var PH = H-240;
+		var L = 100;
+		var T = 120;
+		window.open(url,target,"left="+L+",top="+T+",menubar=yes,status=yes,width="+PW+",height="+PH+",resizable=yes,scrollbars=yes");
+}
+function openApproveMsg(url){
+		var W = screen.availWidth;
+		var H = screen.availHeight;
+		var L = (W-560)/2;
+		var T = (H-250)/2;
+		window.open(url,"","height=280,width=620,status=yes,toolbar=no,menubar=no,location=no,top="+T+",left="+L);
+}*/
+</script>
+<SCRIPT LANGUAGE="JavaScript">
+/*<!--
+function scrollit(seed) {
+var m0=document.getElementById("username");
+var m1 = "您 好!      ";
+var m2 = "****公司版权所有****       ";
+var m3 = ""http://localhost:9999/;
+var msg=m0+m1+m2+m3;
+var out = " ";
+var c = 1;
+if (seed > 100) {
+seed--;
+cmd="scrollit("+seed+")";
+timerTwo=window.setTimeout(cmd,100);
+}
+else if (seed <= 100 && seed > 0) {
+for (c=0 ; c < seed ; c++) {
+out+=" ";
+}
+out+=msg;
+seed--;
+window.status=out;
+cmd="scrollit("+seed+")";
+timerTwo=window.setTimeout(cmd,100);
+}
+else if (seed <= 0) {
+if (-seed < msg.length) {
+out+=msg.substring(-seed,msg.length);
+seed--;
+window.status=out;
+cmd="scrollit("+seed+")";
+timerTwo=window.setTimeout(cmd,100);
+}
+else {
+window.status=" ";
+timerTwo=window.setTimeout("scrollit(100)",75);
+}
+}
+}*/
+//-->
+</SCRIPT>
+<script language="javascript"> 
+//获取分辨率，通过分辨率判断使用的css文件,已废弃
+function changeWidth(){
+/*
+var maincss= "/skin/Default/css/style1024.css";
+if(window.screen.width==1024){ 
+maincss ="/skin/Default/css/style1024.css"; 
+}else if(window.screen.width==800){ 
+maincss = "/skin/Default/css/style800.css"; 
+}else if(window.screen.width==1280){ 
+maincss = "/skin/Default/css/style1280.css"; 
+}else{ 
+} 
+
+document.getElementById("mainstyle").href=maincss;
+*/
+}
+</script>
+
+

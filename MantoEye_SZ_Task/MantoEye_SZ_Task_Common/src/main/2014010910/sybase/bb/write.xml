@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+
+	<!-- 5.2.15.1 黑莓用户流量(小时) 2011年11月28日21:16:42 -->
+	<statement id="load_ftbStatHourBbUserFlush" resultClass="java.lang.String">
+		<![CDATA[
+		 LOAD TABLE ftbStatHourBbUserFlush ( intStreetId,intSaleAreaId,intBranchId,intSgsnId,intBscId,intCountryId,
+		 									 intIdcId,nmImsi,nmMsisdn,intYear,intMonth,intWeek,intDay,intHour,
+		 									 nmUpFlush,nmDownFlush,dtStatTime )
+		   $option$
+		]]>
+	</statement>
+
+	<!-- 5.2.15.2 黑莓用户流量统计（天-小区） 2011年11月28日21:16:47 -->
+	<statement id="exec_ftbStatDayBbCgiUserFlush"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 insert into ftbStatDayBbCgiUserFlush ( vcCGI,intYear,intMonth,intDay,nmFlush,nmUsers,dtStatTime ) 
+		      select vcCGI,intYear,intMonth,intDay,sum(nmUpFlow+nmDownFlow),count(distinct(nmImsi)),getdate()
+		        from ftbBlackberry
+		       where intYear = datepart(yy,#dtLoadedTime#) 
+		         and intMonth = datepart(mm,#dtLoadedTime#) 
+		         and intDay = datepart(dd,#dtLoadedTime#) 
+		    group by vcCGI,intYear,intMonth,intDay
+		]]>
+	</statement>
+
+	<!-- 5.2.15.3 黑莓用户流量统计（天-小区-国家） ftbBlackberry 2011年11月28日21:16:50 -->
+	<statement id="exec_ftbStatDayBbCountryUserFlush"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 insert into ftbStatDayBbCountryUserFlush ( intCountryId,vcCGI,intYear,intMonth,intWeek,intDay,nmFlush,nmUsers,dtStatTime )
+		      select intCountryId,vcCGI,intYear,intMonth,intWeek,intDay,sum(nmUpFlow+nmDownFlow),count(distinct(nmImsi)),getdate()
+		        from ftbBlackberry
+		       where intYear = datepart(yy,#dtLoadedTime#) 
+		         and intMonth = datepart(mm,#dtLoadedTime#) 
+		         and intDay = datepart(dd,#dtLoadedTime#) 
+		    group by intCountryId,vcCGI,intYear,intMonth,intWeek,intDay
+		]]>
+	</statement>
+
+	<!-- 5.2.15.2 黑莓用户流量统计（周-小区）2011年11月28日21:16:54 -->
+	<statement id="exec_ftbStatWeekBbCgiUserFlush"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		insert into ftbStatWeekBbCgiUserFlush ( vcCGI,intYear,intWeek,nmFlush,nmUsers,dtStatTime )
+		     select vcCGI,intYear,intWeek,sum(nmUpFlow+nmDownFlow),count(distinct(nmImsi)),getdate()
+		       from ftbBlackberry
+		      where intYear = datepart(yy,#dtLoadedTime#) 
+		        and intWeek = datepart(wk,#dtLoadedTime#) 
+		      group by vcCGI,intYear,intWeek
+		]]>
+	</statement>
+
+	<!-- 2011年11月28日21:17:08 -->
+	<statement id="exec_ftbStatWeekBbCountryUserFlush"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 insert into ftbStatWeekBbCountryUserFlush ( intCountryId,vcCGI,intYear,intWeek,nmFlush,nmUsers,dtStatTime )
+		      select intCountryId,vcCGI,intYear,intWeek,sum(nmUpFlow+nmDownFlow),count(distinct(nmImsi)),getdate()
+		        from ftbBlackberry
+		       where intYear = datepart(yy,#dtLoadedTime#) 
+		         and intWeek = datepart(wk,#dtLoadedTime#) 
+		    group by intCountryId,vcCGI,intYear,intWeek
+		]]>
+	</statement>
+
+	<!-- 2011年11月28日21:17:08 -->
+	<statement id="exec_ftbStatMonthBbCountryUserFlush"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 insert into ftbStatMonthBbCountryUserFlush ( intCountryId,vcCGI,intYear,intMonth,nmFlush,nmUsers,dtStatTime )
+		      select intCountryId,vcCGI,intYear,intMonth,sum(nmUpFlow+nmDownFlow),count(distinct(nmImsi)),getdate()
+		        from ftbBlackberry
+		       where intYear = datepart(yy,#dtLoadedTime#) 
+		         and intMonth = datepart(mm,#dtLoadedTime#) 
+		    group by intCountryId,vcCGI,intYear,intMonth
+		]]>
+	</statement>
+
+	<!-- 2011年11月28日21:17:08 -->
+	<statement id="exec_ftbStatMonthBbCgiUserFlush"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 insert into ftbStatMonthBbCgiUserFlush ( vcCGI,intYear,intMonth,nmFlush,nmUsers,dtStatTime )
+		      select vcCGI,intYear,intMonth,sum(nmUpFlow+nmDownFlow),count(distinct(nmImsi)),getdate()
+		        from ftbBlackberry
+		       where intYear = datepart(yy,#dtLoadedTime#) 
+		         and intMonth = datepart(mm,#dtLoadedTime#) 
+		    group by vcCGI,intYear,intMonth
+		]]>
+	</statement>
+</sqlMap>

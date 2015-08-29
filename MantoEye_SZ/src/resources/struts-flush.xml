@@ -1,0 +1,665 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<!--
+		//////////////////////////////////////////全网业务///////////////////////////////////
+	-->
+	<!-- 全网流量分布 -->
+	<package name="totalDistribute" extends="system-default">
+		<action name="totalDistribute_*"
+			class="com.symbol.app.mantoeye.web.action.dataAnalyse.TotalDistributeAction"
+			method="{1}">
+			<result name="index">
+				/mantoeye/data_analyse/total_distribute.jsp
+			</result>
+		</action>
+	</package>
+
+	<!-- 空间分布 -->
+	<package name="spaceDistribute" extends="system-default">
+		<action name="spaceDistribute_*"
+			class="com.symbol.app.mantoeye.web.action.dataAnalyse.SpaceDistributeAction"
+			method="{1}">
+			<result name="index">
+				/mantoeye/data_analyse/space_distribute.jsp
+			</result>
+		</action>
+	</package>
+	<!-- 空间分布走势 -->
+	<package name="spaceDistributeTrendAction" extends="system-default">
+		<action name="spaceDistributeTrend_*" class="spaceDistributeTrendAction"
+			method="{1}">
+		</action>
+	</package>
+
+	<!-- 空间分布 查询业务 -->
+	<package name="spaceDistributeBusiness" extends="system-default">
+		<action name="spaceDistributeBusiness_*"
+			class="com.symbol.app.mantoeye.web.action.dataAnalyse.SpaceDistributeBusinessAction"
+			method="{1}">
+			<result name="index">
+				/mantoeye/data_analyse/space_distribute_business.jsp
+			</result>
+		</action>
+	</package>
+
+	<!-- APN分布 -->
+	<package name="apnDistribute" extends="system-default">
+		<action name="apnDistribute_*"
+			class="com.symbol.app.mantoeye.web.action.dataAnalyse.ApnDistributeAction"
+			method="{1}">
+			<result name="index">/mantoeye/data_analyse/apn.jsp</result>
+		</action>
+	</package>
+	<!-- APN时间走势 -->
+	<package name="apnDistributeTrendAction" extends="system-default">
+		<action name="apnDistributeTrend_*" class="apnDistributeTrendAction"
+			method="{1}">
+		</action>
+	</package>
+
+	<!-- APN空间分布 分布 -->
+	<package name="spaceinapn" extends="system-default">
+		<action name="spaceinapn_*"
+			class="com.symbol.app.mantoeye.web.action.dataAnalyse.SpaceInApnAction"
+			method="{1}">
+			<result name="index">
+				/mantoeye/data_analyse/space_in_apn.jsp
+			</result>
+		</action>
+	</package>
+	<!-- 协议分布 -->
+	<package name="protocolDistribute" extends="system-default">
+		<action name="protocolDistribute_*"
+			class="com.symbol.app.mantoeye.web.action.dataAnalyse.ProtocolDistributeAction"
+			method="{1}">
+			<result name="index">/mantoeye/data_analyse/wap.jsp</result>
+		</action>
+	</package>
+	<!-- 用户归属分布 -->
+	<package name="userAttachDistribute" extends="system-default">
+		<action name="userAttachDistribute_*"
+			class="com.symbol.app.mantoeye.web.action.dataAnalyse.UserAttachDistributeAction"
+			method="{1}">
+			<result name="index">
+				/mantoeye/data_analyse/userAttach.jsp
+			</result>
+		</action>
+	</package>
+	<package name="userBelongDistributeTrendAction" extends="system-default">
+		<action name="userBelongDistributeTrend_*" class="userBelongDistributeTrendAction"
+			method="{1}">
+		</action>
+	</package>
+	<!-- 用户数TOP100 -->
+	<package name="topUserDistribute" extends="system-default">
+		<action name="topUserDistribute_*"
+			class="com.symbol.app.mantoeye.web.action.dataAnalyse.TopUserAction"
+			method="{1}">
+			<result name="index">
+				/mantoeye/data_analyse/topuser.jsp
+			</result>
+		</action>
+	</package>
+	<!-- 流量TOP100 -->
+	<package name="topFlushDistribute" extends="system-default">
+		<action name="topFlushDistribute_*"
+			class="com.symbol.app.mantoeye.web.action.dataAnalyse.TopFlushAction"
+			method="{1}">
+			<result name="index">
+				/mantoeye/data_analyse/topflush.jsp
+			</result>
+		</action>
+	</package>
+
+	<!-- 业务分布 -->
+	<package name="businessDistribute" extends="system-default">
+		<action name="businessDistribute_*"
+			class="com.symbol.app.mantoeye.web.action.dataAnalyse.BusinessDistributeAction"
+			method="{1}">
+			<result name="index">
+				/mantoeye/data_analyse/business_distribute.jsp
+			</result>
+		</action>
+	</package>
+	<package name="businessDistributeTrendAction" extends="system-default">
+		<action name="businessDistributeTrend_*" class="businessDistributeTrendAction"
+			method="{1}">
+		</action>
+	</package>
+
+	<!-- 业务类型 中的业务 分布 -->
+	<package name="businessinbusinesstype" extends="system-default">
+		<action name="businessinbusinesstype_*"
+			class="com.symbol.app.mantoeye.web.action.business.BusinessInBusinessTypeAction"
+			method="{1}">
+			<result name="index">
+				/mantoeye/data_analyse/business_distribute.jsp
+			</result>
+		</action>
+	</package>
+
+	<!-- 业务空间分布 分布 -->
+	<package name="businessinspace" extends="system-default">
+		<action name="businessinspace_*"
+			class="com.symbol.app.mantoeye.web.action.business.BusinessInSpaceAction"
+			method="{1}">
+			<result name="index">
+				/mantoeye/data_analyse/business_distribute.jsp
+			</result>
+		</action>
+	</package>
+
+	<!--
+		//////////////////////////////////////////大流量用户///////////////////////////////////
+	-->
+
+	<!--//阀值设置-->
+	<package name="valueset" extends="system-default">
+		<action name="valueset_*"
+			class="com.symbol.app.mantoeye.web.action.bigFlushUser.ValueSetAction"
+			method="{1}">
+			<result name="index">/mantoeye/valueset/index.jsp</result>
+			<result name="edit">/mantoeye/valueset/edit.jsp</result>
+		</action>
+	</package>
+
+	<!--//大流量用户-->
+	<package name="bigflushdisplay" extends="system-default">
+		<action name="bigflushdisplay_*"
+			class="com.symbol.app.mantoeye.web.action.bigFlushUser.BigFlushDisplayAction"
+			method="{1}">
+			<result name="index">
+				/mantoeye/valueset/big_flush_display.jsp
+			</result>
+			<result name="edit">/mantoeye/valueset/edit.jsp</result>
+		</action>
+	</package>
+
+	<!--//黑名单用户-->
+	<package name="blackuser" extends="system-default">
+		<action name="blackuser_*"
+			class="com.symbol.app.mantoeye.web.action.bigFlushUser.BlackUserAction"
+			method="{1}">
+			<result name="index">
+				/mantoeye/valueset/blackuser.jsp
+			</result>
+			<result name="input">/mantoeye/valueset/add.jsp</result>
+			<result name="edit">/mantoeye/valueset/edit.jsp</result>
+			<result name="save">/mantoeye/valueset/add.jsp</result>
+		</action>
+	</package>
+
+
+	<!--//大流量用户分布呈现-->
+	<package name="bigflushdistination" extends="system-default">
+		<action name="bigflushdistination_*"
+			class="com.symbol.app.mantoeye.web.action.bigFlushUser.BigFlushDistinationAction"
+			method="{1}">
+			<result name="topfineip">
+				/mantoeye/valueset/top5ip.jsp
+			</result>
+			<result name="edit">
+				/mantoeye/valueset/blackuser_input.jsp
+			</result>
+		</action>
+	</package>
+
+	<!--
+		//////////////////////////////////////////集团业务///////////////////////////////////
+	-->
+
+	<!--集团业务 空间分布 -->
+	<package name="blocSpaceDistribute" extends="system-default">
+		<action name="blocSpaceDistribute_*"
+			class="com.symbol.app.mantoeye.web.action.blocAnalyse.BlocSpaceDistributeAction"
+			method="{1}">
+			<result name="index">
+				/mantoeye/bloc_analyse/bloc_space_distribute.jsp
+			</result>
+		</action>
+	</package>
+	<!-- 集团APN分布 -->
+	<package name="blocApnDistribute" extends="system-default">
+		<action name="blocApnDistribute_*"
+			class="com.symbol.app.mantoeye.web.action.blocAnalyse.BlocApnDistributeAction"
+			method="{1}">
+			<result name="index">
+				/mantoeye/bloc_analyse/bloc_apn.jsp
+			</result>
+		</action>
+	</package>
+	<!-- 集团用户归属分布 -->
+	<package name="blocUserAttach" extends="system-default">
+		<action name="blocUserAttach_*"
+			class="com.symbol.app.mantoeye.web.action.blocAnalyse.BlocUserAttachDistributeAction"
+			method="{1}">
+			<result name="index">
+				/mantoeye/bloc_analyse/bloc_userAttach.jsp
+			</result>
+		</action>
+	</package>
+
+	<!--//集团业务区域分布-->
+	<package name="groupbusinessareadistribute" extends="system-default">
+		<action name="groupbusinessareadistribute_*"
+			class="com.symbol.app.mantoeye.web.action.groupBisness.GroupBisAreaDistributeAction"
+			method="{1}">
+			<result name="topfineip">
+				/mantoeye/valueset/top5ip.jsp
+			</result>
+			<result name="edit">
+				/mantoeye/valueset/blackuser_input.jsp
+			</result>
+		</action>
+	</package>
+
+	<!--//集团业务归属地分布-->
+	<package name="groupbusinessuserbelong" extends="system-default">
+		<action name="groupbusinessuserbelong_*"
+			class="com.symbol.app.mantoeye.web.action.groupBisness.GroupBusinessUserBeLongAction"
+			method="{1}">
+			<result name="topfineip">
+				/mantoeye/valueset/top5ip.jsp
+			</result>
+			<result name="edit">
+				/mantoeye/valueset/blackuser_input.jsp
+			</result>
+		</action>
+	</package>
+
+	<!--
+		//////////////////////////////////////////数据提取///////////////////////////////////
+	-->
+
+	<!-- 数据提取  -->
+	<package name="dataCatch" extends="system-default">
+		<action name="dataCatch_*"
+			class="com.symbol.app.mantoeye.web.action.dataCatch.DataGetterTaskAction"
+			method="{1}">
+			<result name="index">
+				/mantoeye/data_catch/data_catch_index.jsp
+			</result>
+			<result name="add">
+				/mantoeye/data_catch/data_catch_input.jsp
+			</result>
+			<result name="addUserNumber">
+				/mantoeye/data_catch/data_catch_number_input.jsp
+			</result>
+			<result name="editUserNumber">
+				/mantoeye/data_catch/data_catch_number_edit.jsp
+			</result>
+			<result name="edit">
+				/mantoeye/data_catch/data_catch_edit.jsp
+			</result>
+			<result name="detail">
+				/mantoeye/data_catch/data_catch_detail.jsp
+			</result>
+			<result name="detailUserNumber">
+				/mantoeye/data_catch/data_catch_number_detail.jsp
+			</result>
+		</action>
+	</package>
+	<!--
+		//////////////////////////////////////////即席查询///////////////////////////////////
+	-->
+
+	<!--//即席查询-->
+	<package name="immediatelyquery" extends="system-default">
+		<action name="immediatelyquery_*"
+			class="com.symbol.app.mantoeye.web.action.immediately.ImmediatelyQueryAction"
+			method="{1}">
+		</action>
+	</package>
+
+	<!--//即席查询-->
+	<package name="imeiCatch" extends="system-default">
+		<action name="imeiCatch_*"
+			class="com.symbol.app.mantoeye.web.action.dataCatch.ImeiCatchAction"
+			method="{1}">
+		</action>
+	</package>
+
+	<!--//识别率告警查询-->
+	<package name="distinguishRatioAlarm" extends="system-default">
+		<result-types>
+			<result-type name="chart"
+				class="org.apache.struts2.dispatcher.ChartResult" />
+		</result-types>
+		<action name="distinguishRatioAlarm_*" class="distinguishRatioAlarmAction"
+			method="{1}">
+			<result name="initPie">/mantoeye/monitoring/flush_index.jsp?1=1</result>
+<!--			<result name="success" type="chart">-->
+<!--				<param name="height">230</param>-->
+<!--				<param name="width">190</param>-->
+<!--			</result>-->
+			<result name="editPrePare">
+				/mantoeye/monitoring/configAlarmRatio.jsp
+			</result>
+		</action>
+		<action name="monitoringDB_*" class="monitoringDBAction"
+			method="{1}">
+			<result name="init"> /mantoeye/monitoringDB/monitoringDB.jsp?1=1
+			</result>
+			<result name="success" type="chart">
+				<param name="height">400</param>
+				<param name="width">400</param>
+			</result>
+		</action>
+	</package>
+
+	<!-- bak -->
+	<!--
+		<package name="distinguishRatioAlarm" extends="system-default">
+		<action name="distinguishRatioAlarm_*"
+		class="distinguishRatioAlarmAction" method="{1}"> <result
+		name="initPie">/mantoeye/monitoring/flush_index.jsp?1=1</result>
+		</action> </package>
+	-->
+	<package name="flushAlarm" extends="system-default">
+		<action name="flushAlarm_*" class="flushAlarmAction" method="{1}">
+		</action>
+	</package>
+	<package name="alarmLimitConfig" extends="system-default">
+		<action name="alarmLimitConfig_*" class="alarmLimitConfigAction"
+			method="{1}">
+			<result name="initQ">/mantoeye/monitoring/changeThresholdValue.jsp?1=1
+			</result>
+		</action>
+	</package>
+	
+	
+	<!-- 二期项目开发 -->
+	<!-- 小区集业务分析 -->
+	<package name="areasBusiness" extends="system-default">
+		<action name="areasBusiness_*"
+			class="com.symbol.app.mantoeye.web.action.dataAnalyse.AreasBusinessAction"
+			method="{1}">
+			<result name="index">
+				/mantoeye/data_analyse/areas_business.jsp
+			</result>
+		</action>
+	</package>
+	<!-- 详细业务分析 -->
+	<package name="areaBusinessDetail" extends="system-default">
+		<action name="areaBusinessDetail_*"
+			class="com.symbol.app.mantoeye.web.action.dataAnalyse.AreaBusinessDetailAction"
+			method="{1}">
+			<result name="index">
+				/mantoeye/data_analyse/area_business_detail.jsp
+			</result>
+		</action>
+	</package>
+	<!-- 区域分布走势 -->
+	<package name="areasBusinessTrend" extends="system-default">
+		<action name="areasBusinessTrend_*" 
+			class="com.symbol.app.mantoeye.web.action.dataAnalyse.AreasBusinessTrendAction"
+			method="{1}">
+		</action>
+	</package>
+	
+		<!-- 常驻人口统计 -->
+	<package name="areaPopulationAnlyse" extends="system-default">
+		<action name="areaPopulationAnlyse_*"
+			class="com.symbol.app.mantoeye.web.action.dataAnalyse.AreaPopulationAnlyseAction"
+			method="{1}">
+		</action>
+	</package>
+	
+	<!-- 自有业务分析 -->
+	<package name="ownBusinessAnlyse" extends="system-default">
+		<action name="ownBusinessAnlyse_*" 
+			class="com.symbol.app.mantoeye.web.action.dataAnalyse.OwnBusinessAnlyseAction"
+			method="{1}">
+		</action>
+	</package>
+	
+		<!-- 自有业务竞争对手分析 -->
+	<package name="competitorBusiness" extends="system-default">
+		<action name="competitorBusiness_*" 
+			class="com.symbol.app.mantoeye.web.action.dataAnalyse.CompetitorBusinessAction"
+			method="{1}">
+		</action>
+	</package>
+		<!-- 自有业务终端分析 -->
+	<package name="ownBusinessTerminal" extends="system-default">
+		<action name="ownBusinessTerminal_*" 
+			class="com.symbol.app.mantoeye.web.action.dataAnalyse.OwnBusinessTerminalAction"
+			method="{1}">
+		</action>
+	</package>
+	
+		<!-- 重点业务配置 -->
+	<package name="ownBusinessConfigure" extends="system-default">
+		<action name="ownBusinessConfigure_*" 
+			class="com.symbol.app.mantoeye.web.action.dataAnalyse.OwnBusinessConfigureAction"
+			method="{1}">
+		</action>
+	</package>
+	
+	<!-- 竞争对手业务配置 -->
+	<package name="CompetitorBusinessConfigure" extends="system-default">
+		<action name="competitorBusinessConfigure_*" 
+			class="com.symbol.app.mantoeye.web.action.dataAnalyse.CompetitorBusinessConfigureAction"
+			method="{1}">
+			<result name="competitor">
+				/mantoeye/data_analyse/own_business/competitor_business_configure.jsp
+			</result>
+		</action>
+	</package>
+	
+	<!-- 自有业务任务定制 -->
+	<package name="ownBusinessTask" extends="system-default">
+		<action name="ownBusinessTask_*" 
+			class="com.symbol.app.mantoeye.web.action.dataAnalyse.OwnBusinessTaskAction"
+			method="{1}">
+			<result name="index">/mantoeye/data_analyse/own_business/own_business_task.jsp</result>
+			<result name="input">/mantoeye/data_analyse/own_business/input.jsp</result>
+			<result name="edit">/mantoeye/data_analyse/own_business/task_edit.jsp</result>
+			<result name="detail">/mantoeye/data_analyse/own_business/task_detail.jsp</result>
+		</action>
+	</package>
+	
+
+	<!-- 自定义数据输出  -->
+	<package name="dataOutput" extends="system-default">
+		<action name="dataOutput_*"
+			class="com.symbol.app.mantoeye.web.action.dataCatch.DataOutputAction"
+			method="{1}">
+			<result name="index">
+				/mantoeye/data_catch/data_output_index.jsp
+			</result>
+			<result name="add">
+				/mantoeye/data_catch/data_output_input.jsp
+			</result>
+			<result name="edit">
+				/mantoeye/data_catch/data_output_edit.jsp
+			</result>
+			<result name="task_business">
+				/mantoeye/data_catch/task_business.jsp
+			</result>
+			<result name="task_area">
+				/mantoeye/data_catch/task_area.jsp
+			</result>
+			<result name="task_cgi">
+				/mantoeye/data_catch/task_cgi.jsp
+			</result>
+			<result name="task_apn">
+				/mantoeye/data_catch/task_apn.jsp
+			</result>
+			<result name="task_imei_add">
+				/mantoeye/data_catch/task_imei_add.jsp
+			</result>
+			<result name="task_imei_up">
+				/mantoeye/data_catch/task_imei_up.jsp
+			</result>
+			<result name="task_number_add">
+				/mantoeye/data_catch/task_number_add.jsp
+			</result>
+			<result name="task_number_up">
+				/mantoeye/data_catch/task_number_up.jsp
+			</result>
+			<result name="task_url_add">
+				/mantoeye/data_catch/task_url_add.jsp
+			</result>
+			<result name="task_url_up">
+				/mantoeye/data_catch/task_url_up.jsp
+			</result>
+		</action>
+	</package>
+	<package name="dataOutPutDecTask" extends="system-default">
+		<action name="dataOutPutDecTask_*"
+			class="com.symbol.app.mantoeye.web.action.DataOutPutDecTaskAction"
+			method="{1}">
+			
+		</action>
+	</package>
+	
+
+	<!-- 新业务分布 -->
+	<package name="businessDistributeV2" extends="system-default">
+		<action name="businessDistributeV2_*"
+			class="com.symbol.app.mantoeye.web.action.dataAnalyse.BusinessDistributeV2Action"
+			method="{1}">
+			<result name="index">
+				/mantoeye/data_analyse/business_distribute_v2.jsp
+			</result>
+		</action>
+	</package>
+	
+	<package name="businessDistributeTrendV2Action" extends="system-default">
+		<action name="businessDistributeTrendV2_*" class="com.symbol.app.mantoeye.web.action.dataAnalyse.BusinessDistributeTrendV2Action"
+			method="{1}">
+		</action>
+	</package>
+	<package name="contextDistributeTrendAction" extends="system-default">
+		<action name="contextDistributeTrend_*" class="com.symbol.app.mantoeye.web.action.dataAnalyse.ContextDistributeTrendAction"
+			method="{1}">
+		</action>
+	</package>
+	<!-- 业务类型 中的业务 分布 -->
+	<package name="businessinbusinesstypeV2" extends="system-default">
+		<action name="businessinbusinesstypeV2_*"
+			class="com.symbol.app.mantoeye.web.action.business.BusinessInBusinessTypeV2Action"
+			method="{1}">
+			<result name="index">
+				/mantoeye/data_analyse/business_distribute_v2.jsp
+			</result>
+		</action>
+	</package>
+	<!-- 三层数据业务 分布 -->
+	<package name="businessinbusinesstypeV3" extends="system-default">
+		<action name="businessinbusinesstypeV3_*"
+			class="com.symbol.app.mantoeye.web.action.business.BusinessInBusinessTypeV3Action"
+			method="{1}">
+			<result name="index">
+				/mantoeye/data_analyse/business_distribute_v2.jsp
+			</result>
+		</action>
+	</package>
+
+		<!-- 内容分布 -->
+	<package name="contextDistribute" extends="system-default">
+		<action name="contextDistribute_*"
+			class="com.symbol.app.mantoeye.web.action.dataAnalyse.ContextDistributeAction"
+			method="{1}">
+			<result name="index">
+				/mantoeye/data_analyse/context_distribute.jsp
+			</result>
+		</action>
+	</package>
+	
+	<!-- 内容类型 中的内容 分布 -->
+	<package name="contextincontexttype" extends="system-default">
+		<action name="contextincontexttype_*"
+			class="com.symbol.app.mantoeye.web.action.business.ContextInContextTypeAction"
+			method="{1}">
+			<result name="index">
+				/mantoeye/data_analyse/context_distribute.jsp
+			</result>
+		</action>
+	</package>
+	<!-- 三层数据内容 分布 -->
+	<package name="contextincontexttypeV3" extends="system-default">
+		<action name="contextincontexttypeV3_*"
+			class="com.symbol.app.mantoeye.web.action.business.ContextInContextTypeV3Action"
+			method="{1}">
+			<result name="index">
+				/mantoeye/data_analyse/context_distribute.jsp
+			</result>
+		</action>
+	</package>
+	
+	
+		<!-- 空间分布 查询业务2 -->
+	<package name="spaceDistributeBusinessV2" extends="system-default">
+		<action name="spaceDistributeBusinessV2_*"
+			class="com.symbol.app.mantoeye.web.action.dataAnalyse.SpaceDistributeBusinessV2Action"
+			method="{1}">
+			<result name="index">
+				/mantoeye/data_analyse/space_distribute_business_v2.jsp
+			</result>
+		</action>
+	</package>
+	
+		<!-- 空间分布 查询内容 -->
+	<package name="spaceDistributeContext" extends="system-default">
+		<action name="spaceDistributeContext_*"
+			class="com.symbol.app.mantoeye.web.action.dataAnalyse.SpaceDistributeContextAction"
+			method="{1}">
+			<result name="index">
+				/mantoeye/data_analyse/space_distribute_context.jsp
+			</result>
+		</action>
+	</package>
+	
+	
+	<!-- 业务空间分布 分布 -->
+	<package name="businessinspaceV2" extends="system-default">
+		<action name="businessinspaceV2_*"
+			class="com.symbol.app.mantoeye.web.action.business.BusinessInSpaceV2Action"
+			method="{1}">
+			<result name="index">
+				/mantoeye/data_analyse/business_distribute_v2.jsp
+			</result>
+		</action>
+	</package>
+	
+	<!-- 业务内容 分布 -->
+	<package name="contextinspace" extends="system-default">
+		<action name="contextinspace_*"
+			class="com.symbol.app.mantoeye.web.action.business.ContextInSpaceAction"
+			method="{1}">
+			<result name="index">
+				/mantoeye/data_analyse/context_distribute.jsp
+			</result>
+		</action>
+	</package>
+	
+	<!-- 自定义小区集 -->
+	<!-- 详细业务分析2 -->
+	<package name="areaBusinessDetailV2" extends="system-default">
+		<action name="areaBusinessDetailV2_*"
+			class="com.symbol.app.mantoeye.web.action.dataAnalyse.AreaBusinessDetailV2Action"
+			method="{1}">
+			<result name="index">
+				/mantoeye/data_analyse/area_business_detail_v2.jsp
+			</result>
+		</action>
+	</package>
+	
+	<!-- 详细内容分析2 -->
+	<package name="areaContextDetail" extends="system-default">
+		<action name="areaContextDetail_*"
+			class="com.symbol.app.mantoeye.web.action.dataAnalyse.AreaContextDetailAction"
+			method="{1}">
+			<result name="index">
+				/mantoeye/data_analyse/area_context_detail_v2.jsp
+			</result>
+		</action>
+	</package>
+</struts>

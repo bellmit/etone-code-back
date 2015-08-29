@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!-- 终端管理模块 -->
+
+
+	<!--终端管理配置 -->
+	<package name="terminalmanager" extends="system-default">
+		<action name="terminalmanager_*"
+			class="com.symbol.app.mantoeye.web.action.terminalmanager.TerminalManagerAction"
+			method="{1}">
+			<result name="index">/mantoeye/terminalmanager/index.jsp</result>
+			<result name="input">/sysdata/logs/input.jsp</result>
+		</action>
+	</package>
+
+	<!--终端任务定制配置 -->
+	<package name="terminaltask" extends="system-default">
+		<action name="terminaltask_*"
+			class="com.symbol.app.mantoeye.web.action.terminalmanager.TerminalTaskAction"
+			method="{1}">
+			<result name="index">/mantoeye/terminalmanager/terminal_task.jsp
+			</result>
+			<result name="input">/mantoeye/terminalmanager/input.jsp</result>
+			<result name="edit">/mantoeye/terminalmanager/task_edit.jsp</result>
+			<result name="detail">/mantoeye/terminalmanager/task_detail.jsp
+			</result>
+		</action>
+	</package>
+
+	<!--  终端业务分析-->
+	<package name="terminalbisanlyse" extends="system-default">
+		<action name="terminalbisanlyse_*"
+			class="com.symbol.app.mantoeye.web.action.terminalmanager.TerminalBisAnlyseAction"
+			method="{1}">
+			<result name="index">/mantoeye/terminalbisanlyse/index.jsp</result>
+			<result name="input">/sysdata/logs/input.jsp</result>
+		</action>
+	</package>
+
+	<!--//业务终端分析-->
+	<package name="bisterminalanlyse" extends="system-default">
+		<action name="bisterminalanlyse_*"
+			class="com.symbol.app.mantoeye.web.action.terminalmanager.BisTerminalAnlyseAction"
+			method="{1}">
+			<result name="index">/mantoeye/bisterminalanlyse/index.jsp</result>
+			<result name="input">/sysdata/logs/input.jsp</result>
+		</action>
+	</package>
+
+
+
+
+
+	<!--//智能终端系统分析-->
+	<package name="terminalsystem" extends="system-default">
+		<action name="terminalsystem_*"
+			class="com.symbol.app.mantoeye.web.action.terminalmanager.TerminalSystemAction"
+			method="{1}">
+			<result name="index">/mantoeye/bisterminalanlyse/index.jsp</result>
+			<result name="input">/sysdata/logs/input.jsp</result>
+		</action>
+	</package>
+
+	<!--//智能终端系统分析_业务-->
+	<package name="terminalsystem-business" extends="system-default">
+		<action name="terminalsystem-business_*"
+			class="com.symbol.app.mantoeye.web.action.terminalmanager.TerminalSystemBusinessAction"
+			method="{1}">
+			<result name="index">/mantoeye/bisterminalanlyse/index.jsp</result>
+			<result name="input">/sysdata/logs/input.jsp</result>
+		</action>
+	</package>
+
+
+
+
+
+
+
+	
+		<!--终端配置-->
+	<package name="terminalConfigure" extends="system-default">
+		<action name="terminalConfigure_*"
+			class="com.symbol.app.mantoeye.web.action.terminalmanager.TerminalConfigureAction"
+			method="{1}">
+		</action>
+	</package>
+	
+	
+	
+
+	<!--终端升级-->
+	<package name="terminalupgrade" extends="system-default">
+		<action name="terminalupgrade_*"
+			class="com.symbol.app.mantoeye.web.action.terminalmanager.TerminalUpgradeAction"
+			method="{1}">
+
+		</action>
+	</package>
+	
+		<!--终端升级_任务定制-->
+		<package name="terminalupgradetask" extends="system-default">
+		<action name="terminalupgradetask_*"
+			class="com.symbol.app.mantoeye.web.action.terminalmanager.TerminalUpgradeTaskAction"
+			method="{1}">
+<result name="index">
+				/mantoeye/terminal/terminalUpgrade_Task.jsp
+			</result>
+			<result name="add">
+				/mantoeye/terminal/terminalUpgrade_Task_input.jsp
+			</result>
+			<result name="edit">
+			/mantoeye/terminal/terminalUpgrade_Task_edit.jsp
+			</result>
+		</action>
+	</package>
+	
+	
+	<!--终端升级_流量统计-->
+	<package name="terminalupgradeflush" extends="system-default">
+		<action name="terminalupgradeflush_*"
+			class="com.symbol.app.mantoeye.web.action.terminalmanager.TerminalUpgradeFlushAction"
+			method="{1}">
+
+		</action>
+	</package>
+	<!--终端升级_业务流量统计-->
+	<package name="terminalupgradebisflush" extends="system-default">
+		<action name="terminalupgradebisflush_*"
+			class="com.symbol.app.mantoeye.web.action.terminalmanager.TerminalUpgradeBisFlushAction"
+			method="{1}">
+
+		</action>
+	</package>
+
+
+
+	<!--流量分层-->
+	<package name="flushlevel" extends="system-default">
+		<action name="flushlevel_*"
+			class="com.symbol.app.mantoeye.web.action.terminalmanager.FlushLevelAction"
+			method="{1}">
+		</action>
+	</package>
+
+
+	<!--流量分层_终端分析-->
+	<package name="flushLevelAnalyse" extends="system-default">
+		<action name="flushLevelAnalyse_*"
+			class="com.symbol.app.mantoeye.web.action.terminalmanager.FlushLevelAnalyseAction"
+			method="{1}">
+		</action>
+	</package>
+
+
+	<!--流量分层_区域分析-->
+	<package name="flushLevelAreaAnalyse" extends="system-default">
+		<action name="flushLevelAreaAnalyse_*"
+			class="com.symbol.app.mantoeye.web.action.terminalmanager.FlushLevelAreaAnalyseAction"
+			method="{1}">
+		</action>
+	</package>
+
+
+	<!--流量分层_业务分析-->
+	<package name="flushLevelBusiness" extends="system-default">
+		<action name="flushLevelBusiness_*"
+			class="com.symbol.app.mantoeye.web.action.terminalmanager.FlushLevelBusinessAction"
+			method="{1}">
+		</action>
+	</package>
+
+
+
+
+	<!--通用拍照跟踪-->
+	<package name="cameratrack" extends="system-default">
+		<action name="cameratrack_*"
+			class="com.symbol.app.mantoeye.web.action.terminalmanager.CameraTrackAction"
+			method="{1}">
+			
+			<result name="add">
+				/mantoeye/terminal/CameratrackTask_input.jsp
+			</result>
+			<result name="edit">
+				/mantoeye/terminal/CameratrackTask_edit.jsp
+			</result>
+			<result name="task_business">
+				/mantoeye/terminal/CameratrackTask_Bis.jsp
+			</result>
+		
+			<result name="task_apn">
+				/mantoeye/terminal/CameratrackTask_Apn.jsp
+			</result>
+				<result name="task_user">
+				/mantoeye/terminal/CameratrackTask_users.jsp
+			</result>
+			
+				<result name="task_areaindex">
+				/mantoeye/terminal/CameratrackTask_AreaIndex.jsp
+			</result>
+				<result name="task_area">
+				/mantoeye/terminal/CameratrackTask_Area.jsp
+			</result>
+			<result name="task_terminalindex">
+				/mantoeye/terminal/CameratrackTask_terminalIndex.jsp
+			</result>
+				<result name="task_terminal">
+				/mantoeye/terminal/CameratrackTask_terminal.jsp
+			</result>
+		</action>
+	</package>
+
+	<!--通用拍照结果显示-->
+	<package name="cameratrackresult" extends="system-default">
+		<action name="cameratrackresult_*"
+			class="com.symbol.app.mantoeye.web.action.terminalmanager.CameraTrackResultAction"
+			method="{1}">
+		</action>
+	</package>
+
+
+
+
+
+	<!--流量层次(增删改查)-->
+	<package name="flushgrade" extends="system-default">
+		<action name="flushgrade_*"
+			class="com.symbol.app.mantoeye.web.action.terminalmanager.FlushGradeAction"
+			method="{1}">
+			<result name="edit">/mantoeye/terminal/FlushGrade_edit.jsp</result>
+			<result name="input">/mantoeye/terminal/FlushGrade_input.jsp</result>
+			<result name="index">/mantoeye/terminal/FlushGrade.jsp</result>
+		</action>
+	</package>
+
+
+
+	<!--二期开发-->
+	<!--终端区域分析-->
+	<package name="terminalAreaAnlyse" extends="system-default">
+		<action name="terminalAreaAnlyse_*"
+			class="com.symbol.app.mantoeye.web.action.terminalmanager.TerminalAreaAnlyseAction"
+			method="{1}">
+		</action>
+	</package>
+
+	<!--终端品牌业务分析-->
+	<package name="terminalBrandBusiness" extends="system-default">
+		<action name="terminalBrandBusiness_*"
+			class="com.symbol.app.mantoeye.web.action.terminalmanager.TerminalBrandBusinessAction"
+			method="{1}">
+		</action>
+	</package>
+
+	<!--终端品牌明细-->
+	<package name="terminalBrandDetail" extends="system-default">
+		<action name="terminalBrandDetail_*"
+			class="com.symbol.app.mantoeye.web.action.terminalmanager.TerminalBrandDetailAction"
+			method="{1}">
+		</action>
+	</package>
+
+	<!--终端系统明细-->
+	<package name="terminalSystemDetail" extends="system-default">
+		<action name="terminalSystemDetail_*"
+			class="com.symbol.app.mantoeye.web.action.terminalmanager.TerminalSystemDetailAction"
+			method="{1}">
+		</action>
+	</package>
+
+	<!--终端类型分析-->
+	<package name="terminalTypeAnlyse" extends="system-default">
+		<action name="terminalTypeAnlyse_*"
+			class="com.symbol.app.mantoeye.web.action.terminalmanager.TerminalTypeAnlyseAction"
+			method="{1}">
+		</action>
+	</package>
+
+	<!--终端类型业务分析-->
+	<package name="terminalTypeBusiness" extends="system-default">
+		<action name="terminalTypeBusiness_*"
+			class="com.symbol.app.mantoeye.web.action.terminalmanager.TerminalTypeBusinessAction"
+			method="{1}">
+		</action>
+	</package>
+
+	<!--终端类型（2G/3G）品牌-->
+	<package name="terminalTypeBrand" extends="system-default">
+		<action name="terminalTypeBrand_*"
+			class="com.symbol.app.mantoeye.web.action.terminalmanager.TerminalTypeBrandAction"
+			method="{1}">
+		</action>
+	</package>
+
+</struts>

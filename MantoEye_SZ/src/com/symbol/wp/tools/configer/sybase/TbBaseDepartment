@@ -1,0 +1,87 @@
+package com.symbol.wp.core.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+/**
+ * TbBaseDepartment entity. @author MyEclipse Persistence Tools
+ */
+@Entity
+@Table(name = "tbBaseDepartment", schema = "dbo", catalog = "WCMP")
+public class TbBaseDepartment implements java.io.Serializable {
+
+	// Fields
+
+	private Long nmDeptId;
+	private String vcDeptNo;
+	private String vcParentNo;
+	private String vcDeptName;
+	private String vcDeptMemo;
+
+	// Constructors
+
+	/** default constructor */
+	public TbBaseDepartment() {
+	}
+
+	/** full constructor */
+	public TbBaseDepartment(String vcDeptNo, String vcParentNo,
+			String vcDeptName, String vcDeptMemo) {
+		this.vcDeptNo = vcDeptNo;
+		this.vcParentNo = vcParentNo;
+		this.vcDeptName = vcDeptName;
+		this.vcDeptMemo = vcDeptMemo;
+	}
+
+	// Property accessors
+	@Id
+	@GeneratedValue
+	@Column(name = "nmDeptId", unique = true, nullable = false, precision = 10, scale = 0)
+	public Long getNmDeptId() {
+		return this.nmDeptId;
+	}
+
+	public void setNmDeptId(Long nmDeptId) {
+		this.nmDeptId = nmDeptId;
+	}
+
+	@Column(name = "vcDeptNo", length = 64)
+	public String getVcDeptNo() {
+		return this.vcDeptNo;
+	}
+
+	public void setVcDeptNo(String vcDeptNo) {
+		this.vcDeptNo = vcDeptNo;
+	}
+
+	@Column(name = "vcParentNo", length = 64)
+	public String getVcParentNo() {
+		return this.vcParentNo;
+	}
+
+	public void setVcParentNo(String vcParentNo) {
+		this.vcParentNo = vcParentNo;
+	}
+
+	@Column(name = "vcDeptName", length = 100)
+	public String getVcDeptName() {
+		return this.vcDeptName;
+	}
+
+	public void setVcDeptName(String vcDeptName) {
+		this.vcDeptName = vcDeptName;
+	}
+
+	@Column(name = "vcDeptMemo", length = 512)
+	public String getVcDeptMemo() {
+		return this.vcDeptMemo;
+	}
+
+	public void setVcDeptMemo(String vcDeptMemo) {
+		this.vcDeptMemo = vcDeptMemo;
+	}
+
+}

@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="${project.name}" basedir="." default="main">
+	<property file="build.properties" />
+
+	<property name="classes.dir" value="${webapp.dir}/WEB-INF/classes" />
+	<property name="lib.dir" value="${webapp.dir}/WEB-INF/lib" />
+
+	<target name="clean" description="清除舊的工程文件目錄">
+		<echo>清除舊的工程文件目錄</echo>
+		<delete dir="${classes.dir}" />
+		<delete dir="${build.dir}" />
+		<delete dir="${tomcat.home}/webapps" />
+		<delete dir="${tomcat.home}/work" />
+		<delete dir="${tomcat.home}/logs" />
+		<delete dir="${tomcat.home}/conf/catalina/localhost" />
+
+		<mkdir dir="${classes.dir}" />
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${tomcat.home}/webapps" />
+		<mkdir dir="${tomcat.home}/work" />
+		<mkdir dir="${tomcat.home}/logs" />
+		<mkdir dir="${tomcat.home}/conf/catalina/localhost" />
+	</target>
+
+	<target name="removeSVN" description="清除SVN文件">
+		<echo>清除舊的工程SVN文件目錄</echo>
+		<defaultexcludes remove="**/.svn" />
+		<defaultexcludes remove="**/.svn/**" />
+		<delete includeemptydirs="true">
+			<fileset dir="${src.dir}" includes="**/.svn/**" />
+			<fileset dir="${webapp.dir}" includes="**/.svn/**" />
+		</delete>
+	</target>
+
+	<path id="application-lib">
+		<fileset dir="${lib.dir}" includes="**/*.jar" />
+	</path>
+
+	<path id="servlet-lib">
+		<fileset dir="${tomcat.home}/lib" includes="servlet-api.jar,jsp-api.jar" />
+	</path>
+
+	<target name="compile-java" depends="clean" description="編譯源代碼">
+		<echo>編譯源代碼</echo>
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="on" encoding="utf-8" debug="true">
+			<classpath>
+				<path refid="application-lib" />
+				<path refid="servlet-lib" />
+			</classpath>
+		</javac>
+		<copy todir="${classes.dir}">
+			<fileset dir="${src.dir}/resources" includes="**/*.*" />
+		</copy>
+	</target>
+
+	<target name="publish-test" depends="compile-java" description="編譯測試代碼">
+		<echo>編譯測試代碼</echo>
+		<javac srcdir="${test.dir}" destdir="${classes.dir}" includeantruntime="on" encoding="utf-8" debug="true">
+			<classpath>
+				<path refid="servlet-lib" />
+				<path refid="application-lib" />
+				<path refid="external-lib-path" />
+			</classpath>
+		</javac>
+	</target>
+
+	<path id="external-lib-path">
+		<fileset dir="${external-lib}" includes="**/*.jar" />
+	</path>
+
+	<!-- -->
+	<target name="compile-junit-test" depends="compile-java" description="編譯測試代碼">
+		<echo>編譯測試代碼</echo>
+		<mkdir dir="${build.dir}/test/classes" />
+		<javac srcdir="${test.dir}" destdir="${build.dir}/test/classes" includeantruntime="on" encoding="utf-8" debug="true">
+			<classpath>
+				<pathelement location="${classes.dir}" />
+				<path refid="servlet-lib" />
+				<path refid="application-lib" />
+				<path refid="external-lib-path" />
+			</classpath>
+		</javac>
+	</target>
+
+	<!-- JUNIT4測試TARGET -->
+
+	<!--	-->
+	<target name="junit" depends="clean,compile-junit-test" description="運行測試JUNIT代碼">
+		<echo>運行測試JUNIT代碼</echo>
+		<mkdir dir="${build.dir}/test/report" />
+		<junit printsummary="yes" failureproperty="junit.tests.failure" showoutput="on">
+			<classpath>
+				<path location="${build.dir}/test/classes" />
+				<path location="${classes.dir}" />
+				<path refid="servlet-lib" />
+				<path refid="application-lib" />
+				<path refid="external-lib-path" />
+			</classpath>
+
+			<formatter type="xml" />
+			<test fork="yes" name="com.symbol.app.mantoeye.dao.configure.CellConfigureDAOTest" todir="${build.dir}/test/report">
+				<formatter type="xml" />
+			</test>
+			<!-- 
+			<test fork="yes"
+				name="com.symbol.app.mantoeye.dao.businessAnalyse.FlushSubFileDaoTest"
+				todir="${build.dir}/test/report">
+				<formatter type="xml" />
+			</test>
+			<test fork="yes"
+				name="com.symbol.app.mantoeye.service.businessAnalyse.FlushSubFileManagerTest"
+				todir="${build.dir}/test/report">
+				<formatter type="xml" />
+			</test>
+				<test fork="yes"
+				name="com.symbol.app.mantoeye.dao.businessAnalyse.BusyTotalFlushAnalyseDaoTest"
+				todir="${build.dir}/test/report">
+				<formatter type="xml" />
+				</test>
+				<test fork="yes"
+				name="com.symbol.app.mantoeye.service.businessAnalyse.BusyTotalFlushAnalyseManagerTest"
+				todir="${build.dir}/test/report">
+				<formatter type="xml" />
+				</test>
+				<test fork="yes"
+				name="com.symbol.app.mantoeye.dao.businessAnalyse.BusinessLevelAnalyseDaoTest"
+				todir="${build.dir}/test/report">
+				<formatter type="xml" />
+				</test>
+				<test fork="yes"
+				name="com.symbol.app.mantoeye.service.businessAnalyse.BusinessLevelAnalyseManagerTest"
+				todir="${build.dir}/test/report">
+				<formatter type="xml" />
+				</test>
+				<test fork="yes"
+				name="com.symbol.app.mantoeye.dao.businessAnalyse.SpaceLevelAnalyseDaoTest"
+				todir="${build.dir}/test/report">
+				<formatter type="xml" />
+				</test>
+				<test fork="yes"
+				name="com.symbol.app.mantoeye.service.businessAnalyse.SpaceLevelAnalyseManagerTest"
+				todir="${build.dir}/test/report">
+				<formatter type="xml" />
+				</test>
+				<test fork="yes"
+				name="com.symbol.app.mantoeye.dao.businessAnalyse.BussinessUsersInfoDaoTest"
+				todir="${build.dir}/test/report">
+				<formatter type="xml" />
+				</test>
+				<test fork="yes"
+				name="com.symbol.app.mantoeye.service.businessAnalyse.BussinessUsersInfoManagerTest"
+				todir="${build.dir}/test/report">
+				<formatter type="xml" />
+				</test>
+				<test fork="yes"
+				name="com.symbol.app.mantoeye.web.action.dataAnalyse.BussinessUsersInfoActionTest"
+				todir="${build.dir}/test/report">
+				<formatter type="xml" />
+				</test>
+			-->
+			<!--
+				<batchtest fork="yes" todir="${build.dir}/test/report">
+				<fileset dir="${test.dir}" includes="**/*Test.java" />
+				</batchtest>
+			-->
+
+		</junit>
+
+		<junitreport todir="${build.dir}/test/report">
+			<fileset dir="${build.dir}/test/report">
+				<include name="**/TEST-*.xml" />
+			</fileset>
+			<report todir="${build.dir}/test/report" />
+		</junitreport>
+
+	</target>
+
+	<target name="war" depends="compile-java" description="打包WAR文件">
+		<echo>打包WAR文件</echo>
+		<!--
+		<mkdir dir="${build.dir}/war" />
+		<war warfile="${build.dir}/war/${webapp.name}.war" webxml="${webapp.dir}/WEB-INF/web.xml">
+			<lib dir="${lib.dir}" />
+			<classes dir="${classes.dir}" />
+			<fileset dir="${webapp.dir}" />
+		</war>
+		-->
+	</target>
+
+	<target name="publish-zip" depends="compile-java" description="打包ZIP，准备发布WEB服务器用">
+		<echo>打包ZIP，准备发布WEB服务器用
+		</echo>
+		<mkdir dir="${build.dir}/zip" />
+		<zip destfile="${build.dir}/zip/${project.name}.zip">
+			<fileset dir="${webapp.dir}" />
+		</zip>
+	</target>
+
+	<target name="publish-tomcat" depends="war" description="發佈WAR文件到TOMCAT服務器中">
+		<echo>發佈WAR文件到TOMCAT服務器中</echo>
+		<!--
+		<copy todir="${tomcat.home}/webapps">
+			<fileset dir="${build.dir}/war" includes="${webapp.name}.war" />
+		</copy>
+		-->
+		<copy todir="${tomcat.home}/conf/catalina/localhost">
+			<fileset dir="" includes="ROOT.xml" />
+		</copy>
+	</target>
+
+	<target name="start-tomcat" description="Tomcat Start">
+		<echo>啟動TOMCAT</echo>
+		<exec executable="${tomcat.home}/bin/startup.bat" spawn="true" vmlauncher="false">
+			<env key="CATALINA_HOME" value="${tomcat.home}" />
+			<arg line="/c start ${tomcat.home}/bin/startup.bat" />
+		</exec>
+	</target>
+
+	<target name="stop-tomcat" description="Tomcat Stop">
+		<echo>關閉TOMCAT</echo>
+		<exec executable="${tomcat.home}/bin/shutdown.bat" spawn="true" vmlauncher="false">
+			<env key="CATALINA_HOME" value="${tomcat.home}" />
+			<arg line="/c start ${tomcat.home}/bin/shutdowm.bat" />
+		</exec>
+		<waitfor maxwait="5" maxwaitunit="second">
+			<available file="errors.log" />
+		</waitfor>
+	</target>
+
+	<target name="main" depends="stop-tomcat,clean,publish-tomcat,start-tomcat" description="運行默認的TARGET" />
+
+</project>

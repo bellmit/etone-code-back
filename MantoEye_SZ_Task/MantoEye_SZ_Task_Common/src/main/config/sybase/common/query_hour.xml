@@ -1,0 +1,792 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<select id="query_all" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$
+		   select nmId,bitCutOff,intRaitype,intBscId,intStreetId,intCountryId,intCityId,intProtocolTypeId,
+			  intBrandId,intMsisdnSegId,intWapId,intDescSgsnId,intSmsId,intMmsFromNoId,intProvinceId,intBranchId,
+			  intSaleAreaId,intApnTypeId,intApnId,intSmsSizeId,intUserBelongId,nmBussinessId,nmBussinessTypeId,
+			  intLac,nmAppsId,nmImsi,nmImei,nmMsisdn,vcApn,vcCgi,dtBeginTime,dtEndTime,nmSessionTime,vcBearerSrcAddress,
+			  vcBearerDestAddress,intIpLen,vcIpType,ipClientAddress,ipServerAddress,ipClientPort,ipServerPort,intAbortType,
+			  vcWtpAbortReason,vcWapType,vcWapStatus,vcWapUrl,vcContentType,vcWapUserAgent,intMmsLen,vcMmsMetho,vcMmsFrom,
+			  vcMmsTo,vcMmsSubject,vcMmsTranId,vcAppMt,intAppSuccessful,vcAppRetranType,vcAppRetranTimes,intAppUpPacketCnt,
+			  intAppDownPacketCnt,intAppUpFlush,intAppDownFlush,intAppAckTime,intYear,intMonth,intDay,intWeek,intHour,
+			  nmAreaId,nmTerminalId,ProductDimens
+		     from $sourceTableName$ 
+		]]>
+	</select>
+
+	<!-- 全网数据业务流量分布呈现（小时）2011年9月14日16:49:16 -->
+	<select id="query_ftbStatHourGprsTotalFlush" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$
+		   select #intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),
+		          sum(intAppUpFlush+intAppDownFlush),getdate(),#vcLocalIP#  
+		          ,sum(case when intUserBelongId=1 then (intAppUpFlush+intAppDownFlush) else 0 end )
+                  ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end)) 
+		     from $sourceTableName$ 
+		]]>
+	</select>
+	<!-- 2014-1-23 10:20:14 添加分類型統計 -->
+	<select id="query_ftbStatHourGprsTotalFlush_intraitype"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$
+		   select #intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),
+		          sum(intAppUpFlush+intAppDownFlush),getdate(),#vcLocalIP#  
+		          ,sum(case when intUserBelongId=1 then (intAppUpFlush+intAppDownFlush) else 0 end )
+                  ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end)) ,intRaitype
+		     from $sourceTableName$ 
+		       group by intRaitype
+		]]>
+	</select>
+
+	<!-- 5.2.3.1 空间分析呈现（小时）BSC 2011年11月22日10:45:23 -->
+	<select id="query_ftbStatHourBscGprsSpace" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$
+		   select intBscId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		          sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),
+		          getdate(),count(*),intRaitype,#vcLocalIP#
+ ,sum(case when intUserBelongId=1 then (intAppUpFlush+intAppDownFlush) else 0 end )
+                  ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end))
+		     from $sourceTableName$ 
+		 group by intBscId,intRaitype
+		]]>
+	</select>
+
+	<!-- SGSN 2011年11月22日11:06:13 -->
+	<select id="query_ftbStatHourSgsnGprsSpace" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		  select intDescSgsnId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),
+		         getdate(),count(*),intRaitype,#vcLocalIP#
+ ,sum(case when intUserBelongId=1 then (intAppUpFlush+intAppDownFlush) else 0 end )
+                  ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end))
+		    from $sourceTableName$ 
+		group by intDescSgsnId,intRaitype
+		]]>
+	</select>
+
+	<!-- 街道办 2011年9月14日17:27:20 -->
+	<select id="query_ftbStatHourStreetGprsSpace" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		  select intStreetId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),
+		         getdate(),count(*),intRaitype,#vcLocalIP#
+ ,sum(case when intUserBelongId=1 then (intAppUpFlush+intAppDownFlush) else 0 end )
+                  ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end))
+		    from $sourceTableName$ 
+		group by intStreetId,intRaitype
+		]]>
+	</select>
+
+	<!-- 营销片区 2011年9月14日17:28:59 -->
+	<select id="query_ftbStatHourSaleAreaGprsSpace" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		  select intSaleAreaId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),
+		         getdate(),count(*),intRaitype,#vcLocalIP#
+ ,sum(case when intUserBelongId=1 then (intAppUpFlush+intAppDownFlush) else 0 end )
+                  ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end))
+		    from $sourceTableName$ 
+	    group by intSaleAreaId,intRaitype
+		]]>
+	</select>
+
+	<!-- 分公司 2011年9月14日17:31:04 -->
+	<select id="query_ftbStatHourCompanyGprsSpace" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		  select intBranchId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),
+		         getdate(),count(*),intRaitype,#vcLocalIP#
+ ,sum(case when intUserBelongId=1 then (intAppUpFlush+intAppDownFlush) else 0 end )
+                  ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end))
+		    from $sourceTableName$ 
+		group by intBranchId,intRaitype
+		]]>
+	</select>
+
+	<!-- 5.2.3.2 空间分析呈现_业务维（小时）BSC 2011年9月14日17:32:42 -->
+	<select id="query_ftbStatHourBscBussType" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		  select intBscId,nmBussinessId,nmBussinessTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),
+		         getdate(),count(*),intRaitype ,#vcLocalIP#
+		    from $sourceTableName$ 
+		group by intBscId,nmBussinessId,nmBussinessTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- SGSN 2011年9月15日11:07:07 -->
+	<select id="query_ftbStatHourSgsnBussType" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		  select intDescSgsnId,nmBussinessId,nmBussinessTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),
+		         getdate(),count(nmId),intRaitype,#vcLocalIP#
+		    from $sourceTableName$ 
+		group by intDescSgsnId,nmBussinessId,nmBussinessTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- 街道办 2011年9月15日11:19:37 -->
+	<select id="query_ftbStatHourStreetBussType" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		  select intStreetId,nmBussinessId,nmBussinessTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),
+		         getdate(),count(nmId),intRaitype,#vcLocalIP#
+		    from $sourceTableName$ 
+		group by intStreetId,nmBussinessId,nmBussinessTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- 营销片区 2011年9月15日11:21:22 -->
+	<select id="query_ftbStatHourSaleAreaBussType" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		  select intSaleAreaId,nmBussinessId,nmBussinessTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),
+		         getdate(),count(nmId),intRaitype,#vcLocalIP#
+		    from $sourceTableName$ 
+		group by intSaleAreaId,nmBussinessId,nmBussinessTypeId,intRaitype
+		]]>
+	</select>
+
+
+	<!-- 分公司 -->
+	<select id="query_ftbStatHourCompanyBussType" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		  select intBranchId,nmBussinessId,nmBussinessTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),
+		         getdate(),count(nmId),intRaitype,#vcLocalIP#
+		    from $sourceTableName$ 
+		group by intBranchId,nmBussinessId,nmBussinessTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- 5.2.4 全网数据业务分析之业务 -->
+	<select id="query_ftbStatHourGprsBussType" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		  select nmBussinessTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),
+		         getdate(),count(*),intRaitype,#vcLocalIP#
+		    from $sourceTableName$ 
+		group by nmBussinessTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- bussiness -->
+	<select id="query_ftbStatHourGprsBuss" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		  select nmBussinessId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush), sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),
+		         getdate(),count(*),intRaitype,#vcLocalIP#
+		    from $sourceTableName$ 
+		group by nmBussinessId,intRaitype
+		]]>
+	</select>
+
+	<!-- 5.2.5 全网数据业务分析之APN ftbGnAppData -->
+	<select id="query_ftbStatHourApn" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		  select intApnId,intApnTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),
+		         getdate(),intRaitype,#vcLocalIP#
+		    from $sourceTableName$ 
+		group by intApnId,intApnTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- 2011年9月15日17:43:04 -->
+	<select id="query_ftbStatHourApnType" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		  select intApnTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),
+		         getdate(),intRaitype,#vcLocalIP#
+		    from $sourceTableName$ 
+		group by intApnTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- 5.2.6 全网数据业务分析之协议 2011年9月15日17:47:06 -->
+	<select id="query_ftbStatHourTcpProtocol" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		  select intProtocolTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),
+		         getdate(),intRaitype,#vcLocalIP#
+		    from $sourceTableName$ 
+		group by intProtocolTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- 2011年9月15日17:51:52 -->
+	<select id="query_ftbStatHourWapProtocol" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		  select intWapId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),
+		         getdate(),intRaitype,#vcLocalIP#
+		    from $sourceTableName$ 
+		group by intWapId,intRaitype
+		]]>
+	</select>
+
+	<!-- 5.2.7 全网数据业务分析之用户归属 ftbGnSignalData intUserBelongId??2011年9月15日17:58:22 -->
+	<select id="query_ftbStatHourUserBelong" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		  select intUserBelongId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),
+		         getdate(),intRaitype,#vcLocalIP# 
+		    from $sourceTableName$ 
+		group by intUserBelongId,intRaitype
+		]]>
+	</select>
+
+	<!-- 5.2.8 全网数据业务分析之TOP100小区呈现 2011年9月15日18:01:24 -->
+	<select id="query_ftbStatHourCgiFlush" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		  select top 100 #intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,vcCGI,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),
+		         getdate(),intRaitype,#vcLocalIP#
+		    from $sourceTableName$ 
+		   where vcCGI <> ''
+		group by vcCGI,intRaitype
+		order by 10 desc
+		]]>
+	</select>
+
+	<!-- 5.2.8 全网数据业务分析之TOP100小区呈现 2011年9月15日18:04:41 -->
+	<select id="query_ftbStatHourCgiFlushUser" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		  select top 100 #intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,vcCGI,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),
+		         getdate(),intRaitype,#vcLocalIP# 
+		    from $sourceTableName$ 
+		   where vcCGI <> ''
+		group by vcCGI,intRaitype
+		order by 9 desc
+		]]>
+	</select>
+
+	<!-- 5.2.9 集团业务行为分析之空间 BSC 2011年9月15日18:07:04 -->
+	<select id="query_ftbStatHourApnBsc" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		  select intBscId,intApnId,intApnTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),
+		         getdate(),intRaitype,#vcLocalIP# 
+		    from $sourceTableName$ 
+		group by intBscId,intApnId,intApnTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- SGSN 2011年9月15日18:10:01 -->
+	<select id="query_ftbStatHourApnSgsn" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		  select intDescSgsnId,intApnId,intApnTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),
+		         getdate(),intRaitype,#vcLocalIP# 
+		    from $sourceTableName$ 
+		group by intDescSgsnId,intApnId,intApnTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- 街道办 2011年9月15日18:13:19 -->
+	<select id="query_ftbStatHourApnStreet" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		  select intStreetId,intApnId,intApnTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),
+		         getdate(),intRaitype,#vcLocalIP#
+		    from $sourceTableName$ 
+		group by intStreetId,intApnId,intApnTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- 营销片区 2011年9月15日18:17:38 -->
+	<select id="query_ftbStatHourApnSaleArea" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		  select intSaleAreaId,intApnId,intApnTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),
+		         getdate(),intRaitype,#vcLocalIP#
+		    from $sourceTableName$ 
+		group by intSaleAreaId,intApnId,intApnTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- 分公司 2011年9月15日18:20:32 -->
+	<select id="query_ftbStatHourApnCompany" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		  select intBranchId,intApnId,intApnTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),
+		         getdate(),intRaitype,#vcLocalIP#
+		    from $sourceTableName$ 
+		group by intBranchId,intApnId,intApnTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- 5.2.10 集团业务行为分析之用户归属 ftbGnSessionData 2011年9月15日18:23:24 -->
+	<select id="query_ftbStatHourApnUserBelong" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		  select intUserBelongId,intApnTypeId,intApnId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),
+		         getdate(),intRaitype,#vcLocalIP# 
+		    from $sourceTableName$ 
+		group by intUserBelongId,intApnTypeId,intApnId,intRaitype
+		]]>
+	</select>
+
+	<!-- 5.2.11.1 大流量用户时间点分布(小时) 2011年11月22日21:47:06 -->
+	<select id="query_ftbStatTimeOverFlush" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select nmImsi,nmMsisdn,intUserBelongId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		sum(intAppUpFlush), sum(intAppDownFlush),sum(intAppUpFlush+intAppDownFlush),getdate(),#vcLocalIP#
+		from $sourceTableName$ 
+		where nmImsi is not null
+		and nmImsi <> 0 
+		group by nmImsi,nmMsisdn,intUserBelongId
+		]]>
+	</select>
+
+	<!-- APN按区域分布(新增) hyjun 20100222 ftbGnAppData -->
+	<!-- BSC -->
+	<select id="query_ftbStatHourBscApnType" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intBscId,intApnTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		sum(intAppUpFlush), sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),getdate(),intRaitype,#vcLocalIP#
+		from $sourceTableName$ 
+		group by intBscId,intApnTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- SGSN -->
+	<select id="query_ftbStatHourSgsnApnType" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intDescSgsnId,intApnTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		sum(intAppUpFlush), sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),getdate(),intRaitype,#vcLocalIP#
+		from $sourceTableName$ 
+		group by intDescSgsnId,intApnTypeId,intRaitype
+		]]>
+	</select>
+	<!-- 街道办 -->
+	<select id="query_ftbStatHourStreetApnType" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intStreetId,intApnTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		sum(intAppUpFlush), sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),getdate(),intRaitype,#vcLocalIP#
+		from $sourceTableName$ 
+		group by intStreetId,intApnTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- 营销片区 -->
+	<select id="query_ftbStatHourSaleAreaApnType" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intSaleAreaId,intApnTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		sum(intAppUpFlush), sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),getdate(),intRaitype,#vcLocalIP#
+		from $sourceTableName$ 
+		group by intSaleAreaId,intApnTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- 分公司 -->
+	<select id="query_ftbStatHourCompanyApnType" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intBranchId,intApnTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		sum(intAppUpFlush), sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),getdate(),intRaitype,#vcLocalIP#
+		from $sourceTableName$ 
+		group by intBranchId,intApnTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- ftbGnSignalData -->
+	<select id="query_ftbStatHourApnActive" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intApnId,intApnTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,getdate(),
+		sum(case when intGtpMt=16 then 1 else 0 end ) as activeCount,intRaitype
+		from $sourceTableName$ 
+		group by intApnId,intApnTypeId,intRaitype
+		]]>
+	</select>
+
+	<select id="query_ftbStatHourApnTypeActive" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intApnTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,getdate(),
+		sum(case when intGtpMt=16 then 1 else 0 end ) as activeCount,intRaitype
+		from $sourceTableName$ 
+		group by intApnTypeId,intRaitype
+		]]>
+	</select>
+
+	<select id="query_ftbStatHourUserBelongActive" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intUserBelongId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,getdate(),
+		sum(case when intGtpMt=16 then 1 else 0 end ) as activeCount,intRaitype 
+		from $sourceTableName$ 
+		group by intUserBelongId,intRaitype
+		]]>
+	</select>
+
+	<select id="query_ftbStatHourApnUserBelongActive"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intUserBelongId,intApnTypeId,intApnId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,getdate(),
+		sum(case when intGtpMt=16 then 1 else 0 end ) as activeCount,intRaitype 
+		from $sourceTableName$ 
+		group by intUserBelongId,intApnTypeId,intApnId,intRaitype
+		]]>
+	</select>
+
+
+	<select id="query_ftbStatHourBscApnTypeActive" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intBscId,intApnTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,getdate(),
+		sum(case when intGtpMt=16 then 1 else 0 end ) as activeCount,intRaitype 
+		from $sourceTableName$ 
+		group by intBscId,intApnTypeId,intRaitype
+		]]>
+	</select>
+
+
+	<select id="query_ftbStatHourSgsnApnTypeActive" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intSgsnId,intApnTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,getdate(),
+		sum(case when intGtpMt=16 then 1 else 0 end ) as activeCount,intRaitype
+		from $sourceTableName$ 
+		group by intSgsnId,intApnTypeId,intRaitype
+		]]>
+	</select>
+
+	<select id="query_ftbStatHourStreetApnTypeActive"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intStreetId,intApnTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,getdate(),
+		sum(case when intGtpMt=16 then 1 else 0 end ) as activeCount,intRaitype 
+		from $sourceTableName$ 
+		group by intStreetId,intApnTypeId,intRaitype
+		]]>
+	</select>
+
+	<select id="query_ftbStatHourSaleAreaApnTypeActive"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intSaleAreaId,intApnTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,getdate(),
+		sum(case when intGtpMt=16 then 1 else 0 end ) as activeCount,intRaitype 
+		from $sourceTableName$ 
+		group by intSaleAreaId,intApnTypeId,intRaitype
+		]]>
+	</select>
+
+	<select id="query_ftbStatHourCompanyApnTypeActive"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intBranchId,intApnTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,getdate(),
+		sum(case when intGtpMt=16 then 1 else 0 end ) as activeCount,intRaitype 
+		from $sourceTableName$ 
+		group by intBranchId,intApnTypeId,intRaitype
+		]]>
+	</select>
+
+
+	<!-- add 20110801 自定义小区集分析呈现（小时）AREA -->
+	<select id="query_ftbStatHourGroupAreaGprsSpace" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select nmAreaId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		sum(intAppUpFlush), sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),getdate(),count(*),intRaitype,#vcLocalIP#
+		from $sourceTableName$ 
+		where nmAreaId != 0
+		  group by	nmAreaId,intRaitype
+		]]>
+	</select>
+
+	<!-- wuzhenzhen add 20110804 自定义小区集析呈现_业务维（小时）GROUPAREA -->
+	<select id="query_ftbStatHourGroupAreaBussType" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select nmAreaId,nmBussinessId,nmBussinessTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		sum(intAppUpFlush), sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),getdate(),count(*),intRaitype,#vcLocalIP#
+		from $sourceTableName$ 
+		where nmAreaId != 0
+		group by nmAreaId,nmBussinessId,nmBussinessTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- Wu Zhenzhen 终端的区域分布_全網 add by 2011年10月24日9:48:08 -->
+	<select id="query_ftbStatHourTerminalTypeGprsSpace"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		  select nmTerminalId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),
+		         getdate(),count(*),intRaitype,#vcLocalIP#
+		    from $sourceTableName$ 
+		group by nmTerminalId,intRaitype
+		]]>
+	</select>
+
+	<!-- Wu Zhenzhen 终端的区域分布_全網_業務 add by 2011年10月24日9:48:43 -->
+	<select id="query_ftbStatHourTerminalTypeBussType"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$
+		  select nmTerminalId,nmBussinessId,nmBussinessTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),getdate(),count(*),intRaitype,#vcLocalIP#
+		    from $sourceTableName$ 
+		group by nmTerminalId,nmBussinessId,nmBussinessTypeId,intRaitype
+		]]>
+	</select>
+
+
+	<!-- Wu Zhenzhen 终端的区域分布_BSC add by 2011年10月24日9:48:08 -->
+	<select id="query_ftbStatBscHourTerminalTypeGprsSpace"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		  select nmTerminalId,intBscId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),getdate(),
+		         count(*),intRaitype,#vcLocalIP#
+		    from $sourceTableName$ 
+		group by nmTerminalId,intBscId,intRaitype
+		]]>
+	</select>
+
+	<!-- Wu Zhenzhen 终端的区域分布_BSC_業務 add by 2011年10月24日9:48:43 -->
+	<select id="query_ftbStatBscHourTerminalTypeBussType"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$
+		  select nmTerminalId,intBscId,nmBussinessId,nmBussinessTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),
+		         getdate(),count(*),intRaitype,#vcLocalIP#
+		    from $sourceTableName$ 
+		group by nmTerminalId,intBscId,nmBussinessId,nmBussinessTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- Wu Zhenzhen 终端的区域分布_SGSN add by 2011年10月24日9:48:08 -->
+	<select id="query_ftbStatSgsnHourTerminalTypeGprsSpace"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		  select nmTerminalId,intDescSgsnId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),
+		         getdate(),count(*),intRaitype,#vcLocalIP#
+		    from $sourceTableName$ 
+		group by nmTerminalId,intDescSgsnId,intRaitype
+		]]>
+	</select>
+
+	<!-- Wu Zhenzhen 终端的区域分布_SGSN_業務 add by 2011年10月24日9:48:43 -->
+	<select id="query_ftbStatSgsnHourTerminalTypeBussType"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$
+		  select nmTerminalId,intDescSgsnId,nmBussinessId,nmBussinessTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),getdate(),count(*),intRaitype,#vcLocalIP#
+		    from $sourceTableName$ 
+		group by nmTerminalId,intDescSgsnId,nmBussinessId,nmBussinessTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- Wu Zhenzhen 终端的区域分布_分公司 add by 2011年10月24日9:48:08 -->
+	<select id="query_ftbStatBranchHourTerminalTypeGprsSpace"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		  select nmTerminalId,intBranchId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),getdate(),count(*),intRaitype,#vcLocalIP#
+		    from $sourceTableName$ 
+		group by nmTerminalId,intBranchId,intRaitype
+		]]>
+	</select>
+
+	<!-- Wu Zhenzhen 终端的区域分布_分公司_業務 add by 2011年10月24日9:48:43 -->
+	<select id="query_ftbStatBrachHourTerminalTypeBussType"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$
+		  select nmTerminalId,intBranchId,nmBussinessId,nmBussinessTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),getdate(),count(*),intRaitype,#vcLocalIP#
+		    from $sourceTableName$ 
+		group by nmTerminalId,intBranchId,nmBussinessId,nmBussinessTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- Wu Zhenzhen 终端的区域分布_營銷片區 add by 2011年10月24日9:48:08 -->
+	<select id="query_ftbStatSaleAreaHourTerminalTypeGprsSpace"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		  select nmTerminalId,intSaleAreaId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),getdate(),count(*),intRaitype,#vcLocalIP#
+		    from $sourceTableName$ 
+		group by nmTerminalId,intSaleAreaId,intRaitype
+		]]>
+	</select>
+
+	<!-- Wu Zhenzhen 终端的区域分布_營銷片區_業務 add by 2011年10月24日9:48:43 -->
+	<select id="query_ftbStatSaleAreaHourTerminalTypeBussType"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$
+		  select nmTerminalId,intSaleAreaId,nmBussinessId,nmBussinessTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),getdate(),count(*),intRaitype,#vcLocalIP#
+		    from $sourceTableName$ 
+		group by nmTerminalId,intSaleAreaId,nmBussinessId,nmBussinessTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- Wu Zhenzhen 终端的区域分布_街道 add by 2011年10月24日9:48:08 -->
+	<select id="query_ftbStatStreetHourTerminalTypeGprsSpace"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		  select nmTerminalId,intStreetId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),getdate(),count(*),intRaitype,#vcLocalIP#
+		    from $sourceTableName$ 
+		group by nmTerminalId,intStreetId,intRaitype
+		]]>
+	</select>
+
+	<!-- Wu Zhenzhen 终端的区域分布_街道_業務 add by 2011年10月24日9:48:43 -->
+	<select id="query_ftbStatStreetHourTerminalTypeBussType"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$
+		  select nmTerminalId,intStreetId,nmBussinessId,nmBussinessTypeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		         sum(intAppUpFlush),sum(intAppDownFlush),count(distinct(nmImsi)),sum(intAppUpFlush+intAppDownFlush),getdate(),count(*),intRaitype,#vcLocalIP#
+		    from $sourceTableName$ 
+		group by nmTerminalId,intStreetId,nmBussinessId,nmBussinessTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- Wu Zhenzhen 流量分層 add by 2011年11月3日10:22:42 -->
+	<select id="query_ftbFlushLayering" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$ 
+		  select nmTerminalId,nmBussinessId,nmImsi,nmMsisdn,sum(intAppUpFlush),sum(intAppDownFlush),
+		         #intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,getdate(),intRaitype,#vcLocalIP#
+		    from $sourceTableName$ 
+		group by nmTerminalId,nmBussinessId,nmImsi,nmMsisdn,intRaitype
+		]]>
+	</select>
+
+	<!-- 2013-12-10 12:46:21 add 數據接口文件 -->
+	<select id="query_dataInterfaceFile" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$ 
+		select group1.nmMsisdn, group1.vcParentGroupName,group1.vcGroupName,group2.vcParentGroupName,group2.vcGroupName,
+ string(#intYear#,'-',#intMonth#,'-',#intDay#,' ',#intHour#,':00:00') startTime,  
+ string(#intYear#,'-',#intMonth#,'-',#intDay#,' ',#intHour#,':59:59') endTime,
+sum(group1.totalFlush+group2.totalFlush) totalFlush, group1.vccgi,group1.nmimei
+from 
+(select  nmMsisdn,vcParentGroupName,vcGroupName ,(sum(intAppUpFlush)+sum(intAppDownFlush)) as totalFlush, vccgi, nmimei
+ from  $sourceTableName$ inner join dtbGroupTree on ProductDimens = nmDimensId where  nmTypeId = 1 and nmLevelsId = 2  and (vccgi <> '' or nmmsisdn <> 0)
+group by nmMsisdn, vccgi ,nmimei , intHour,vcParentGroupName,vcGroupName ) as group1,
+(select  nmMsisdn,vcParentGroupName,vcGroupName ,(sum(intAppUpFlush)+sum(intAppDownFlush)) as totalFlush, vccgi,nmimei 
+ from  $sourceTableName$ inner join dtbGroupTree on ProductDimens = nmDimensId where  nmTypeId = 2 and nmLevelsId = 2  and (vccgi <> '' or nmmsisdn <> 0)
+group by nmMsisdn, vccgi ,nmimei , intHour,vcParentGroupName,vcGroupName ) as group2
+where group1.nmMsisdn=group2.nmMsisdn and group1.vccgi=group2.vccgi and group1.nmimei=group2.nmimei  
+group by group1.nmMsisdn,group1.vccgi,group1.nmimei ,group1.vcParentGroupName,group1.vcGroupName,group2.vcParentGroupName,group2.vcGroupName 
+having totalFlush != 0
+order by group1.vcParentGroupName,group1.vcGroupName,group2.vcParentGroupName,group2.vcGroupName,totalFlush
+		]]>
+	</select>
+
+</sqlMap>

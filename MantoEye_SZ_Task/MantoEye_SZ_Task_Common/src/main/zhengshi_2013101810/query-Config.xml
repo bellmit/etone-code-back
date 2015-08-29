@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+	<!-- 數據庫配置文件 -->
+	<properties url="file:../etc/jdbc.properties" />
+
+	<!-- 數據庫配置信息 -->
+	<settings cacheModelsEnabled="true" enhancementEnabled="true"
+		lazyLoadingEnabled="false" maxRequests="10" maxSessions="10"
+		maxTransactions="10" useStatementNamespaces="false" />
+	<transactionManager type="JDBC">
+		<dataSource type="DBCP">
+			<property name="JDBC.Driver" value="${queryDriver}" />
+			<property name="JDBC.ConnectionURL" value="${queryUrl}" />
+			<property name="JDBC.Username" value="${queryUsername}" />
+			<property name="JDBC.Password" value="${queryPassword}" />
+			<property name="JDBC.DefaultAutoCommit" value="true" />
+			<!-- OPTIONAL PROPERTIES BELOW -->
+			<property name="Pool.MaximumActiveConnections" value="10" />
+			<property name="Pool.MaximumIdleConnections" value="1" />
+			<property name="Pool.ValidationQuery" value="select 1 " />
+			<property name="Pool.MaximumWait" value="600000" />
+			<property name="Pool.LogAbandoned" value="false" />
+			<property name="Pool.RemoveAbandoned" value="true" />
+			<property name="Pool.RemoveAbandonedTimeout" value="500" />
+		</dataSource>
+	</transactionManager>
+
+	<!-- 功能map -->
+	<!-- 普通時天周月任務 -->
+	<sqlMap url="file:../etc/sybase/common/query_hour.xml" />
+	<sqlMap url="file:../etc/sybase/common/query_day.xml" />
+	<sqlMap url="file:../etc/sybase/common/query_week.xml" />
+	<sqlMap url="file:../etc/sybase/common/query_month.xml" />
+	<!-- 新業務識別時天周月任務 -->
+	<sqlMap url="file:../etc/sybase/newbuss/query_hour.xml" />
+	<sqlMap url="file:../etc/sybase/newbuss/query_day.xml" />
+	<sqlMap url="file:../etc/sybase/newbuss/query_week.xml" />
+	<sqlMap url="file:../etc/sybase/newbuss/query_month.xml" />
+	<!-- 用戶自定義的一些功能SQLMAP配置文件 -->
+	<sqlMap url="file:../etc/sybase/user/query_other.xml" />
+	<!-- 規則 -->
+	<sqlMap url="file:../etc/sybase/rule/query_day.xml" />
+	<!-- BB -->
+	<sqlMap url="file:../etc/sybase/bb/query.xml" />
+	<!-- 宏观呈现平台之宏观呈现 -->
+	<sqlMap url="file:../etc/sybase/ud/query.xml" />
+	<!-- 彩信 -->
+	<sqlMap url="file:../etc/sybase/mms/query_hour.xml" />
+
+</sqlMapConfig>

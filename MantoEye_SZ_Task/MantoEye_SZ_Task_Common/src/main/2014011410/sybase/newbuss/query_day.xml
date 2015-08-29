@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- ===========空间分析呈现_业务维（天）BSC 2012年3月22日14:14:12 =========== -->
+	<!-- =======业务表========= -->
+	<select id="query_ftbStatDayBscBussTypeUsers_V2" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intBscId,nmParentId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intMonth#,#intWeek#,#intDay#,getdate(),#vcLocalIP# 
+                  ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end))
+ 			 from $sourceTableName$ sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 1
+              and nmLevelsId = 2
+		 group by intBscId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+	<!-- =======业务表========= -->
+	<select id="query_ftbStatDayBscBussTypeUsersConTent_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intBscId,sourceTable.nmDimensId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intMonth#,#intWeek#,#intDay#,getdate(),#vcLocalIP# 
+                  ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end))
+ 			 from $sourceTableName$ sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 1
+		 group by intBscId,sourceTable.nmDimensId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+
+	<!-- =======内容表========= -->
+	<select id="query_ftbStatDayBscContentTypeUsers_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intBscId,nmParentId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intMonth#,#intWeek#,#intDay#,getdate(),#vcLocalIP# 
+                  ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end))
+ 			 from $sourceTableName$ sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 2
+              and nmLevelsId = 2
+		 group by intBscId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+	<select id="query_ftbStatDayBscContentTypeUsersConDetails_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intBscId,sourceTable.nmDimensId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intMonth#,#intWeek#,#intDay#,getdate(),#vcLocalIP# 
+                  ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end))
+ 			 from $sourceTableName$ sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 2 
+		 group by intBscId,sourceTable.nmDimensId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+
+	<!-- ===========空间分析呈现_业务维（天）SGSN 2012年3月22日14:20:05 =========== -->
+	<!-- =======业务表========= -->
+	<select id="query_ftbStatDaySgsnBussTypeUsers_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intSgsnId,nmParentId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intMonth#,#intWeek#,#intDay#,getdate(),#vcLocalIP# 
+                  ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end))
+ 			 from $sourceTableName$ sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 1
+              and nmLevelsId = 2
+		 group by intSgsnId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+	<!-- =======业务表========= -->
+	<select id="query_ftbStatDaySgsnBussTypeUsersConTent_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intSgsnId,sourceTable.nmDimensId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intMonth#,#intWeek#,#intDay#,getdate(),#vcLocalIP# 
+                  ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end))
+ 			 from $sourceTableName$ sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 1 
+		 group by intSgsnId,sourceTable.nmDimensId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+
+	<!-- =======内容表========= -->
+	<select id="query_ftbStatDaySgsnContentTypeUsers_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intSgsnId,nmParentId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intMonth#,#intWeek#,#intDay#,getdate(),#vcLocalIP# 
+                  ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end))
+ 			 from $sourceTableName$ sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 2
+              and nmLevelsId = 2
+		 group by intSgsnId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+	<select id="query_ftbStatDaySgsnContentTypeUsersConDetails_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intSgsnId,sourceTable.nmDimensId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intMonth#,#intWeek#,#intDay#,getdate(),#vcLocalIP# 
+                  ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end))
+ 			 from $sourceTableName$ sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 2 
+		 group by intSgsnId,sourceTable.nmDimensId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+
+	<!-- ===========空间分析呈现_业务维（天）STREET 2012年3月22日14:21:38 =========== -->
+	<!-- =======业务表========= -->
+	<select id="query_ftbStatDayStreetBussTypeUsers_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intStreetId,nmParentId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intMonth#,#intWeek#,#intDay#,getdate(),#vcLocalIP# 
+                  ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end))
+ 			 from $sourceTableName$ sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 1
+              and nmLevelsId = 2
+		 group by intStreetId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+	<select id="query_ftbStatDayStreetBussTypeUsersConTent_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intStreetId,sourceTable.nmDimensId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intMonth#,#intWeek#,#intDay#,getdate(),#vcLocalIP# 
+                  ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end))
+ 			 from $sourceTableName$ sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 1 
+		 group by intStreetId,sourceTable.nmDimensId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+
+	<!-- =======内容表========= -->
+	<select id="query_ftbStatDayStreetContentTypeUsers_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intStreetId,nmParentId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intMonth#,#intWeek#,#intDay#,getdate(),#vcLocalIP# 
+                  ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end))
+ 			 from $sourceTableName$ sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 2
+              and nmLevelsId = 2
+		 group by intStreetId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+	<select id="query_ftbStatDayStreetContentTypeUsersConDetails_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intStreetId,sourceTable.nmDimensId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intMonth#,#intWeek#,#intDay#,getdate(),#vcLocalIP# 
+                  ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end))
+ 			 from $sourceTableName$ sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 2 
+		 group by intStreetId,sourceTable.nmDimensId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+
+	<!-- ===========空间分析呈现_业务维（天）SALEAREA 2012年3月22日14:28:32 =========== -->
+	<!-- =======业务表========= -->
+	<select id="query_ftbStatDaySaleAreaBussTypeUsers_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intSaleAreaId,nmParentId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intMonth#,#intWeek#,#intDay#,getdate(),#vcLocalIP# 
+                  ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end))
+ 			 from $sourceTableName$ sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 1
+              and nmLevelsId = 2
+		 group by intSaleAreaId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+	<select id="query_ftbStatDaySaleAreaBussTypeUsersConTent_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intSaleAreaId,sourceTable.nmDimensId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intMonth#,#intWeek#,#intDay#,getdate(),#vcLocalIP# 
+                  ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end))
+ 			 from $sourceTableName$ sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 1 
+		 group by intSaleAreaId,sourceTable.nmDimensId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+
+	<!-- =======内容表========= -->
+	<select id="query_ftbStatDaySaleAreaContentTypeUsers_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intSaleAreaId,nmParentId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intMonth#,#intWeek#,#intDay#,getdate(),#vcLocalIP# 
+                  ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end))
+ 			 from $sourceTableName$ sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 2
+              and nmLevelsId = 2
+		 group by intSaleAreaId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+	<select id="query_ftbStatDaySaleAreaContentTypeUsersConDetails_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intSaleAreaId,sourceTable.nmDimensId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intMonth#,#intWeek#,#intDay#,getdate(),#vcLocalIP# 
+                  ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end))
+ 			 from $sourceTableName$ sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 2 
+		 group by intSaleAreaId,sourceTable.nmDimensId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+
+	<!-- ===========空间分析呈现_业务维（天）Company 2012年3月22日14:30:52 =========== -->
+	<!-- =======业务表========= -->
+	<select id="query_ftbStatDayCompanyBussTypeUsers_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intBranchId,nmParentId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intMonth#,#intWeek#,#intDay#,getdate(),#vcLocalIP# 
+                  ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end))
+ 			 from $sourceTableName$ sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 1
+              and nmLevelsId = 2
+		 group by intBranchId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+	<select id="query_ftbStatDayCompanyBussTypeUsersConTent_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intBranchId,sourceTable.nmDimensId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intMonth#,#intWeek#,#intDay#,getdate(),#vcLocalIP# 
+                  ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end))
+ 			 from $sourceTableName$ sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 1 
+		 group by intBranchId,sourceTable.nmDimensId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+
+	<!-- =======内容表========= -->
+	<select id="query_ftbStatDayCompanyContentTypeUsers_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intBranchId,nmParentId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intMonth#,#intWeek#,#intDay#,getdate(),#vcLocalIP# 
+                  ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end))
+ 			 from $sourceTableName$ sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 2
+              and nmLevelsId = 2
+		 group by intBranchId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+	<select id="query_ftbStatDayCompanyContentTypeUsersConDetails_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intBranchId,sourceTable.nmDimensId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intMonth#,#intWeek#,#intDay#,getdate(),#vcLocalIP# 
+                  ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end))
+ 			 from $sourceTableName$ sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 2 
+		 group by intBranchId,sourceTable.nmDimensId,nmGroupId,intRaitype
+		]]>
+	</select>
+
+	<!-- ===========空间分析呈现_业务维（天）自定义小区集 2012年3月22日14:39:44 =========== -->
+	<!-- =======业务表========= -->
+	<select id="query_ftbStatDayGroupAreaBussTypeUsers_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select nmAreaId,nmParentId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intMonth#,#intWeek#,#intDay#,getdate(),#vcLocalIP# 
+                  ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end))
+ 			 from $sourceTableName$ sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 1
+              and nmLevelsId = 2
+		 group by nmAreaId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+	<!-- =======业务表========= -->
+	<select id="query_ftbStatDayGroupAreaBussTypeUsersConTent_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select nmAreaId,sourceTable.nmDimensId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intMonth#,#intWeek#,#intDay#,getdate(),#vcLocalIP# 
+                  ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end))
+ 			 from $sourceTableName$ sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 1 
+		 group by nmAreaId,sourceTable.nmDimensId,nmGroupId,intRaitype
+		]]>
+	</select>
+
+	<!-- =======内容表========= -->
+	<select id="query_ftbStatDayGroupAreaContentTypeUsers_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select nmAreaId,nmParentId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intMonth#,#intWeek#,#intDay#,getdate(),#vcLocalIP# 
+                  ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end))
+ 			 from $sourceTableName$ sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 2
+              and nmLevelsId = 2
+		 group by nmAreaId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+	<select id="query_ftbStatDayGroupAreaContentTypeUsersConDetails_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select nmAreaId,sourceTable.nmDimensId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intMonth#,#intWeek#,#intDay#,getdate(),#vcLocalIP# 
+                  ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end))
+ 			 from $sourceTableName$ sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 2 
+		 group by nmAreaId,sourceTable.nmDimensId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+
+
+	<!-- ===========全网数据业务流量分布呈现_业务维（天）2012年3月29日10:20:14 =========== -->
+	<!-- =======业务表========= -->
+	<!-- 统计业务第1层 -->
+	<select id="query_ftbStatDayGprsBussTypeUsers_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select nmParentId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intMonth#,#intWeek#,#intDay#,getdate(),#vcLocalIP#
+                   ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end)) 
+ 			 from $sourceTableName$ sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 1 
+		 group by nmParentId,intRaitype
+		]]>
+	</select>
+
+	<!-- =======内容表========= -->
+	<!-- 统计业务第1层 -->
+	<select id="query_ftbStatDayGprsContentTypeUsers_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select nmParentId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intMonth#,#intWeek#,#intDay#,getdate(),#vcLocalIP#
+                   ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end)) 
+ 			 from $sourceTableName$ sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 2 
+		 group by nmParentId,intRaitype
+		]]>
+	</select>
+
+	<!-- =======业务表========= -->
+	<!-- 统计业务第2层 -->
+	<select id="query_ftbStatDayGprsBussUsers_V2" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select nmParentId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intMonth#,#intWeek#,#intDay#,getdate(),#vcLocalIP#
+                   ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end)) 
+ 			 from $sourceTableName$ sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 1
+              and nmLevelsId = 2
+		 group by nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+
+	<!-- =======内容表========= -->
+	<!-- 统计业务第2层 -->
+	<select id="query_ftbStatDayGprsContentUsers_V2" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select nmParentId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intMonth#,#intWeek#,#intDay#,getdate(),#vcLocalIP#
+                   ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end)) 
+ 			 from $sourceTableName$ sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 2
+              and nmLevelsId = 2
+		 group by nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+
+	<!-- =======业务表========= -->
+	<!-- 统计业务第3层 -->
+	<select id="query_ftbStatDayGprsBussContentUsers_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select sourceTable.nmDimensId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intMonth#,#intWeek#,#intDay#,getdate(),#vcLocalIP#
+                  ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end)) 
+ 			 from $sourceTableName$ sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 1
+		 group by nmGroupId,sourceTable.nmDimensId,intRaitype
+		]]>
+	</select>
+
+	<!-- =======内容表========= -->
+	<!-- 统计业务第3层 -->
+	<select id="query_ftbStatDayGprsConDetailsUsers_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select sourceTable.nmDimensId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intMonth#,#intWeek#,#intDay#,getdate(),#vcLocalIP#
+                   ,count(distinct(case when intUserBelongId=1 then nmimsi else 0 end)) 
+ 			 from $sourceTableName$ sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 2
+		 group by nmGroupId,sourceTable.nmDimensId,intRaitype
+		]]>
+	</select>
+
+</sqlMap>

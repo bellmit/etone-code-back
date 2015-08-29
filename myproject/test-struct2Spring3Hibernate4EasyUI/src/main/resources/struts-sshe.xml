@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+
+	<!-- extends="struts-default" 繼承默認struts包才能實現模型驅動 -->
+	<package name="memuAction" extends="system-default">
+		<action name="memuAction_*" class="z.z.w.project.test.action.MemuAction"
+			method="{1}">
+		</action>
+	</package>
+	<package name="systemDataAction" extends="system-default">
+		<action name="systemDataAction_*" class="z.z.w.project.test.action.SystemDataAction"
+			method="{1}">
+		</action>
+	</package>
+</struts>

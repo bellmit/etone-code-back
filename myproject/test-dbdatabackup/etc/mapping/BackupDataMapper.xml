@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="z.z.w.project.test.dao.IBackupDataDao">
+	<!-- #{id,jdbcType=INTEGER}, -->
+	<!-- #{name,jdbcType=VARCHAR} -->
+	<select id="getAllBackupTableNames" resultType="java.lang.String">
+	<![CDATA[
+		SELECT DISTINCT tname
+		FROM   sys.syscolumns
+		WHERE  tname IN (SELECT DISTINCT name
+		                 FROM   sysobjects
+		                 WHERE  type IN ( 'U', 'V' )
+		                        AND ( name LIKE 'tb%' ))
+		       AND ( default_value IS NULL
+		              OR default_value <> 'autoincrement' )
+		ORDER  BY tname;  
+       ]]>
+	</select>
+
+	<select id="getTableColumns" resultType="java.lang.String"
+		parameterType="java.lang.String">
+	<![CDATA[
+		SELECT cname
+		FROM   sys.syscolumns
+		WHERE  tname = #{tableName}
+		       AND ( default_value IS NULL
+		              OR default_value <> 'autoincrement' )
+		ORDER  BY cname; 
+       ]]>
+	</select>
+
+	<select id="exportDataToFile" parameterType="z.z.w.project.test.vo.ExportData"
+		statementType="STATEMENT">
+		  <![CDATA[
+		   ${exportOption}
+		   SELECT ${columns}
+		     FROM ${tableName}
+		  ]]>
+	</select>
+
+	<update id="loadDataFromFile" parameterType="z.z.w.project.test.vo.LoadData">
+	  <![CDATA[
+		LOAD TABLE ${tableName} (${columns}) FROM '${filePath}' delimited BY '|' escapes
+		OFF quotes OFF WITH CHECKPOINT OFF  
+		  ]]>
+	</update>
+
+</mapper>

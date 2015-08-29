@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- ===========空间分析呈现_业务维（周）BSC 2012年3月22日14:14:12 =========== -->
+	<!-- =======业务表========= -->
+	<select id="query_ftbStatWeekBscBussTypeUsers_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intBscId,nmParentId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intWeek#,getdate(),#vcLocalIP#
+ 			 from ftbStatNewBussNetSpaceHourUsers_week sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 1
+              and nmLevelsId = 2
+              and intYear =	#intYear# 
+		  	  and intWeek = #intWeek#
+		 group by intBscId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+
+	<select id="query_ftbStatWeekBscBussTypeUsersConTent_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intBscId,tree.nmDimensId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intWeek#,getdate(),#vcLocalIP#
+ 			 from ftbStatNewBussNetSpaceHourUsers_week sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 1 
+              and intYear =	#intYear# 
+		  	  and intWeek = #intWeek#
+		 group by intBscId,tree.nmDimensId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+	
+	<!-- =======内容表========= -->
+	<select id="query_ftbStatWeekBscContentTypeUsers_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intBscId,nmParentId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intWeek#,getdate(),#vcLocalIP#
+ 			 from ftbStatNewBussNetSpaceHourUsers_week sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 2
+              and nmLevelsId = 2
+              and intYear =	#intYear# 
+		  	  and intWeek = #intWeek#
+		 group by intBscId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+	<select id="query_ftbStatWeekBscContentTypeUsersConDetails_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intBscId,tree.nmDimensId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intWeek#,getdate(),#vcLocalIP#
+ 			 from ftbStatNewBussNetSpaceHourUsers_week sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 2 
+              and intYear =	#intYear# 
+		  	  and intWeek = #intWeek#
+		 group by intBscId,tree.nmDimensId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+
+	<!-- ===========空间分析呈现_业务维（周）SGSN 2012年3月22日14:20:05 =========== -->
+	<!-- =======业务表========= -->
+	<select id="query_ftbStatWeekSgsnBussTypeUsers_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intSgsnId,nmParentId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intWeek#,getdate(),#vcLocalIP#
+ 			 from ftbStatNewBussNetSpaceHourUsers_week sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 1
+              and nmLevelsId = 2
+              and intYear =	#intYear# 
+		  	  and intWeek = #intWeek#
+		 group by intSgsnId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+	<select id="query_ftbStatWeekSgsnBussTypeUsersConTent_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intSgsnId,tree.nmDimensId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intWeek#,getdate(),#vcLocalIP#
+ 			 from ftbStatNewBussNetSpaceHourUsers_week sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 1
+              and nmLevelsId = 2
+              and intYear =	#intYear# 
+		  	  and intWeek = #intWeek#
+		 group by intSgsnId,tree.nmDimensId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+
+	<!-- =======内容表========= -->
+	<select id="query_ftbStatWeekSgsnContentTypeUsers_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intSgsnId,nmParentId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intWeek#,getdate(),#vcLocalIP#
+ 			 from ftbStatNewBussNetSpaceHourUsers_week sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 2
+              and nmLevelsId = 2
+              and intYear =	#intYear# 
+		  	  and intWeek = #intWeek#
+		 group by intSgsnId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+	<select id="query_ftbStatWeekSgsnContentTypeUsersConDetails_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intSgsnId,tree.nmDimensId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intWeek#,getdate(),#vcLocalIP#
+ 			 from ftbStatNewBussNetSpaceHourUsers_week sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 2 
+              and intYear =	#intYear# 
+		  	  and intWeek = #intWeek#
+		 group by intSgsnId,tree.nmDimensId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+
+	<!-- ===========空间分析呈现_业务维（周）STREET 2012年3月22日14:21:38 =========== -->
+	<!-- =======业务表========= -->
+	<select id="query_ftbStatWeekStreetBussTypeUsers_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intStreetId,nmParentId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intWeek#,getdate(),#vcLocalIP#
+ 			 from ftbStatNewBussTerminalHourUsers_week sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 1
+              and nmLevelsId = 2
+              and intYear =	#intYear# 
+		  	  and intWeek = #intWeek#
+		 group by intStreetId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+	<select id="query_ftbStatWeekStreetBussTypeUsersConTent_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intStreetId,tree.nmDimensId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intWeek#,getdate(),#vcLocalIP#
+ 			 from ftbStatNewBussTerminalHourUsers_week sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 1 
+              and intYear =	#intYear# 
+		  	  and intWeek = #intWeek#
+		 group by intStreetId,tree.nmDimensId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+
+	<!-- =======内容表========= -->
+	<select id="query_ftbStatWeekStreetContentTypeUsers_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intStreetId,nmParentId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intWeek#,getdate(),#vcLocalIP#
+ 			 from ftbStatNewBussTerminalHourUsers_week sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 2
+              and nmLevelsId = 2
+              and intYear =	#intYear# 
+		  	  and intWeek = #intWeek#
+		 group by intStreetId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+	<select id="query_ftbStatWeekStreetContentTypeUsersConDetails_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intStreetId,tree.nmDimensId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intWeek#,getdate(),#vcLocalIP#
+ 			 from ftbStatNewBussTerminalHourUsers_week sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 2 
+              and intYear =	#intYear# 
+		  	  and intWeek = #intWeek#
+		 group by intStreetId,tree.nmDimensId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+
+	<!-- ===========空间分析呈现_业务维（周）SALEAREA 2012年3月22日14:28:32 =========== -->
+	<!-- =======业务表========= -->
+	<select id="query_ftbStatWeekSaleAreaBussTypeUsers_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intSaleAreaId,nmParentId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intWeek#,getdate(),#vcLocalIP#
+ 			 from ftbStatNewBussAdminSpaceHourUser_week sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 1
+              and nmLevelsId = 2
+              and intYear =	#intYear# 
+		  	  and intWeek = #intWeek#
+		 group by intSaleAreaId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+	<select id="query_ftbStatWeekSaleAreaBussTypeUsersConTent_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intSaleAreaId,tree.nmDimensId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intWeek#,getdate(),#vcLocalIP#
+ 			 from ftbStatNewBussAdminSpaceHourUser_week sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 1 
+              and intYear =	#intYear# 
+		  	  and intWeek = #intWeek#
+		 group by intSaleAreaId,tree.nmDimensId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+
+	<!-- =======内容表========= -->
+	<select id="query_ftbStatWeekSaleAreaContentTypeUsers_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intSaleAreaId,nmParentId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intWeek#,getdate(),#vcLocalIP#
+ 			 from ftbStatNewBussAdminSpaceHourUser_week sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 2
+              and nmLevelsId = 2
+              and intYear =	#intYear# 
+		  	  and intWeek = #intWeek#
+		 group by intSaleAreaId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+	<select id="query_ftbStatWeekSaleAreaContentTypeUsersConDetails_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intSaleAreaId,tree.nmDimensId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intWeek#,getdate(),#vcLocalIP#
+ 			 from ftbStatNewBussAdminSpaceHourUser_week sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 2 
+              and intYear =	#intYear# 
+		  	  and intWeek = #intWeek#
+		 group by intSaleAreaId,tree.nmDimensId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+
+	<!-- ===========空间分析呈现_业务维（周）Company 2012年3月22日14:30:52 =========== -->
+	<!-- =======业务表========= -->
+	<select id="query_ftbStatWeekCompanyBussTypeUsers_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intBranchId,nmParentId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intWeek#,getdate(),#vcLocalIP#
+ 			 from ftbStatNewBussAdminSpaceHourUser_week sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 1
+              and nmLevelsId = 2
+              and intYear =	#intYear# 
+		  	  and intWeek = #intWeek#
+		 group by intBranchId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+	<select id="query_ftbStatWeekCompanyBussTypeUsersConTent_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intBranchId,tree.nmDimensId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intWeek#,getdate(),#vcLocalIP#
+ 			 from ftbStatNewBussAdminSpaceHourUser_week sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 1 
+              and intYear =	#intYear# 
+		  	  and intWeek = #intWeek#
+		 group by intBranchId,tree.nmDimensId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+
+	<!-- =======内容表========= -->
+	<select id="query_ftbStatWeekCompanyContentTypeUsers_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intBranchId,nmParentId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intWeek#,getdate(),#vcLocalIP#
+ 			 from ftbStatNewBussAdminSpaceHourUser_week sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 2
+              and nmLevelsId = 2
+              and intYear =	#intYear# 
+		  	  and intWeek = #intWeek#
+		 group by intBranchId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+	<select id="query_ftbStatWeekCompanyContentTypeUsersConDetails_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select intBranchId,tree.nmDimensId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intWeek#,getdate(),#vcLocalIP#
+ 			 from ftbStatNewBussAdminSpaceHourUser_week sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 2 
+              and intYear =	#intYear# 
+		  	  and intWeek = #intWeek#
+		 group by intBranchId,tree.nmDimensId,nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+
+	<!-- ===========全网数据业务流量分布呈现_业务维（周） 2012年3月22日14:39:44 =========== -->
+	<!-- =======业务表========= -->
+	<!-- 统计业务第1层 -->
+	<select id="query_ftbStatWeekGprsBussTypeUsers_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select nmParentId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intWeek#,getdate(),#vcLocalIP#
+ 			 from ftbStatNewBussNetSpaceHourUsers_week sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 1
+              and intYear =	#intYear# 
+		  	  and intWeek = #intWeek#
+		 group by nmParentId,intRaitype
+		]]>
+	</select>
+
+	<!-- =======内容表========= -->
+	<!-- 统计业务第1层 -->
+	<select id="query_ftbStatWeekGprsContentTypeUsers_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select nmParentId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intWeek#,getdate(),#vcLocalIP#
+ 			 from ftbStatNewBussNetSpaceHourUsers_week sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 2
+              and intYear =	#intYear# 
+		  	  and intWeek = #intWeek#
+		 group by nmParentId,intRaitype
+		]]>
+	</select>
+
+	<!-- =======业务表========= -->
+	<!-- 统计业务第2层 -->
+	<select id="query_ftbStatWeekGprsBussUsers_V2" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select nmParentId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intWeek#,getdate(),#vcLocalIP#
+ 			 from ftbStatNewBussNetSpaceHourUsers_week sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 1
+              and nmLevelsId = 2
+              and intYear =	#intYear# 
+		  	  and intWeek = #intWeek#
+		 group by nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+
+	<!-- =======内容表========= -->
+	<!-- 统计业务第2层 -->
+	<select id="query_ftbStatWeekGprsContentUsers_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select nmParentId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intWeek#,getdate(),#vcLocalIP#
+ 			 from ftbStatNewBussNetSpaceHourUsers_week sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 2
+              and nmLevelsId = 2
+              and intYear =	#intYear# 
+		  	  and intWeek = #intWeek#
+		 group by nmParentId,nmGroupId,intRaitype
+		]]>
+	</select>
+
+	<!-- =======业务表========= -->
+	<!-- 统计业务第3层 -->
+	<select id="query_ftbStatWeekGprsBussContentUsers_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select sourceTable.nmDimensId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intWeek#,getdate(),#vcLocalIP#
+ 			 from ftbStatNewBussNetSpaceHourUsers_week sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 1
+              and intYear =	#intYear# 
+		  	  and intWeek = #intWeek#
+		 group by sourceTable.nmDimensId,nmGroupId,intRaitype
+		]]>
+	</select>
+
+	<!-- =======内容表========= -->
+	<!-- 统计业务第3层 -->
+	<select id="query_ftbStatWeekGprsConDetailsUsers_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 $option$     
+           select sourceTable.nmDimensId,nmGroupId,intRaitype,count(distinct(nmImsi)),
+                  #intYear#,#intWeek#,getdate(),#vcLocalIP#
+ 			 from ftbStatNewBussNetSpaceHourUsers_week sourceTable
+             left join dtbGroupTree tree
+               on sourceTable.nmDimensId = tree.nmDimensId
+		    where nmTypeId = 2
+              and intYear =	#intYear# 
+		  	  and intWeek = #intWeek#
+		 group by sourceTable.nmDimensId,nmGroupId,intRaitype
+		]]>
+	</select>
+
+</sqlMap>

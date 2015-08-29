@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>MantoEye_SZ_Task</artifactId>
+		<groupId>com.etone.mantoeye</groupId>
+		<version>8.1-BEAT</version>
+	</parent>
+	<groupId>com.etone.mantoeye</groupId>
+	<artifactId>MantoEye_SZ_Task_TerminalChange</artifactId>
+	<version>8.1-BEAT</version>
+	<name>MantoEye_SZ_Task_TerminalChange</name>
+	<url>http://maven.apache.org</url>
+	<dependencies>
+		<!-- 工具類 -->
+		<dependency>
+			<groupId>org.myhkzhen.util</groupId>
+			<artifactId>Util_Common</artifactId>
+		</dependency>
+
+		<!-- ftp工具 -->
+		<dependency>
+			<groupId>org.myhkzhen.util</groupId>
+			<artifactId>Util_Ftp</artifactId>
+		</dependency>
+
+		<!-- quartz任務定制 -->
+		<dependency>
+			<groupId>org.myhkzhen.quartz</groupId>
+			<artifactId>Timing_Quartz</artifactId>
+		</dependency>
+
+		<!-- 數據庫連接 ibatis -->
+		<dependency>
+			<groupId>org.myhkzhen.dao</groupId>
+			<artifactId>IbatisConnDB</artifactId>
+		</dependency>
+
+		<!-- 測試 -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!-- 滑過TEST測試類編譯 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.8</version>
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
+			</plugin>
+
+			<!-- 源代碼打包程序 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
+
+			<!-- 自動打包生成shell腳本和bat腳本 -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>appassembler-maven-plugin</artifactId>
+				<configuration>
+					<programs>
+						<program>
+							<mainClass>com.etone.mantoeye.analyse.local.action.SpecificJobAction</mainClass>
+							<name>specific_job</name>
+						</program>
+						<program>
+							<mainClass>com.etone.mantoeye.analyse.process.ExecSpecificJobProcess</mainClass>
+							<name>process_specific_data</name>
+						</program>
+					</programs>
+				</configuration>
+			</plugin>
+
+			<!-- assembly插件，分結構打包 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+			</plugin>
+
+		</plugins>
+	</build>
+</project>

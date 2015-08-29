@@ -1,0 +1,8 @@
+﻿ 
+1、81机上：将附件上传至 “/opt/web/MantoEye_SZ/mantoeye/monitoring ”文件系统下覆盖即可。
+ 
+2、43机上：将附件拷贝到 “C:\tools\apache-tomcat-6.0.20\webapps\ROOT\mantoeye\monitoring ”文件夹下覆盖即可。
+ 
+3、如果页面没有改变，请先停止TOMCAT服务器，并将%TOMCAT%\work的目录删除，再重启TOMCAT服务器，
+ 
+     work目录是TOMCAT运行时自动生成的，删除不受影响。

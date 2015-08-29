@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="gb2312"?>
+<Data>
+<Stat id="sale" unit="MB" title="2009年10月10日营销片区{dataname}分布" trip="流量用户数统计{br}片区：{name}{br}总流量：{total}MB{br}上行流量：{up}MB{br}下行流量：{down}MB{br}用户数：{imsis}">
+<Statdata name="宝安西区" total="452" up="377" down="75" imsis="3896"/>
+<Statdata name="宝安中区" total="704" up="396" down="308" imsis="3905"/>
+<Statdata name="宝安北区" total="521" up="263" down="258" imsis="4567"/>
+<Statdata name="宝安东区" total="872" up="530" down="342" imsis="5405"/>
+<Statdata name="南山南区" total="108" up="56" down="52" imsis="4959"/>
+<Statdata name="南山北区" total="430" up="63" down="367" imsis="3953"/>
+<Statdata name="福田南区" total="916" up="406" down="510" imsis="2604"/>
+<Statdata name="福田北区" total="663" up="161" down="502" imsis="4083"/>
+<Statdata name="罗湖西区" total="656" up="453" down="203" imsis="1986"/>
+<Statdata name="罗湖东区" total="454" up="336" down="118" imsis="756"/>
+<Statdata name="龙岗西区" total="399" up="89" down="310" imsis="1571"/>
+<Statdata name="龙岗中区" total="795" up="338" down="457" imsis="4590"/>
+<Statdata name="龙岗北区" total="668" up="453" down="215" imsis="2888"/>
+<Statdata name="龙岗东区" total="367" up="203" down="164" imsis="1053"/>
+<Statdata name="盐田全区" total="568" up="54" down="514" imsis="3944"/>
+</Stat>
+</Data>

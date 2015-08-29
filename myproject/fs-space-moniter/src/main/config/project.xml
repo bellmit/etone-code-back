@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+
+	<adapter name="FSSpaceMoniter" priority="10">
+		<type name="FSSpaceMoniter" class="z.z.w.project.space.moniter.MainRunner"
+			checkpath="/opt/data" deletetime="10h" fileSuffix=".csv" timedelay="30s"
+			filePrefix="*G" />
+	</adapter>
+
+	<adapter name="Moniter" priority="100">
+		<type name="Moniter" class="z.z.w.project.common.moniter.Moniter"
+			timeInterval="10s" />
+	</adapter>
+
+</server>

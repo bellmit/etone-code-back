@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!--  -->
+		<!--//blackberry区域分布-->
+	<package name="blackberryareadistribute" extends="system-default">
+		<action name="blackberryareadistribute_*"
+			class="com.symbol.app.mantoeye.web.action.blackberry.BlackBerryAreaDisAction"
+			method="{1}">
+		</action>
+	</package>
+	
+	<!--//blackberry小区分布-->
+	<package name="blackberrytopareaflush" extends="system-default">
+		<action name="blackberrytopareaflush_*"
+			class="com.symbol.app.mantoeye.web.action.blackberry.Top100AreaFlushAction"
+			method="{1}">
+		</action>
+	</package>
+	
+	<!--//blackberry运营商业务分布-->
+	<package name="blackberryyysbusiness" extends="system-default">
+		<action name="blackberryyysbusiness_*"
+			class="com.symbol.app.mantoeye.web.action.blackberry.BlackBerryYysBusinessAction"
+			method="{1}">
+		</action>
+	</package>
+	
+	<!--//blackberry运营商区域分布-->
+	<package name="blackberryyysarea" extends="system-default">
+		<action name="blackberryyysarea_*"
+			class="com.symbol.app.mantoeye.web.action.blackberry.BlackBerryAreaYysAction"
+			method="{1}">
+		</action>
+	</package>
+	
+	
+	
+	<!-- 黑莓 活跃用户 呈现-->
+	<package name="activeUser" extends="system-default">
+		<action name="activeUser_*"
+			class="com.symbol.app.mantoeye.web.action.blackberry.ActiveUserAction"
+			method="{1}">
+			<result name="index">/mantoeye/blackberry/active/bb_active.jsp</result>   
+		</action>
+	</package>
+	<!-- 黑莓 活跃用户 空间分布-->
+	<package name="activeUserSpace" extends="system-default">
+		<action name="activeUserSpace_*"
+			class="com.symbol.app.mantoeye.web.action.blackberry.ActiveUserSpaceAction"
+			method="{1}">
+			<result name="index">/mantoeye/blackberry/active/bb_active_space.jsp</result>   
+		</action>
+	</package>
+	<!-- 黑莓 用户归属地 呈现-->
+	<package name="blackBerryCountry" extends="system-default">
+		<action name="blackBerryCountry_*"
+			class="com.symbol.app.mantoeye.web.action.blackberry.CountryAction"
+			method="{1}">
+			<result name="index">/mantoeye/blackberry/active/bb_country.jsp</result>   
+		</action>
+	</package>
+	<!-- 黑莓 用户归属地 空间分布-->
+	<package name="countrySpace" extends="system-default">
+		<action name="countrySpace_*"
+			class="com.symbol.app.mantoeye.web.action.blackberry.CountrySpaceAction"
+			method="{1}">
+			<result name="index">/mantoeye/blackberry/active/bb_country_space.jsp</result>   
+		</action>
+	</package>
+	<!-- 黑莓 用户归属地 Top100小区-->
+	<package name="countryTopUser" extends="system-default">
+		<action name="countryTopUser_*"
+			class="com.symbol.app.mantoeye.web.action.blackberry.CountryTopUsersAction"
+			method="{1}">
+			<result name="index">/mantoeye/blackberry/active/bb_country_top.jsp</result>   
+		</action>
+	</package>
+	
+</struts>

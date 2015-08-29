@@ -1,0 +1,67 @@
+/**
+ * z.z.w.quartz.job.thread.JobThreadTest.java
+ */
+package z.z.w.quartz.job.thread;
+
+import java.util.Random;
+
+import z.z.w.common.DataTools;
+import z.z.w.common.DateTools;
+import z.z.w.common.ThreadTools;
+import z.z.w.quartz.job.TestQuartzJob3;
+
+/**
+ * @author Wu Zhenzhen
+ * @version Dec 21, 2012 9:07:21 PM
+ */
+public class JobThreadTest implements Runnable {
+
+	/**
+	 * <br>
+	 * Created on: Dec 21, 2012 9:07:21 PM
+	 */
+	public JobThreadTest() {
+		System.out.println(" --- JobThreadTest -- "
+				+ QueueTest.TASK_STATISTICS_QUEUE.size());
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Runnable#run()
+	 */
+	public void run() {
+		while (true) {
+
+			if (TestQuartzJob3.isStop
+					&& DataTools.isEmpty(QueueTest.TASK_STATISTICS_QUEUE)) {
+				System.out.println(DateTools.getCurrentDateStr()
+						+ " --- other threads stop JobThreadTest ---"
+						+ Thread.currentThread().getName());
+				break;
+			}
+
+			if (DataTools.isEmpty(QueueTest.TASK_STATISTICS_QUEUE)) {
+				System.out.println("warn : queue is null.  -> "
+						+ Thread.currentThread().getName());
+				continue;
+			}
+			int ddl = QueueTest.TASK_STATISTICS_QUEUE.poll();
+			int index = 0;
+			Random rand = new Random(System.currentTimeMillis());
+			index = (rand.nextInt(9999) % (9999 - 1 + 1) + 1);
+			// ThreadTools.sleepSeconds(5);
+			ThreadTools.sleep(20);
+			// System.out.println();
+			// System.out
+			// .println("=======================================================");
+			// System.out.println(" JobThreadTest - " + ddl + " sleep : ["
+			// + (index * 1.0 / 1000) + "]s.  " + "size:"
+			// + QueueTest.TASK_STATISTICS_QUEUE.size() + "  "
+			// + Thread.currentThread().getName());
+			// System.out
+			// .println("=======================================================");
+			// System.out.println();
+		}
+	}
+}

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 数据提取任务 -->
+	<select id="getFtbDataGetterTaskList" resultClass="com.etone.mantoeye.analyse.domain.extract.FtbDataGetterTask">
+		select top 1
+		c.nmDataGetterTaskId,c.dtStartTime,c.dtEndTime,c.intTaskType,c.intTaskStatus,c.vcTaskName
+		from ( select
+		nmDataGetterTaskId,dtStartTime,dtEndTime,intTaskType,intTaskStatus,vcTaskName
+		from ftbDataGetterTask where intTaskType in (3,4,9) and
+		bitTaskActiveFlag =1 and intTaskStatus = 0 union all select
+		nmDataGetterTaskId,dtStartTime,dtEndTime,intTaskType,intTaskStatus,vcTaskName
+		from ftbDataGetterTask where intTaskType in (7,8) and
+		bitTaskActiveFlag =1 and intTaskStatus = 0 and getdate() >
+		dateadd(mi,30,dtEndTime) ) as c
+	</select>
+
+	<!-- 数据提取任务 -->
+	<select id="getFtbDataGetterTask" resultClass="com.etone.mantoeye.analyse.domain.extract.FtbDataGetterTask">
+		select top 1
+		c.nmDataGetterTaskId,c.dtStartTime,c.dtEndTime,c.intTaskType,c.intTaskStatus,c.vcTaskName
+		from ( select
+		nmDataGetterTaskId,dtStartTime,dtEndTime,intTaskType,intTaskStatus,vcTaskName
+		from ftbDataGetterTask where intTaskType in (3,4,9) and
+		bitTaskActiveFlag =1 and intTaskStatus = 0 union all select
+		nmDataGetterTaskId,dtStartTime,dtEndTime,intTaskType,intTaskStatus,vcTaskName
+		from ftbDataGetterTask where intTaskType in (7,8) and
+		bitTaskActiveFlag =1 and intTaskStatus = 0 and getdate() >
+		dateadd(mi,30,dtEndTime) ) as c order by c.nmDataGetterTaskId
+	</select>
+
+	<!-- 更新数据提取任务状态 -->
+	<update id="updateFtbDataGetterTask" parameterClass="com.etone.mantoeye.analyse.domain.extract.FtbDataGetterTask">
+		update
+		ftbDataGetterTask set intTaskStatus =
+		#intTaskStatus#
+		where
+		nmDataGetterTaskId=#nmDataGetterTaskId#
+	</update>
+
+	<!-- 数据提取之读输出列 hyjun:add 分组标识,限定条件 -->
+	<select id="getFtbOutColumnList" parameterClass="java.lang.Long"
+		resultClass="com.etone.mantoeye.analyse.domain.extract.FtbOutColumn">
+		<![CDATA[
+		select c.nmTableMapId,(case when isnull(f.vcCondition,'')<>'' then f.vcCondition+'('+trim(t.vcTableName)+'.'+c.vcColumnName+')' else trim(t.vcTableName)+'.'+c.vcColumnName end ) as vcColumnName,
+			   isnull(c.vcColumnNickName,c.vcColumnName) as vcColumnNickName,isnull(f.bitGroupBy,0) as bitGroupBy
+		from ftbOutColumnMapTask f,ftbTableColumnMap c ,ftbTableMap t
+		where f.nmDataGetterTaskId =#nmDataGetterTaskId# 
+		  and f.nmTableColumnMapId = c.nmTableColumnMapId
+		  and t.nmTableMapId = c.nmTableMapId
+		   order by f.nmOutColumnMapTaskId
+		  	]]>
+	</select>
+
+	<!-- 数据提取之读查询条件 -->
+	<select id="getFtbFilterColumnMapTaskList" parameterClass="java.lang.Long"
+		resultClass="com.etone.mantoeye.analyse.domain.extract.FtbFilterColumnMapTask">
+		<![CDATA[
+		select distinct f.nmDataGetterTaskId,f.nmTableColumnMapId,trim(t.vcTableName)+'.'+c.vcColumnName as ColumnName,c.intColumnType
+		from ftbFilterColumnMapTask f,ftbTableColumnMap c ,ftbTableMap t
+		where c.nmTableColumnMapId = f.nmTableColumnMapId
+		  and f.nmDataGetterTaskId = #nmDataGetterTaskId#
+		  and t.nmTableMapId = c.nmTableMapId
+		  order by 2
+		  	]]>
+	</select>
+
+	<select id="getFtbFilterColumnMapTaskValueList"
+		parameterClass="com.etone.mantoeye.analyse.domain.extract.FtbFilterColumnMapTask"
+		resultClass="com.etone.mantoeye.analyse.domain.extract.FtbFilterColumnMapTask">
+		<![CDATA[
+		select f.vccondition,f.vcFilterValue from ftbFilterColumnMapTask f 
+		where  f.nmDataGetterTaskId =#nmDataGetterTaskId# and f.nmTableColumnMapId=#nmTableColumnMapId#
+		  	]]>
+	</select>
+
+	<parameterMap id="getterData2TQParam" class="map">
+		<parameter property="nmDataGetterTaskId" jdbcType="VARCHAR"
+			javaType="java.lang.Long" mode="INOUT" />
+		<parameter property="strColumns" jdbcType="VARCHAR"
+			javaType="java.lang.String" mode="INOUT" />
+		<parameter property="strConditions" jdbcType="VARCHAR"
+			javaType="java.lang.String" mode="INOUT" />
+		<parameter property="fileName" jdbcType="VARCHAR" javaType="java.lang.String"
+			mode="INOUT" />
+		<parameter property="strTitle" jdbcType="VARCHAR" javaType="java.lang.String"
+			mode="INOUT" />
+	</parameterMap>
+
+	<procedure id="proc_create_view_GetterData2TQ" parameterMap="getterData2TQParam"
+		resultClass="java.lang.String">
+		{call proc_create_view_GetterData2TQ(?,?,?,?,?)}
+	</procedure>
+
+	<!-- 写数据提取任务的文件路径 -->
+	<insert id="insertFtbDataGetterDecTask">
+		<![CDATA[
+	  	insert into FtbDataGetterDecTask(nmDataGetterTaskId,vcFileServerIp,vcFilePath,nmFileSize,vcFileFormat,dtETime)
+		values(#nmDataGetterTaskId#,#vcFileServerIp#,#vcFilePath#,#nmFileSize#,#vcFileFormat#,#dtETime#)
+	  	]]>
+	</insert>
+
+	<!-- 读数据提取的过滤条件 -->
+	<select id="getFtbDataGetterFilterList" parameterClass="java.lang.Long"
+		resultClass="com.etone.mantoeye.analyse.domain.extract.FtbDataGetterFilter">
+		select distinct intFilterType,nmDataGetterTaskId from
+		ftbDataGetterFilter where nmDataGetterTaskId
+		=#nmDataGetterTaskId#
+	</select>
+
+	<!-- 读数据提取的过滤条件11 -->
+	<select id="getFtbDataGetterFilterValueList"
+		parameterClass="com.etone.mantoeye.analyse.domain.extract.FtbDataGetterFilter"
+		resultClass="com.etone.mantoeye.analyse.domain.extract.FtbDataGetterFilter">
+		select vcFilterValue from ftbDataGetterFilter where
+		nmDataGetterTaskId =#nmDataGetterTaskId# and intFilterType =
+		#intFilterType#
+	</select> 
+
+	<parameterMap id="getterData2BCParam" class="map">
+		<parameter property="nmDataGetterTaskId" jdbcType="VARCHAR"
+			javaType="java.lang.Long" mode="INOUT" />
+		<parameter property="intType" jdbcType="VARCHAR" javaType="java.lang.Integer"
+			mode="INOUT" />
+		<parameter property="strConditions" jdbcType="VARCHAR"
+			javaType="java.lang.String" mode="INOUT" />
+	</parameterMap>
+	<procedure id="proc_create_view_GetterData2BC" parameterMap="getterData2BCParam"
+		resultClass="java.lang.String">
+		{call proc_create_view_GetterData2BC(?,?,?)}
+	</procedure>
+
+</sqlMap>

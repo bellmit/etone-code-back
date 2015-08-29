@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+
+	<adapter name="XmlTest" priority="10">
+		<type name="XmlTest" class="XmlTestClass">test1,test2test3,test4</type>
+		<type name="XmlTest2" class="XmlTest2Class">
+			test1,test2
+			test3,test4
+		</type>
+		<type name="XmlTest3" class="XmlTest3Class">
+			test5
+			test6
+		</type>
+	</adapter>
+
+</server>

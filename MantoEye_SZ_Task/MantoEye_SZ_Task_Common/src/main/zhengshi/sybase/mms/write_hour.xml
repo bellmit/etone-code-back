@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 5.2.14.1 点对点彩信区域统计（小时） -->
+	<statement id="load_ftbStatHourPeerMmsArea" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourPeerMmsArea
+		( intStreetId,
+		  intSaleAreaId,
+		  intBranchId,
+		  intSgsnId,
+		  intBscId,
+		  intYear,
+		  intMonth,
+		  intWeek,
+		  intDay,
+		  intHour,
+		  nmDownCounts,
+		  nmUpCounts,
+		  nmTotalCounts,
+		  dtStatTime,intRaitype,vcLocalIP)
+		    $option$
+		]]>
+	</statement>
+
+	<!-- 5.2.14.2 点对点彩信号段统计（小时） -->
+	<statement id="load_ftbStatHourPeerMmsSeg" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourPeerMmsSeg
+		( intMsisdnSegId,
+		  intYear,
+		  intMonth,
+		  intWeek,
+		  intDay,
+		  intHour,
+		  nmDownCounts,
+		  nmUpCounts,
+		  nmTotalCounts,
+		  dtStatTime,intRaitype,vcLocalIP)
+		    $option$
+		]]>
+	</statement>
+
+	<!-- 5.2.14.3 按流量分档统计发送量（小时） -->
+	<statement id="load_ftbStatHourSpMmsFlushSort" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourSpMmsFlushSort
+		( intSmsSizeId,
+		  intYear,
+		  intMonth,
+		  intWeek,
+		  intDay,intHour,
+		  nmCounts,
+		  dtStatTime,intRaitype,vcLocalIP)
+		    $option$
+		]]>
+	</statement>
+
+	<!-- 5.2.14.4 SP彩信主题区域统计（小时） intMmsFromNoId =1 表sp -->
+	<statement id="exec_ftbStatHourSpMmsTitleArea_bak"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[     
+		 insert into ftbStatHourSpMmsTitleArea ( intStreetId,intSaleAreaId,intBranchId,intSgsnId,intBscId,nmSpPort,
+												vcTitle,intYear,intMonth,intWeek,intDay,intHour,nmCounts,dtStatTime,
+												intRaitype,vcLocalIP )
+		      select intStreetId,intSaleAreaId,intBranchId,intDescSgsnId,intBscId,vcMmsFrom,vcMmsSubject,intYear,
+		             intMonth,intWeek,intDay,intHour,count(1) nmTotalCounts,getdate(),intRaitype,#vcLocalIP#
+		        from $sourceTableName$ 
+		       where intYear =	datepart(yy,#dtLoadedTime#) 
+		  		 and intMonth = datepart(mm,#dtLoadedTime#) 
+		  		 and intDay = datepart(dd,#dtLoadedTime#) 
+		  		 and intHour = datepart(hh,#dtLoadedTime#) 
+		  		 and intSmsId <> 0 and intMmsFromNoId =1
+		  	group by intStreetId,intSaleAreaId,intBranchId,intDescSgsnId,intBscId,vcMmsFrom,
+		  	         vcMmsSubject,intYear,intMonth,intDay,intHour,intWeek,intRaitype
+		]]>
+	</statement>
+
+	<!-- 5.2.14.4 SP彩信主题区域统计（小时） intMmsFromNoId =1 表sp 2011年12月27日10:40:48 分佈式 -->
+	<statement id="load_ftbStatHourSpMmsTitleArea" resultClass="java.lang.String">
+		<![CDATA[
+		 LOAD TABLE ftbStatHourSpMmsTitleArea ( intStreetId '+|+',intSaleAreaId '+|+',intBranchId '+|+',intSgsnId '+|+',intBscId '+|+',nmSpPort '+|+',
+												vcTitle '+|+',intYear '+|+',intMonth '+|+',intWeek '+|+',intDay '+|+',intHour '+|+',nmCounts '+|+',
+												dtStatTime '+|+',intRaitype '+|+',vcLocalIP '+|+')
+		   from  '/opt/wzz/ftbStatHourSpMmsTitleArea.txt'  escapes off quotes off notify 100000 with checkpoint on;
+		]]>
+	</statement>
+
+	<!-- 5.2.14.4 SP彩信主题区域统计（小时） intMmsFromNoId =1 表sp -->
+	<statement id="exec_ftbStatHourSpMmsTitleArea"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+     insert into ftbStatHourSpMmsTitleArea ( 
+		               intStreetId ,intSaleAreaId ,intBranchId ,intSgsnId ,intBscId ,nmSpPort ,vcTitle ,
+		               intYear ,intMonth ,intWeek ,intDay ,intHour ,nmCounts ,dtStatTime ,intRaitype ,vcLocalIP)
+		   select intStreetId,intSaleAreaId,intBranchId,intDescSgsnId,intBscId,vcMmsFrom,vcMmsSubject,
+		          #intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,count(1),getdate(),intRaitype,#vcLocalIP#
+		     from $sourceTableName$ 
+		    where 1=1 
+	 		  and intSmsId <> 0 and intMmsFromNoId =1
+	  	 group by intStreetId,intSaleAreaId,intBranchId,intDescSgsnId,intBscId,vcMmsFrom,
+		          vcMmsSubject,intRaitype
+		    
+		]]>
+	</statement>
+
+	<!-- 5.2.14.5 彩信流量分时段统计（小时） -->
+	<statement id="load_ftbStatHourWapFlush" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourWapFlush
+		( intMmsFromNoId,
+		  intYear,
+		  intMonth,
+		  intWeek,
+		  intDay,
+		  intHour,
+		  nmDownCounts,
+		  nmUpCounts,
+		  nmTotalCounts,
+		  dtStatTime,intRaitype,vcLocalIP)
+		    $option$
+		]]>
+	</statement>
+
+
+
+</sqlMap>

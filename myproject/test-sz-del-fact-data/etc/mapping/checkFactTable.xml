@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="z.z.w.project.test.dao.ICheckFactTableDao">
+	<!-- #{id,jdbcType=INTEGER}, -->
+	<!-- #{name,jdbcType=VARCHAR} -->
+	<select id="getNewTableNameList" resultType="java.lang.String">
+	<![CDATA[
+		SELECT vcTableName
+		 from tbFactTableOperation
+			where chIndexComplete = '1' 
+			  and isnull(chTaskCreated,'0') = '0'
+		 order by dtLoadedTime 
+       ]]>
+	</select>
+	<select id="getNewTaskTableNameList" resultType="java.lang.String">
+	<![CDATA[
+		 select vcfacttablename from tbtask where chgranularity in ('0','1') group by vcfacttablename  order by vcfacttablename 
+       ]]>
+	</select>
+	<select id="getIQConnectionList" resultType="java.util.Map">
+	<![CDATA[
+	sp_iqconnection
+       ]]>
+	</select>
+
+	<select id="getTableExist" resultType="java.lang.Long"
+		parameterType="java.lang.String">
+	<![CDATA[
+		 select count(1) from sysobjects where name=#{tableName}
+       ]]>
+	</select>
+	<select id="getCurrentTableDataCount" resultType="java.lang.Long"
+		parameterType="java.lang.String">
+	<![CDATA[
+		 SELECT count(1) 
+		     FROM ${tableName}
+       ]]>
+	</select>
+
+	<update id="updateCurrentFactTableDataStatus" parameterType="java.lang.String">
+	  <![CDATA[
+		update tbFactTableOperation set chTaskCreated = '5' where vcTableName=#{tableName}
+		  ]]>
+	</update>
+
+	<update id="updateCurrentTaskTableDataStatus" parameterType="java.lang.String">
+	  <![CDATA[
+		update tbtask set inttaskstate=5 where vcfacttablename=#{tableName}
+		  ]]>
+	</update>
+
+	<update id="dropConnection" parameterType="java.lang.Object">
+		 <![CDATA[
+		 drop connection ${connId}
+		  ]]>
+	</update>
+
+</mapper>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+
+	<!-- ［统计表］［业务规则］［天］辅规则不匹配统计表 ftbAssistRuleData -->
+	<select id="query_ftbStatDayAssistRule" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select nmBusinessMainVetorId,datepart(yy,dtTime),datepart(mm,dtTime),datepart(wk,dtTime),datepart(dd,dtTime),
+		count(1),getdate()
+		from ftbAssistRuleData 
+		where datepart(yy,dtTime) =	datepart(yy,#dtLoadedTime#) 
+		  and datepart(mm,dtTime) = datepart(mm,#dtLoadedTime#) 
+		  and datepart(dd,dtTime) = datepart(dd,#dtLoadedTime#)  
+		  group by nmBusinessMainVetorId,datepart(yy,dtTime),datepart(mm,dtTime),datepart(wk,dtTime),datepart(dd,dtTime)
+		]]>
+	</select>
+
+	<!-- ［业务规则］全量辅规则识别 -->
+	<select id="query_ftbAssistVetorRecognise" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+ 		set temporary option TEMP_EXTRACT_NAME1='/opt/wzz/ftbAssistVetorRecognise.txt';
+ 		set temporary option TEMP_EXTRACT_COLUMN_DELIMITER='	'; 
+ 		set temporary option TEMP_EXTRACT_SWAP='OFF';
+		set temporary option TEMP_EXTRACT_BINARY='OFF';
+		set temporary option TEMP_EXTRACT_SWAP='OFF'; 	
+
+		select a.nmBussinessId,a.vcServerIp,a.intPort,a.vcUrl,a.vcUserAgent,a.vcApn,min(a.dtFirstTime),max(a.dtLastTime)
+		 from ( select nmBussinessId,vcServerIp,intPort,vcUrl,vcUserAgent,vcApn,dtFirstTime,dtLastTime
+		     from ftbAssistVetorRecognise
+		   union all
+		   select d.nmBussinessId,d.vcServerIp,d.intPort,d.vcUrl,d.vcUserAgent,d.vcApn,min(d.dtTime),max(d.dtTime) 
+			 from ftbAssistVetorRecogniseData d
+		   where datepart(yy,d.dtTime) = datepart(yy,#dtLoadedTime#) 
+		   and datepart(mm,d.dtTime) = datepart(mm,#dtLoadedTime#) 
+		   and datepart(dd,d.dtTime) = datepart(dd,#dtLoadedTime#)
+		   group by d.nmBussinessId,d.vcServerIp,d.intPort,d.vcUrl,d.vcUserAgent,d.vcApn ) as a
+		group by a.nmBussinessId,a.vcServerIp,a.intPort,a.vcUrl,a.vcUserAgent,a.vcApn
+		]]>
+	</select>
+
+	<!-- ［统计表］［业务规则］［天］业务规则_业务流量排名Top1000 2011年12月28日11:22:40 分佈式 -->
+	<select id="query_RuleTop1000" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		  select top 1000 convert(varchar(10),max(nmBussinessId)),ipServerAddress,sum(nmFlush),NUMBER(*) as intOrder,#dtLoadedTime#,'',
+                 (case when nmBussinessId = 0 then '0' when nmBussinessId <> 0 then '1' else '0' end) as isFind ,#vcLocalIP#
+            from temp_ruletop1000_day
+        group by nmBussinessId,ipServerAddress order by 3 desc
+		]]>
+	</select>
+
+</sqlMap>

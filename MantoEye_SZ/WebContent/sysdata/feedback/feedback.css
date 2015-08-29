@@ -1,0 +1,18 @@
+html {
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+.replay_content_div {
+	border: 1px solid #ccc;
+	margin: 0px 0px 10px 0px;
+	background: #fafafa;
+	width: 500px;
+}
+
+.replay_content_textarea {
+	overflow-y: auto;
+	border: 1px solid #ccc;
+	width: 500px;
+	margin: 0px 0px 10px 0px;
+}

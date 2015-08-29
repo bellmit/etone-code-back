@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+
+	<!-- 存储过程 产生用户数的辅助表 -->
+	<parameterMap id="paramProc" class="map">
+		<parameter property="statdate" jdbcType="TIMESTAMP"
+			javaType="java.util.Date" mode="INOUT" />
+		<parameter property="tablename" jdbcType="VARCHAR" javaType="java.lang.String"
+			mode="INOUT" />
+		<parameter property="unionname" jdbcType="VARCHAR" javaType="java.lang.String"
+			mode="INOUT" />
+	</parameterMap>
+
+	<!-- 產生自定義小區集用戶數的存儲過程 2011年11月22日16:46:11 -->
+	<procedure id="proc_create_users_data_group_area"
+		parameterMap="paramProc" resultClass="java.lang.String">
+		<![CDATA[ 
+		{call proc_create_users_data_group_area(?,?,?)}
+			]]>
+	</procedure>
+
+	<!-- 終端類型分析 add by Wu Zhenzhen 2011年10月24日16:34:43 -->
+	<procedure id="proc_data_users_term_type" parameterMap="paramProc"
+		resultClass="java.lang.String">
+		<![CDATA[ 
+		{call proc_create_data_users_term_type(?,?,?)}
+			]]>
+	</procedure>
+
+	<!-- 2012年5月14日15:47:46 修改，原來的{call proc_create_data_users_day_new(?,?,?)} -->
+	<procedure id="proc_create_data_users" parameterMap="paramProc"
+		resultClass="java.lang.String">
+		<![CDATA[ 
+		{call proc_create_users_data_day(?,?,?)}
+			]]>
+	</procedure>
+
+	<!-- 存储过程 产生大流量用户 -->
+	<parameterMap id="overFlushParam" class="map">
+		<parameter property="statdate" jdbcType="DATE" javaType="java.util.Date"
+			mode="INOUT" />
+	</parameterMap>
+
+	<procedure id="proc_create_data_overFlush" parameterMap="overFlushParam"
+		resultClass="java.lang.String">
+		{call proc_create_data_overFlush_new(?)}
+	</procedure>
+
+	<!-- 終端升級天統計 add by Wu Zhenzhen 2011年10月27日11:11:38 -->
+	<procedure id="proc_TerminalUpdate_day"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[ 
+		{call proc_update_terminal_day(#sourceTableName#,#dtLoadedTime#)}
+		]]>
+	</procedure>
+
+	<!-- 終端升級天統計 add by Wu Zhenzhen 2011年12月28日15:25:52 分佈式 -->
+	<statement id="load_ftbStatTerminalChange" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatTerminalChange ( nmOldTerminalId,nmNewTerminalId,intAreaType,intAreaId,intUserNum,
+		                                   dtStatTime,intYear,intMonth,intWeek,intDay,intDateType,vcLocalIP )
+		    $option$
+		]]>
+	</statement>
+
+	<!-- 流量分層統計 add by Wu Zhenzhen 2011年11月10日15:22:18 -->
+	<procedure id="proc_FlushLayering"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		{call proc_flush_layering(#sourceTableName#,#dtLoadedTime#)}
+		]]>
+	</procedure>
+
+	<!-- 終端升級月統計 add by Wu Zhenzhen 2011年10月27日11:11:38 -->
+	<procedure id="proc_TerminalUpdate_month"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		{call proc_update_terminal_month(#sourceTableName#,#dtLoadedTime#)}
+		]]>
+	</procedure>
+
+	<!-- 終端升級月統計 add by Wu Zhenzhen2011年12月28日15:25:52 分佈式 -->
+	<statement id="load_ftbStatTerminalChange_month" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatTerminalChange ( nmOldTerminalId,nmNewTerminalId,intAreaType,intAreaId,intUserNum,
+		                                   dtStatTime,intYear,intMonth,intDateType,vcLocalIP )
+		    $option$
+		]]>
+	</statement>
+
+	<!-- 终端业务 2011年11月24日16:22:34 -->
+	<select id="getTerminalPolicyList" resultClass="java.lang.Long">
+		SELECT
+		nmTerminalPolicyId FROM ftbTerminalPolicy where
+		intStatus=1
+	</select>
+
+	<!-- 终端业务 2011年12月9日11:39:43 -->
+	<select id="getTerminalPolicy" resultClass="java.lang.Long">
+		SELECT top 1
+		nmTerminalPolicyId FROM ftbTerminalPolicy where
+		intStatus=1 order by
+		nmTerminalPolicyId 
+	</select>
+
+
+	<!-- 更新终端业务为执行状态 -->
+	<update id="updateFtbTerminalPolicy">
+		update ftbTerminalPolicy set intStatus = #intStatus#
+		where
+		nmTerminalPolicyId=#nmTerminalPolicyId#
+	</update>
+
+	<!-- 存储过程 产生终端用户数据 -->
+	<parameterMap id="tempBussParam" class="map">
+		<parameter property="nmTerminalPolicyId" jdbcType="VARCHAR"
+			javaType="java.lang.Long" mode="INOUT" />
+	</parameterMap>
+
+	<procedure id="proc_create_data_tempBuss" parameterMap="tempBussParam"
+		resultClass="java.lang.String">
+		{call proc_create_data_tempBuss(?)}
+	</procedure>
+
+	<!-- 分佈式數據加載 -->
+	<statement id="load_disSysTaskData" resultClass="java.lang.String">
+		<![CDATA[
+	   LOAD TABLE $sourceTableName$
+		        ( $targetTableName$ )
+		          $option$
+		]]>
+	</statement>
+
+</sqlMap>

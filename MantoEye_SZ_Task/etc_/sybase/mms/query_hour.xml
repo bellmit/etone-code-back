@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 5.2.14.1 点对点彩信区域统计（小时） -->
+	<select id="query_ftbStatHourPeerMmsArea" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intStreetId,intSaleAreaId,intBranchId,intDescSgsnId,intBscId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		sum(case when intSmsId in (2) then 1 else 0 end ) as nmDownCounts,
+		sum(case when intSmsId in (1,3) then 1 else 0 end ) as nmUpCounts,
+		count(1) nmTotalCounts,
+		getdate(),intRaitype,#vcLocalIP#
+		from $sourceTableName$ 
+		where 1=1 
+		  and intSmsId <> 0  and intMmsFromNoId =2
+		  group by	intStreetId,intSaleAreaId,intBranchId,intDescSgsnId,intBscId,intRaitype
+		]]>
+	</select>
+
+	<!-- 5.2.14.2 点对点彩信号段统计（小时） -->
+	<select id="query_ftbStatHourPeerMmsSeg" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intMsisdnSegId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		sum(case when intSmsId in (2) then 1 else 0 end ) as nmDownCounts,
+		sum(case when intSmsId in (1,3) then 1 else 0 end ) as nmUpCounts,
+		count(1) nmTotalCounts,
+		getdate(),intRaitype,#vcLocalIP#
+		from $sourceTableName$ 
+		where 1=1 
+		  and intSmsId <> 0  and intMmsFromNoId =2
+		  group by	intMsisdnSegId,intRaitype
+		]]>
+	</select>
+
+	<!-- 5.2.14.3 按流量分档统计发送量（天）20100513去掉 intSmsSizeId 不等于0 -->
+	<select id="query_ftbStatHourSpMmsFlushSort" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intSmsSizeId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		count(1) nmTotalCounts,
+		getdate(),intRaitype,#vcLocalIP#
+		from $sourceTableName$ 
+		where 1=1 
+		  and intSmsId <> 0 and intMmsFromNoId =1
+		  group by	intSmsSizeId,intRaitype
+		]]>
+	</select>
+
+	<!-- 5.2.14.5 彩信流量分时段统计（小时） -->
+	<select id="query_ftbStatHourWapFlush" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intMmsFromNoId,#intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,
+		sum(case when intSmsId in (2) then 1 else 0 end ) as nmDownCounts,
+		sum(case when intSmsId in (1,3) then 1 else 0 end ) as nmUpCounts,
+		count(1) nmTotalCounts,
+		getdate(),intRaitype,#vcLocalIP#
+		from $sourceTableName$ 
+		where 1=1 
+		  and intSmsId <> 0
+		  group by intMmsFromNoId,intRaitype
+		]]>
+	</select>
+
+	<!-- 5.2.14.4 SP彩信主题区域统计（小时） intMmsFromNoId =1 表sp 2011年12月27日10:37:55 分佈式 -->
+	<select id="query_ftbStatHourSpMmsTitleArea" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[	
+			  set temporary option TEMP_EXTRACT_NAME1='/opt/wzz/ftbStatHourSpMmsTitleArea.txt';
+			  set temporary option TEMP_EXTRACT_COLUMN_DELIMITER='+|+'; 
+			  set temporary option TEMP_EXTRACT_BINARY='OFF';
+			  set temporary option TEMP_EXTRACT_SWAP='OFF'; 
+              
+		   select intStreetId,intSaleAreaId,intBranchId,intDescSgsnId,intBscId,vcMmsFrom,vcMmsSubject,
+		          #intYear#,#intMonth#,#intWeek#,#intDay#,#intHour#,count(1),getdate(),intRaitype,#vcLocalIP#
+		     from $sourceTableName$ 
+		    where 1=1 
+	 		  and intSmsId <> 0 and intMmsFromNoId =1
+	  	 group by intStreetId,intSaleAreaId,intBranchId,intDescSgsnId,intBscId,vcMmsFrom,
+		          vcMmsSubject,intRaitype
+		]]>
+	</select>
+
+</sqlMap>

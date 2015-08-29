@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server handleDelay="20" stop="0">
+
+	<!-- handler match data -->
+	<handler name="HandleServer">
+		<!-- write match data to file -->
+		<adapter name="MatchDataWriteDBServer"
+			class="com.etone.keywords.server.impl.handler.MatchDataWriteDBServer">
+			<jobFire timeType="cron" timeCronExpr="0/2 * * * * ?">
+				<tactics name="tzsz_keyword_search_SZ" filePath="/home/mysql/wzz/data/"
+					dataSqlId="exportKeyWordsDatas" type="1" />
+				<tactics name="tzst_net_cntn_acss_SZ" filePath="/home/mysql/wzz/data/"
+					dataSqlId="exportNetContentDatas" type="2" />
+			</jobFire>
+		</adapter>
+	</handler>
+
+	<!-- handler match data -->
+	<handler name="handleMatchDataServer"
+		class="z.z.w.test.server.buss.handler.HandleMatchDataServer">
+		<adapter name="adapterHandlerName1" class="adapterHandlerClass1"
+			buffSize="">
+		</adapter>
+		<adapter name="adapterHandlerName2" class="adapterHandlerClass2"
+			buffSize="" />
+	</handler>
+
+	<!-- decode source data -->
+	<decode name="decodeSourceDataServer"
+		class="z.z.w.test.server.buss.decode.DecodeSourceDataServer">
+		<adapter name="adapterDecodeName1" class="adapterDecodeClass1" />
+		<adapter name="adapterDecodeName2" class="adapterDecodeClass2" />
+	</decode>
+
+	<!-- load source data -->
+	<loader name="loadSourceDataServer"
+		class="z.z.w.test.server.buss.loader.LoadSourceDataServer">
+		<adapter name="adapterLoaderName1" class="adapterLoaderClass1">
+			<socket port="21" serverIp="192.167.4.4" />
+			<other>other value</other>
+		</adapter>
+		<adapter name="adapterLoaderName2" class="adapterLoaderClass2">
+			<file fileDir="F:/studyspace_20121201/test/etc/data2"
+				filePrefix="gn_data" fileSuffix=".dat" fieldSplit="\t" recordSplit="\n"
+				scanInterval="20" maxQueueSize="100000000" fileBak="0" fileDel="1"
+				lineIndex="9" />
+		</adapter>
+		<adapter name="adapterLoaderName3" class="adapterLoaderClass2">
+			<file fileDir="F:/studyspace_20121201/test/etc/data3"
+				filePrefix="gn_data" fileSuffix=".dat" fieldSplit="\t" recordSplit="\n"
+				scanInterval="20" maxQueueSize="100000000" fileBak="0" fileDel="1"
+				lineIndex="9" />
+		</adapter>
+	</loader>
+
+	<system name="ServerSystem">
+		<!-- online -->
+		<ntoss>192.168.7.124</ntoss>
+		<!-- offline -->
+		<nadap>
+			192.168.7.131
+			192.168.7.132
+			192.168.7.133
+		</nadap>
+		<!-- other system -->
+		<other>192.168.7.125</other>
+	</system>
+</server>
+

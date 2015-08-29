@@ -1,0 +1,6 @@
+@font-face {src: local("Arial");font-family: EmbeddedArial;}
+global {fontSize:11;fontFamily: 宋体;fontWeight: normal;}
+.title{fontWeight: normal;fontFamily: 宋体;font-size: 12;} 
+.myLineChart {font-family: EmbeddedArial;}
+.myFontStyle {fontFamily: 宋体;fontWeight: normal;fontSize: 12;}
+

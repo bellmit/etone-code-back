@@ -1,0 +1,91 @@
+<!--图表配置文件-->
+<root>
+<fields>
+<field id="1" name = "流量" code="total"></field>
+<field id="2" name = "用户数" code="imsis"></field>
+<field id="3" name = "上行流量" code="up"></field>
+<field id="4" name = "下行流量" code="down"></field>
+<field id="5" name = "激活次数" code="count"></field>
+</fields>
+<config id="base">
+<description>1280下主图表配置</description>
+<!--图表宽度-->
+<width>575</width>
+<!--图表高度-->
+<height>348</height>
+<!--是否需要下方的拖动栏-->
+<candrag>false</candrag>
+<!--图表类型[line/column/bar/pie/]-->
+<chart>line</chart>
+<!--是否点击有弹出框-->
+<hasopener>false</hasopener>
+<!--是否能点击 如果为true 则点击调用 js函数flashCallback-->
+<canclick>false</canclick>
+<!--获取数据的方式[java/js/xml] java是调用后台java函数(),js时调用js函数buildXmlData,xml时使用路径()下的xml文件-->
+<getdata>xml</getdata>
+<xmlpath>data/basedata.xml</xmlpath>
+</config>
+<config id="base_pie_1280">
+<description>1280下饼图图表配置</description>
+<width>600</width>
+<height>348</height>
+<candrag>false</candrag>
+<chart>pie</chart>
+<hasopener>false</hasopener>
+<canclick>false</canclick>
+<getdata>js</getdata>
+</config>
+<config id="base_line_1280">
+<description>1280下折线图表配置</description>
+<width>600</width>
+<height>348</height>
+<candrag>false</candrag>
+<chart>line</chart>
+<hasopener>false</hasopener>
+<canclick>false</canclick>
+<getdata>js</getdata>
+</config>
+<config id="base_column_1280">
+<description>1280下柱状图表配置</description>
+<width>600</width>
+<height>348</height>
+<candrag>false</candrag>
+<chart>column</chart>
+<hasopener>false</hasopener>
+<canclick>false</canclick>
+<getdata>js</getdata>
+</config>
+<config id="base_pie_test">
+<description>1280下饼图图表配置</description>
+<width>600</width>
+<height>348</height>
+<candrag>false</candrag>
+<chart>pie</chart>
+<hasopener>false</hasopener>
+<canclick>false</canclick>
+<getdata>xml</getdata>
+<xmlpath>data/basedata.xml</xmlpath>
+</config>
+<config id="base_line_test">
+<description>1280下折线图表配置</description>
+<width>600</width>
+<height>348</height>
+<candrag>false</candrag>
+<chart>line</chart>
+<hasopener>false</hasopener>
+<canclick>false</canclick>
+<getdata>xml</getdata>
+<xmlpath>data/basedata.xml</xmlpath>
+</config>
+<config id="base_column_test">
+<description>1280下柱状图表配置</description>
+<width>600</width>
+<height>348</height>
+<candrag>false</candrag>
+<chart>column</chart>
+<hasopener>false</hasopener>
+<canclick>false</canclick>
+<getdata>xml</getdata>
+<xmlpath>data/basedata.xml</xmlpath>
+</config>
+</root>

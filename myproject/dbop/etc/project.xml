@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+
+	<!-- <adapter name="UpdataData" priority="10"> -->
+	<!-- <type name="UpdateDataToMysql" class="z.z.w.project.dbop.UpdateDataToMysql" 
+		/> -->
+	<!-- <type name="UpdateCgiDataToMysql" class="z.z.w.project.dbop.UpdateCgiDataToMysql" 
+		/> -->
+	<!-- </adapter> -->
+
+	<adapter name="UpdataData" priority="10">
+		<type name="FSSybaseIqOpertor" class="z.z.w.project.dbop.FSSybaseIqOpertor" />
+	</adapter>
+
+</server>

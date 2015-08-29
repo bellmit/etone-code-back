@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+	default-lazy-init="true">
+
+	<description>Spring多数据源配置</description>
+ 
+ <!--$$$$$$$$$$$$$$$$$$$$$$$读数据库$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$-->
+	
+	<!-- 数据源配置,使用应用内的DBCP数据库连接池 写数据库-->
+	<bean id="dataSourceQueryMySql" name="dataSourceQueryMySql" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<!-- Connection Info -->
+		<property name="driverClassName" value="${db.mysql.write.driver}" />
+		<property name="url" value="${db.mysql.write.url}" />
+		<property name="username" value="${db.mysql.write.username}" />
+		<property name="password" value="${db.mysql.write.password}" />
+
+		<!-- Connection Pooling Info -->
+		<property name="initialSize" value="5" />
+		<property name="maxActive" value="100" />
+		<property name="maxIdle" value="30" />
+		<property name="maxWait" value="60000" />
+		<property name="poolPreparedStatements" value="true" />
+		
+		<!-- 设置从数据源中返回的连接是否采用自动提交机制，默认值为 true； -->
+		<property name="defaultAutoCommit" value="true" />
+		
+		<!-- 设置数据源是否仅能执行只读操作， 默认值为 false -->
+		<property name="defaultReadOnly" value="false" />
+		
+		<!-- 使用DBCP连接池检测未关闭的数据库连接,DBCP会自动把超过timeout时间仍未关闭的连接强制关闭，
+			并且打出异常信息(包含打开连接的代码位置)。 
+			但是要注意，不能依赖这种方式关闭连接，是有一定风险的，比如万一页面操作数据库的时间偶尔超过了 
+			timeout的时间，那会造成执行错误。 -->
+		<!-- -->
+		<!-- <property name="removeAbandoned" value="true" />
+		<property name="removeAbandonedTimeout" value="30" />
+		<property name="logAbandoned" value="true" /> -->
+	</bean>
+	
+	
+
+	<!-- Hibernate配置 -->
+	<bean id="sessionFactoryQueryMySql" 
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceQueryMySql" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+			</props>
+		</property>
+		<!-- 扫描Hibernate映射文件 -->
+		<property name="packagesToScan">
+		<list>
+        <value>com.symbol.app.mantoeye.entity</value>
+        <value>com.symbol.app.mantoeye.entity.*</value>
+   		</list>
+		</property>
+	</bean>
+ 
+</beans>

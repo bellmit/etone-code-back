@@ -1,0 +1,47 @@
+
+
+/* define tatol page css */
+div#container {
+	width: 100%;
+	margin: 0 auto
+}
+
+div#container_submenu {
+	float: left;
+	width:20%;
+}
+
+div#container_content {
+	float: right;
+	width:80%;
+	height:100%;
+	overflow-y:scroll;
+}
+
+/* define submenu css*/
+html{height:100%;}
+body{margin:0px; font-size:9pt; height:100%;SCROLLBAR-BASE-COLOR: #E5EFFF;}
+#master{height:100%}
+#master #container{background:url(../images/MantoEye/submenu/master_content.gif) repeat-y 1px 0px; padding-left:1px; height:100%;}
+.submenu{width:200px;height:100%;background:url(../images/MantoEye/submenu/master_submenu.gif) no-repeat bottom;}
+.submenu h2{background-image:url(../images/MantoEye/submenu/submenu_h2.gif);font-size:9pt;font-weight:bold;color:#81909A;width:176px;margin:0px;margin-left:12px;padding-top:5px;padding-bottom:5px;cursor:pointer;}
+.submenu h2 img{margin:0px 3px -3px 3px;}
+.submenu h3{}
+.submenu .navigation{margin-left:15px;width:172px;padding-bottom:10px;font-size:9px;color:#475570;
+SCROLLBAR-FACE-COLOR:#F7F7F7;
+SCROLLBAR-HIGHLIGHT-COLOR:#FFFFFF;
+SCROLLBAR-SHADOW-COLOR:#FFFFFF;
+SCROLLBAR-3DLIGHT-COLOR:#D4D0C8;
+SCROLLBAR-ARROW-COLOR:#808080;
+SCROLLBAR-TRACK-COLOR:#FFFFFF;
+SCROLLBAR-DARKSHADOW-COLOR:#D4D0C8;}
+.submenu .navigation li{}
+.submenu .navigation a:link,.submenu .navigation a:visited{}
+.submenu .navigation a:hover{}
+.submenu .navigation a.current:link,.Navigation a.current:visited{}
+
+
+
+
+
+

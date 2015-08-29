@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="gb2312"?>
+<Data>
+<Stat id="street" unit="MB" title="2009年10月10日街道办{dataname}分布" trip="流量用户数统计{br}街道：{name}{br}总流量：{total}MB{br}上行流量：{up}MB{br}下行流量：{down}MB{br}用户数：{imsis}">
+<Statdata name="松岗街道" total="452" up="377" down="75" imsis="3896"/>
+<Statdata name="沙井街道" total="704" up="396" down="308" imsis="3905"/>
+<Statdata name="福永街道" total="521" up="263" down="258" imsis="4567"/>
+<Statdata name="西乡街道" total="872" up="530" down="342" imsis="5405"/>
+<Statdata name="新安街道" total="108" up="56" down="52" imsis="4959"/>
+<Statdata name="南头街道" total="430" up="63" down="367" imsis="3953"/>
+<Statdata name="南山街道" total="916" up="406" down="510" imsis="2604"/>
+<Statdata name="招商街道" total="663" up="161" down="502" imsis="4083"/>
+<Statdata name="蛇口街道" total="656" up="453" down="203" imsis="1986"/>
+<Statdata name="粤海街道" total="454" up="336" down="118" imsis="756"/>
+<Statdata name="西丽街道" total="399" up="89" down="310" imsis="1571"/>
+<Statdata name="石岩街道" total="795" up="338" down="457" imsis="4590"/>
+<Statdata name="公明街道" total="668" up="453" down="215" imsis="2888"/>
+<Statdata name="光明街道" total="367" up="203" down="164" imsis="1053"/>
+<Statdata name="光明街道" total="568" up="54" down="514" imsis="3944"/>
+<Statdata name="观澜街道" total="533" up="294" down="239" imsis="4761"/>
+<Statdata name="大浪街道" total="416" up="276" down="140" imsis="9692"/>
+<Statdata name="龙华街道" total="694" up="262" down="432" imsis="5301"/>
+<Statdata name="坂田街道" total="608" up="308" down="300" imsis="2432"/>
+<Statdata name="民治街道" total="870" up="417" down="453" imsis="3976"/>
+<Statdata name="桃源街道" total="1014" up="470" down="544" imsis="6369"/>
+<Statdata name="沙河街道" total="492" up="175" down="317" imsis="10055"/>
+<Statdata name="沙头街道" total="701" up="211" down="490" imsis="4339"/>
+<Statdata name="香蜜湖街道" total="431" up="263" down="168" imsis="2804"/>
+<Statdata name="梅林街道" total="578" up="340" down="238" imsis="8139"/>
+<Statdata name="福田街道" total="657" up="228" down="429" imsis="3267"/>
+<Statdata name="华富街道" total="416" up="62" down="354" imsis="2557"/>
+<Statdata name="南园街道" total="375" up="180" down="195" imsis="4825"/>
+<Statdata name="园岭街道" total="574" up="280" down="294" imsis="4417"/>
+<Statdata name="清水河街道" total="781" up="411" down="370" imsis="5156"/>
+<Statdata name="莲花街道" total="437" up="123" down="314" imsis="2423"/>
+<Statdata name="笋岗街道" total="753" up="245" down="508" imsis="2827"/>
+<Statdata name="桂园街道" total="910" up="428" down="482" imsis="6182"/>
+<Statdata name="南湖街道" total="754" up="228" down="526" imsis="4936"/>
+<Statdata name="东门街道" total="400" up="122" down="278" imsis="8571"/>
+<Statdata name="黄贝街道" total="287" up="111" down="176" imsis="2969"/>
+<Statdata name="翠竹街道" total="581" up="333" down="248" imsis="1295"/>
+<Statdata name="东晓街道" total="323" up="84" down="239" imsis="2468"/>
+<Statdata name="布吉街道" total="255" up="169" down="86" imsis="1660"/>
+<Statdata name="平湖街道" total="646" up="426" down="220" imsis="8547"/>
+<Statdata name="沙头角街道" total="916" up="372" down="544" imsis="8294"/>
+<Statdata name="南湾街道" total="427" up="144" down="283" imsis="1082"/>
+<Statdata name="东湖街道" total="737" up="454" down="283" imsis="2540"/>
+<Statdata name="莲塘街道" total="695" up="519" down="176" imsis="3735"/>
+<Statdata name="海山街道" total="379" up="290" down="89" imsis="436"/>
+<Statdata name="盐田街道" total="486" up="140" down="346" imsis="9920"/>
+<Statdata name="横岗街道" total="576" up="259" down="317" imsis="2800"/>
+<Statdata name="龙城街道" total="527" up="339" down="188" imsis="107"/>
+<Statdata name="坪地街道" total="593" up="509" down="84" imsis="7349"/>
+<Statdata name="龙岗街道" total="964" up="446" down="518" imsis="5718"/>
+<Statdata name="坑梓街道" total="309" up="58" down="251" imsis="407"/>
+<Statdata name="坪山街道" total="839" up="333" down="506" imsis="5551"/>
+<Statdata name="梅沙街道" total="305" up="80" down="225" imsis="141"/>
+<Statdata name="葵涌街道" total="743" up="255" down="488" imsis="7180"/>
+<Statdata name="大鹏街道" total="591" up="418" down="173" imsis="4161"/>
+<Statdata name="南澳街道" total="657" up="207" down="450" imsis="6265"/>
+</Stat>
+</Data>

@@ -1,0 +1,83 @@
+/**
+ * z.z.w.quartz.BaseQuartzServiceTest.java
+ */
+package z.z.w.quartz;
+
+import java.text.ParseException;
+
+import org.quartz.Job;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+
+import z.z.w.common.ClassCreator;
+import z.z.w.common.DateTools;
+
+/**
+ * @author Wu Zhenzhen
+ * @version Dec 19, 2012 7:48:45 PM
+ */
+public class BaseQuartzServiceTest extends BaseQuartzService {
+
+	/**
+	 * <br>
+	 * Created on: Dec 19, 2012 7:48:46 PM
+	 */
+	public BaseQuartzServiceTest() {
+		super();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see z.z.w.quartz.BaseQuartzService#scheduleJob(org.quartz.Scheduler)
+	 */
+	@Override
+	protected void scheduleJob(Scheduler scheduler) {
+
+		String className = "z.z.w.quartz.job.TestQuartzJob";
+		Job userJob = null;
+		try {
+			userJob = (Job) ClassCreator.newInstance(className);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+
+		try {
+
+			callSchedulerJob(scheduler, userJob.getClass(), 1);
+			// callSchedulerJob(scheduler, userJob.getClass(), "0/2 * * * * ?");
+			// callSchedulerJob(scheduler, TestQuartzJob.class,
+			// "0/2 * * * * ?");
+			// } catch (ParseException e) {
+			// e.printStackTrace();
+		} catch (SchedulerException e) {
+			e.printStackTrace();
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * <br>
+	 * Created on: Dec 19, 2012 7:48:46 PM
+	 * 
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		try {
+			BaseQuartzServiceTest test = new BaseQuartzServiceTest();
+			Scheduler scheduler = SchedulerSingleton.getInstance();
+			test.scheduleJob(scheduler);
+			scheduler.start();
+			System.out.println(DateTools.getCurrentDateStr()
+					+ " ---- JOB Start ----");
+		} catch (SchedulerException e) {
+			e.printStackTrace();
+		}
+	}
+
+}

@@ -1,0 +1,64 @@
+package com.symbol.wp.core.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+/**
+ * TbBaseUserRole entity. @author MyEclipse Persistence Tools
+ */
+@Entity
+@Table(name = "tbBaseUserRole", schema = "dbo", catalog = "WCMP")
+public class TbBaseUserRole implements java.io.Serializable {
+
+	// Fields
+
+	private Long nmUserRoleId;
+	private String vcRoleNo;
+	private String vcUserNo;//用户ID
+
+	// Constructors
+
+	/** default constructor */
+	public TbBaseUserRole() {
+	}
+
+	/** full constructor */
+	public TbBaseUserRole(String vcRoleNo, String vcUserNo) {
+		this.vcRoleNo = vcRoleNo;
+		this.vcUserNo = vcUserNo;
+	}
+
+	// Property accessors
+	@Id
+	@GeneratedValue
+	@Column(name = "nmUserRoleId", unique = true, nullable = false, precision = 10, scale = 0)
+	public Long getNmUserRoleId() {
+		return this.nmUserRoleId;
+	}
+
+	public void setNmUserRoleId(Long nmUserRoleId) {
+		this.nmUserRoleId = nmUserRoleId;
+	}
+
+	@Column(name = "vcRoleNo", length = 64)
+	public String getVcRoleNo() {
+		return this.vcRoleNo;
+	}
+
+	public void setVcRoleNo(String vcRoleNo) {
+		this.vcRoleNo = vcRoleNo;
+	}
+
+	@Column(name = "vcUserNo", length = 64)
+	public String getVcUserNo() {
+		return this.vcUserNo;
+	}
+
+	public void setVcUserNo(String vcUserNo) {
+		this.vcUserNo = vcUserNo;
+	}
+
+}

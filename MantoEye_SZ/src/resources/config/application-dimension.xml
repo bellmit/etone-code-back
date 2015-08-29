@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<description>维表的数据bean,在项目启动时初始化</description>
+
+	<bean id="dimensionBeans" class="com.symbol.app.mantoeye.dto.flush.DimensionBeans"
+	scope="singleton" >
+	</bean>
+</beans>

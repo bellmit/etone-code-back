@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+
+	<!-- 终端业务 2011年11月24日16:22:34 -->
+	<select id="getTerminalPolicyList" resultClass="java.lang.Long">
+		SELECT
+		nmTerminalPolicyId FROM ftbTerminalPolicy where
+		intStatus=1
+	</select>
+
+	<!-- 终端业务 2011年12月9日11:39:43 -->
+	<select id="getTerminalPolicy" resultClass="java.lang.Long">
+		SELECT top 1
+		nmTerminalPolicyId FROM ftbTerminalPolicy where
+		intStatus=1 order by
+		nmTerminalPolicyId 
+	</select>
+
+
+	<!-- 更新终端业务为执行状态 -->
+	<update id="updateFtbTerminalPolicy">
+		update ftbTerminalPolicy set intStatus = #intStatus#
+		where
+		nmTerminalPolicyId=#nmTerminalPolicyId#
+	</update>
+
+	<!-- 存储过程 产生终端用户数据 -->
+	<parameterMap id="tempBussParam" class="map">
+		<parameter property="nmTerminalPolicyId" jdbcType="VARCHAR"
+			javaType="java.lang.Long" mode="INOUT" />
+	</parameterMap>
+
+	<procedure id="proc_create_data_tempBuss" parameterMap="tempBussParam"
+		resultClass="java.lang.String">
+		{call proc_create_data_tempBuss(?)}
+	</procedure>
+
+</sqlMap>

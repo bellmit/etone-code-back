@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Data>
+<levels type="total">
+<level id="1" color="0xFFE6E6" overcolor="0x400000"></level>
+<level id="2" color="0xFFAAAA" overcolor="0x400000"></level>
+<level id="3" color="0xFF7777" overcolor="0x400000"></level>
+<level id="4" color="0xFF0000" overcolor="0x400000"></level>
+<level id="5" color="0xC00000" overcolor="0x400000"></level>
+</levels>
+</Data>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!--  -->
+	<!-- 彩信 按统计方式统计 -->
+	<package name="mmsSendMode" extends="system-default">
+		<action name="mmsSendMode_*"
+			class="com.symbol.app.mantoeye.web.action.mms.MmsSendModeAction"
+			method="{1}">
+		</action>
+	</package>
+
+	<!-- 彩信 按流量分时统计 -->
+	<package name="mmsTimeLevel" extends="system-default">
+		<action name="mmsTimeLevel_*"
+			class="com.symbol.app.mantoeye.web.action.mms.MmsTimeLevelAction"
+			method="{1}">
+		</action>
+	</package>
+
+	<!-- SP彩信 按端口统计 -->
+	<package name="spMmsPort" extends="system-default">
+		<action name="spMmsPort_*"
+			class="com.symbol.app.mantoeye.web.action.mms.SpMmsPortAction"
+			method="{1}">
+		</action>
+	</package>
+
+	<!-- SP彩信 按主题统计和按主题时段统计  -->
+	<package name="spMmsTitle" extends="system-default">
+		<action name="spMmsTitle_*"
+			class="com.symbol.app.mantoeye.web.action.mms.SpMmsTitleAction"
+			method="{1}">
+		</action>
+	</package>
+
+	<!-- SP彩信 按主题区域统计  -->
+	<package name="spMmsTitleArea" extends="system-default">
+		<action name="spMmsTitleArea_*"
+			class="com.symbol.app.mantoeye.web.action.mms.SpMmsTitleAreaAction"
+			method="{1}">
+		</action>
+	</package>
+
+	<!-- SP彩信 按流量分档统计  -->
+	<package name="spMmsFlushLevel" extends="system-default">
+		<action name="spMmsFlushLevel_*"
+			class="com.symbol.app.mantoeye.web.action.mms.SpMmsFlushLevelAction"
+			method="{1}">
+		</action>
+	</package>
+
+	<!-- SP彩信 按区域统计  -->
+	<package name="spMmsArea" extends="system-default">
+		<action name="spMmsArea_*"
+			class="com.symbol.app.mantoeye.web.action.mms.SpMmsAreaAction"
+			method="{1}">
+		</action>
+	</package>
+
+
+
+
+	<!-- 点对点彩信 号段分布-->
+	<package name="peerMmsSeg" extends="system-default">
+		<action name="peerMmsSeg_*"
+			class="com.symbol.app.mantoeye.web.action.mms.PeerMmsSegAction"
+			method="{1}">
+			<result name="index">
+				/mantoeye/mms/peer/mms_peer_seg.jsp
+			</result>
+		</action>
+	</package>
+	<!-- 点对点彩信 时段分布-->
+	<package name="peerMmsHour" extends="system-default">
+		<action name="peerMmsHour_*"
+			class="com.symbol.app.mantoeye.web.action.mms.PeerMmsHourAction"
+			method="{1}">
+			<result name="index">
+				/mantoeye/mms/peer/mms_peer_Hour.jsp
+			</result>
+		</action>
+	</package>
+	<!-- 点对点彩信 空间分布-->
+	<package name="peerMmsSpace" extends="system-default">
+		<action name="peerMmsSpace_*"
+			class="com.symbol.app.mantoeye.web.action.mms.PeerMmsSpaceAction"
+			method="{1}">
+			<result name="index">
+				/mantoeye/mms/peer/mms_peer_space.jsp
+			</result>
+		</action>
+	</package>
+
+	<!-- 彩信 端口管理-->
+	<package name="spPortControl" extends="system-default">
+		<action name="spPortControl_*" class="spPortControlAction"
+			method="{1}">
+			<result name="editPrePare">
+				/mantoeye/mms/sp_port_manager_edit.jsp
+			</result>
+		</action>
+	</package>
+
+</struts>

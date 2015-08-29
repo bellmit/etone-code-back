@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+
+	<!-- 全网数据新业务類型流量分布呈现（小时）2012年3月14日9:57:44 -->
+	<!-- =======业务表========= -->
+	<!-- 统计业务第1层 -->
+	<statement id="load_ftbStatHourGprsBussType_V2" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourGprsBussType_V2 ( nmParentId,intRaitype,nmUsers,nmFlush,nmAppUpFlush,
+		                                        nmAppDownFlush,nmVisitCounts,intYear,intMonth,intWeek,intDay,intHour,
+		                                        dtStatTime,vcLocalIP,nmLocalFlush,nmLocalUsers )
+	      $option$
+		]]>
+	</statement>
+
+	<!-- 翻譯數據统计业务 -->
+	<update id="trans_ftbStatHourGprsBussType_V2" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam">
+		<![CDATA[
+		  update ftbStatHourGprsBussType_V2 
+		     set ftbStatHourGprsBussType_V2.vcParentGroupName = tree.vcParentGroupName
+            from ftbStatHourGprsBussType_V2,( select nmParentId,vcParentGroupName 
+                                                from dtbGroupTree 
+                                               where nmTypeId=1 ) as tree
+		   where ftbStatHourGprsBussType_V2.nmParentId = tree.nmParentId 
+		    and ftbStatHourGprsBussType_V2.vcParentGroupName is null
+		    -- and intYear = #intYear# 
+		     and intMonth = #intMonth# 
+		     and intWeek = #intWeek# 
+		     and intDay <= (#intDay#+6)
+		     and intHour >= #intHour#
+		]]>
+	</update>
+
+	<!-- =======业务表========= -->
+	<!-- 统计业务第2层 -->
+	<statement id="load_ftbStatHourGprsBuss_V2" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourGprsBuss_V2 ( nmParentId,nmGroupId,intRaitype,nmUsers,nmFlush,
+		                                    nmAppUpFlush,nmAppDownFlush,nmVisitCounts,intYear,intMonth,intWeek,intDay,
+		                                    intHour,dtStatTime,vcLocalIP,nmLocalFlush,nmLocalUsers )
+	      $option$
+		]]>
+	</statement>
+
+	<!-- 翻譯數據统计业务 -->
+	<update id="trans_ftbStatHourGprsBuss_V2" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam">
+		<![CDATA[
+		  update ftbStatHourGprsBuss_V2
+		     set ftbStatHourGprsBuss_V2.vcParentName = tree.vcParentGroupName,
+		         ftbStatHourGprsBuss_V2.vcGroupName = tree.vcGroupName
+			from ftbStatHourGprsBuss_V2,( select nmParentId,nmGroupId,vcParentGroupName,vcGroupName 
+			                                from dtbGroupTree 
+			                               where nmTypeId=1 
+			                                 and nmLevelsId=2 ) as tree
+		   where ftbStatHourGprsBuss_V2.nmParentId = tree.nmParentId 
+		     and ftbStatHourGprsBuss_V2.nmGroupId = tree.nmGroupId 
+		   and ftbStatHourGprsBuss_V2.vcParentName is null 
+		  and ftbStatHourGprsBuss_V2.vcGroupName is null
+		     --  and intYear = #intYear# 
+		     and intMonth = #intMonth# 
+		     and intWeek = #intWeek# 
+		       and intDay <= (#intDay#+6)
+		       and intHour >= #intHour#
+		]]>
+	</update>
+
+	<!-- =======业务表========= -->
+	<!-- 统计业务第3层 -->
+	<statement id="load_ftbStatHourGprsBussConTent_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourGprsBussConTent_V2 ( nmGroupId,nmDimensId,intRaitype,nmUsers,nmFlush,
+		                                           nmAppUpFlush,nmAppDownFlush,nmVisitCounts,intYear,intMonth,intWeek,intDay,
+		                                           intHour,dtStatTime,vcLocalIP,nmLocalFlush,nmLocalUsers )
+	      $option$
+		]]>
+	</statement>
+
+	<!-- 翻譯數據统计业务 -->
+	<update id="trans_ftbStatHourGprsBussConTent_V2" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam">
+		<![CDATA[
+		  update ftbStatHourGprsBussConTent_V2
+		     set ftbStatHourGprsBussConTent_V2.vcDimensName = tree.vcDimensName,
+		         ftbStatHourGprsBussConTent_V2.vcGroupName = tree.vcGroupName
+			from ftbStatHourGprsBussConTent_V2,( select nmGroupId,vcGroupName,nmDimensId,vcDimensName 
+			                                       from dtbGroupTree 
+			                                      where nmTypeId=1 ) as tree
+		   where ftbStatHourGprsBussConTent_V2.nmDimensId = tree.nmDimensId
+		     and ftbStatHourGprsBussConTent_V2.nmGroupId = tree.nmGroupId 
+		    and ftbStatHourGprsBussConTent_V2.vcDimensName is null
+		      and   ftbStatHourGprsBussConTent_V2.vcGroupName is null
+		     -- and intYear = #intYear# 
+		     and intMonth = #intMonth# 
+		     and intWeek = #intWeek# 
+		       and intDay <= (#intDay#+6)
+		       and intHour >= #intHour#
+		]]>
+	</update>
+
+	<!-- =======内容表========= -->
+	<!-- 统计业务第1层 -->
+	<statement id="load_ftbStatHourGprsConTentType_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourGprsConTentType_V2 ( nmParentId,intRaitype,nmUsers,nmFlush,nmAppUpFlush,
+		                                           nmAppDownFlush,nmVisitCounts,intYear,intMonth,intWeek,intDay,intHour,
+		                                           dtStatTime,vcLocalIP	  , nmLocalFlush,nmLocalUsers )
+	      $option$
+		]]>
+	</statement>
+
+	<!-- 翻譯數據统计业务 -->
+	<update id="trans_ftbStatHourGprsConTentType_V2" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam">
+		<![CDATA[
+		  update ftbStatHourGprsConTentType_V2
+		     set ftbStatHourGprsConTentType_V2.vcParentGroupName = tree.vcParentGroupName
+			from ftbStatHourGprsConTentType_V2,( select nmParentId,vcParentGroupName 
+			                                       from dtbGroupTree 
+			                                      where nmTypeId = 2 ) as tree
+		   where ftbStatHourGprsConTentType_V2.nmParentId = tree.nmParentId 
+		    and ftbStatHourGprsConTentType_V2.vcParentGroupName is null
+		     -- and intYear = #intYear# 
+		     and intMonth = #intMonth# 
+		     and intWeek = #intWeek# 
+		       and intDay <= (#intDay#+6)
+		       and intHour >= #intHour#
+		]]>
+	</update>
+
+	<!-- =======内容表========= -->
+	<!-- 统计业务第2层 -->
+	<statement id="load_ftbStatHourGprsConTent_V2" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourGprsConTent_V2 ( nmParentId,nmGroupId,intRaitype,nmUsers,nmFlush,
+		                                       nmAppUpFlush,nmAppDownFlush,nmVisitCounts,intYear,intMonth,intWeek,intDay,
+		                                       intHour,dtStatTime,vcLocalIP	  , nmLocalFlush,nmLocalUsers )
+	      $option$
+		]]>
+	</statement>
+
+	<!-- 翻譯數據统计业务 -->
+	<update id="trans_ftbStatHourGprsConTent_V2" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam">
+		<![CDATA[
+		  update ftbStatHourGprsConTent_V2
+		     set ftbStatHourGprsConTent_V2.vcParentName = tree.vcParentGroupName,
+		     	 ftbStatHourGprsConTent_V2.vcGroupName = tree.vcGroupName
+			from ftbStatHourGprsConTent_V2,( select nmParentId,vcParentGroupName,nmGroupId,vcGroupName 
+			                                   from dtbGroupTree 
+			                                  where nmTypeId = 2 
+			                                    and nmLevelsId = 2 ) as tree
+		   where ftbStatHourGprsConTent_V2.nmParentId = tree.nmParentId 
+		     and ftbStatHourGprsConTent_V2.nmGroupId = tree.nmGroupId
+		    and ftbStatHourGprsConTent_V2.vcParentName is null
+		    and ftbStatHourGprsConTent_V2.vcGroupName is null
+		     -- and intYear = #intYear# 
+		     and intMonth = #intMonth# 
+		     and intWeek = #intWeek# 
+		       and intDay <= (#intDay#+6)
+		       and intHour >= #intHour#
+		]]>
+	</update>
+
+	<!-- =======内容表========= -->
+	<!-- 统计业务第3层 -->
+	<statement id="load_ftbStatHourGprsConDetails_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourGprsConDetails_V2 ( nmGroupId,nmDimensId,intRaitype,nmUsers,nmFlush,
+		                                          nmAppUpFlush,nmAppDownFlush,nmVisitCounts,intYear,intMonth,intWeek,intDay,
+		                                          intHour,dtStatTime,vcLocalIP	  , nmLocalFlush,nmLocalUsers )
+	      $option$
+		]]>
+	</statement>
+
+	<!-- 翻譯數據统计业务 -->
+	<update id="trans_ftbStatHourGprsConDetails_V2" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam">
+		<![CDATA[
+		  update ftbStatHourGprsConDetails_V2
+		     set ftbStatHourGprsConDetails_V2.vcDimensName = tree.vcDimensName,
+		     	 ftbStatHourGprsConDetails_V2.vcGroupName = tree.vcGroupName
+			from ftbStatHourGprsConDetails_V2,( select nmDimensId,vcDimensName,nmGroupId,vcGroupName 
+			                                      from dtbGroupTree 
+			                                     where nmTypeId = 2 ) as tree
+		   where ftbStatHourGprsConDetails_V2.nmDimensId = tree.nmDimensId 
+		     and ftbStatHourGprsConDetails_V2.nmGroupId = tree.nmGroupId
+		     and ftbStatHourGprsConDetails_V2.vcDimensName is null
+		      and ftbStatHourGprsConDetails_V2.vcGroupName is null
+		     --and intYear = #intYear# 
+		     and intMonth = #intMonth# 
+		     and intWeek = #intWeek# 
+		       and intDay <= (#intDay#+6)
+		       and intHour >= #intHour#
+		]]>
+	</update>
+
+	<!-- ===========空间BSC业务===========（小时）2012年3月19日9:58:43 -->
+	<!-- =======业务表========= -->
+	<!-- 统计业务第2层 -->
+	<statement id="load_ftbStatHourBscBussType_V2" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourBscBussType_V2 ( intBscId,nmParentId,nmGroupId,intRaitype,nmUsers,nmFlush,
+		                                       nmAppUpFlush,nmAppDownFlush,nmVisitCounts,intYear,intMonth,intWeek,intDay,
+		                                       intHour,dtStatTime,vcLocalIP	  , nmLocalFlush,nmLocalUsers )
+	      $option$
+		]]>
+	</statement>
+
+	<!-- =======业务表========= -->
+	<!-- 统计业务第3层 -->
+	<statement id="load_ftbStatHourBscBussTypeConTent_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourBscBussType_V2 ( intBscId,nmDimensId,nmGroupId,intRaitype,nmUsers,nmFlush,
+		                                       nmAppUpFlush,nmAppDownFlush,nmVisitCounts,intYear,intMonth,intWeek,intDay,
+		                                       intHour,dtStatTime,vcLocalIP	  , nmLocalFlush,nmLocalUsers )
+	      $option$
+		]]>
+	</statement>
+
+	<!-- 翻譯數據统计业务 -->
+	<update id="trans_ftbStatHourBscBussType_V2" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam">
+		<![CDATA[
+		  update ftbStatHourBscBussType_V2
+		     set ftbStatHourBscBussType_V2.vcParentGroupName = tree.vcParentGroupName,
+		     	 ftbStatHourBscBussType_V2.vcGroupName = tree.vcGroupName
+			from ftbStatHourBscBussType_V2,( select nmParentId,vcParentGroupName,nmGroupId,vcGroupName 
+			                                   from dtbGroupTree 
+			                                  where nmTypeId = 1
+              									and nmLevelsId = 2 ) as tree
+		   where ftbStatHourBscBussType_V2.nmParentId = tree.nmParentId 
+		     and ftbStatHourBscBussType_V2.nmGroupId = tree.nmGroupId
+		   and  ftbStatHourBscBussType_V2.vcParentGroupName is null
+		   and  ftbStatHourBscBussType_V2.vcGroupName is null
+		     --  and intYear = #intYear# 
+		     and intMonth = #intMonth# 
+		     and intWeek = #intWeek# 
+		       and intDay <= (#intDay#+6)
+		       and intHour >= #intHour#
+		]]>
+	</update>
+
+	<!-- =======内容表========= -->
+	<!-- 统计业务第2层 -->
+	<statement id="load_ftbStatHourBscContentType_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourBscContentType_V2 ( intBscId,nmParentId,nmGroupId,intRaitype,nmUsers,nmFlush,
+		                                          nmAppUpFlush,nmAppDownFlush,nmVisitCounts,intYear,intMonth,intWeek,intDay,
+		                                          intHour,dtStatTime,vcLocalIP	  , nmLocalFlush,nmLocalUsers )
+	      $option$
+		]]>
+	</statement>
+
+	<!-- 统计业务第3层 -->
+	<statement id="load_ftbStatHourBscContentTypeConDetails_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourBscContentType_V2 ( intBscId,nmDimensId,nmGroupId,intRaitype,nmUsers,nmFlush,
+		                                          nmAppUpFlush,nmAppDownFlush,nmVisitCounts,intYear,intMonth,intWeek,intDay,
+		                                          intHour,dtStatTime,vcLocalIP 	  , nmLocalFlush,nmLocalUsers)
+	      $option$
+		]]>
+	</statement>
+
+	<!-- 翻譯數據统计业务 -->
+	<update id="trans_ftbStatHourBscContentType_V2" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam">
+		<![CDATA[
+		  update ftbStatHourBscContentType_V2
+		     set ftbStatHourBscContentType_V2.vcParentGroupName = tree.vcParentGroupName,
+		     	 ftbStatHourBscContentType_V2.vcGroupName = tree.vcGroupName
+			from ftbStatHourBscContentType_V2,( select nmParentId,vcParentGroupName,nmGroupId,vcGroupName 
+			                                      from dtbGroupTree 
+			                                     where nmTypeId = 2
+              									   and nmLevelsId = 2 ) as tree
+		   where ftbStatHourBscContentType_V2.nmParentId = tree.nmParentId 
+		     and ftbStatHourBscContentType_V2.nmGroupId = tree.nmGroupId
+		    and ftbStatHourBscContentType_V2.vcParentGroupName is null
+		    and ftbStatHourBscContentType_V2.vcGroupName is null
+		     -- and intYear = #intYear# 
+		     and intMonth = #intMonth# 
+		     and intWeek = #intWeek# 
+		       and intDay <= (#intDay#+6)
+		       and intHour >= #intHour#
+		]]>
+	</update>
+
+	<!-- ===========空间SGSN业务===========（小时）2012年3月19日10:10:02 -->
+	<!-- =======业务表========= -->
+	<!-- 统计业务第2层 -->
+	<statement id="load_ftbStatHourSgsnBussType_V2" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourSgsnBussType_V2 ( intSgsnId,nmParentId,nmGroupId,intRaitype,nmUsers,nmFlush,
+		                                        nmAppUpFlush,nmAppDownFlush,nmVisitCounts,intYear,intMonth,intWeek,intDay,
+		                                        intHour,dtStatTime,vcLocalIP	  , nmLocalFlush,nmLocalUsers )
+	      $option$
+		]]>
+	</statement>
+	<!-- 统计业务第3层 -->
+	<statement id="load_ftbStatHourSgsnBussTypeConTent_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourSgsnBussType_V2 ( intSgsnId,nmDimensId,nmGroupId,intRaitype,nmUsers,nmFlush,
+		                                        nmAppUpFlush,nmAppDownFlush,nmVisitCounts,intYear,intMonth,intWeek,intDay,
+		                                        intHour,dtStatTime,vcLocalIP	  , nmLocalFlush,nmLocalUsers )
+	      $option$
+		]]>
+	</statement>
+
+	<!-- 翻譯數據统计业务 -->
+	<update id="trans_ftbStatHourSgsnBussType_V2" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam">
+		<![CDATA[
+		  update ftbStatHourSgsnBussType_V2
+		     set ftbStatHourSgsnBussType_V2.vcParentGroupName = tree.vcParentGroupName,
+		     	 ftbStatHourSgsnBussType_V2.vcGroupName = tree.vcGroupName
+			from ftbStatHourSgsnBussType_V2,( select nmParentId,vcParentGroupName,nmGroupId,vcGroupName 
+			                                    from dtbGroupTree 
+			                                   where nmTypeId = 1
+              						      	     and nmLevelsId = 2 ) as tree
+		   where ftbStatHourSgsnBussType_V2.nmParentId = tree.nmParentId 
+		     and ftbStatHourSgsnBussType_V2.nmGroupId = tree.nmGroupId
+		    and ftbStatHourSgsnBussType_V2.vcParentGroupName is null
+		    and ftbStatHourSgsnBussType_V2.vcGroupName is null
+		     -- and intYear = #intYear# 
+		     and intMonth = #intMonth# 
+		     and intWeek = #intWeek# 
+		       and intDay <= (#intDay#+6)
+		       and intHour >= #intHour#
+		]]>
+	</update>
+
+
+	<!-- =======内容表========= -->
+	<!-- 统计业务第2层 -->
+	<statement id="load_ftbStatHourSgsnContentType_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourSgsnContentType_V2 ( intSgsnId,nmParentId,nmGroupId,intRaitype,nmUsers,nmFlush,
+		                                           nmAppUpFlush,nmAppDownFlush,nmVisitCounts,intYear,intMonth,intWeek,intDay,
+		                                           intHour,dtStatTime,vcLocalIP	  , nmLocalFlush,nmLocalUsers )
+	      $option$
+		]]>
+	</statement>
+	<!-- 统计业务第2层 -->
+	<statement id="load_ftbStatHourSgsnContentTypeConDetails_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourSgsnContentType_V2 ( intSgsnId,nmDimensId,nmGroupId,intRaitype,nmUsers,nmFlush,
+		                                           nmAppUpFlush,nmAppDownFlush,nmVisitCounts,intYear,intMonth,intWeek,intDay,
+		                                           intHour,dtStatTime,vcLocalIP	  , nmLocalFlush,nmLocalUsers )
+	      $option$
+		]]>
+	</statement>
+
+	<!-- 翻譯數據统计业务 -->
+	<update id="trans_ftbStatHourSgsnContentType_V2" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam">
+		<![CDATA[
+		  update ftbStatHourSgsnContentType_V2
+		     set ftbStatHourSgsnContentType_V2.vcParentGroupName = tree.vcParentGroupName,
+		     	 ftbStatHourSgsnContentType_V2.vcGroupName = tree.vcGroupName
+			from ftbStatHourSgsnContentType_V2,( select nmParentId,vcParentGroupName,nmGroupId,vcGroupName 
+			                                       from dtbGroupTree 
+			                                      where nmTypeId = 2
+              									    and nmLevelsId = 2 ) as tree
+		   where ftbStatHourSgsnContentType_V2.nmParentId = tree.nmParentId 
+		     and ftbStatHourSgsnContentType_V2.nmGroupId = tree.nmGroupId
+		    and ftbStatHourSgsnContentType_V2.vcParentGroupName is null
+		    and  ftbStatHourSgsnContentType_V2.vcGroupName is null
+		     -- and intYear = #intYear# 
+		     and intMonth = #intMonth# 
+		     and intWeek = #intWeek# 
+		       and intDay <= (#intDay#+6)
+		       and intHour >= #intHour#
+		]]>
+	</update>
+
+	<!-- ===========空间STREET业务===========（小时）2012年3月19日10:10:10 -->
+	<!-- =======业务表========= -->
+	<!-- 统计业务第2层 -->
+	<statement id="load_ftbStatHourStreetBussType_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourStreetBussType_V2 ( intStreetId,nmParentId,nmGroupId,intRaitype,nmUsers,nmFlush,
+		                                          nmAppUpFlush,nmAppDownFlush,nmVisitCounts,intYear,intMonth,intWeek,intDay,
+		                                          intHour,dtStatTime,vcLocalIP	  , nmLocalFlush,nmLocalUsers )
+	      $option$
+		]]>
+	</statement>
+	<!-- 统计业务第2层 -->
+	<statement id="load_ftbStatHourStreetBussTypeConTentConTent_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourStreetBussType_V2 ( intStreetId,nmDimensId,nmGroupId,intRaitype,nmUsers,nmFlush,
+		                                          nmAppUpFlush,nmAppDownFlush,nmVisitCounts,intYear,intMonth,intWeek,intDay,
+		                                          intHour,dtStatTime,vcLocalIP	  , nmLocalFlush,nmLocalUsers )
+	      $option$
+		]]>
+	</statement>
+
+	<!-- 翻譯數據统计业务 -->
+	<update id="trans_ftbStatHourStreetBussType_V2" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam">
+		<![CDATA[
+		  update ftbStatHourStreetBussType_V2
+		     set ftbStatHourStreetBussType_V2.vcParentGroupName = tree.vcParentGroupName,
+		     	 ftbStatHourStreetBussType_V2.vcGroupName = tree.vcGroupName
+			from ftbStatHourStreetBussType_V2,( select nmParentId,vcParentGroupName,nmGroupId,vcGroupName 
+			                                      from dtbGroupTree 
+			                                     where nmTypeId = 1
+              									   and nmLevelsId = 2 ) as tree
+		   where ftbStatHourStreetBussType_V2.nmParentId = tree.nmParentId 
+		     and ftbStatHourStreetBussType_V2.nmGroupId = tree.nmGroupId
+		    and ftbStatHourStreetBussType_V2.vcParentGroupName is null
+		    and  ftbStatHourStreetBussType_V2.vcGroupName  is null
+		     -- and intYear = #intYear# 
+		     and intMonth = #intMonth# 
+		     and intWeek = #intWeek# 
+		       and intDay <= (#intDay#+6) 
+		       and intHour >= #intHour#
+		]]>
+	</update>
+
+	<!-- =======内容表========= -->
+	<!-- 统计业务第2层 -->
+	<statement id="load_ftbStatHourStreetContentType_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourStreetContentType_V2 ( intStreetId,nmParentId,nmGroupId,intRaitype,nmUsers,nmFlush,
+		                                             nmAppUpFlush,nmAppDownFlush,nmVisitCounts,intYear,intMonth,intWeek,intDay,
+		                                             intHour,dtStatTime,vcLocalIP	  , nmLocalFlush,nmLocalUsers )
+	      $option$
+		]]>
+	</statement>
+	<!-- 统计业务第2层 -->
+	<statement id="load_ftbStatHourStreetContentTypeConDetails_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourStreetContentType_V2 ( intStreetId,nmDimensId,nmGroupId,intRaitype,nmUsers,nmFlush,
+		                                             nmAppUpFlush,nmAppDownFlush,nmVisitCounts,intYear,intMonth,intWeek,intDay,
+		                                             intHour,dtStatTime,vcLocalIP	  , nmLocalFlush,nmLocalUsers )
+	      $option$
+		]]>
+	</statement>
+
+	<!-- 翻譯數據统计业务 -->
+	<update id="trans_ftbStatHourStreetContentType_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam">
+		<![CDATA[
+		  update ftbStatHourStreetContentType_V2
+		     set ftbStatHourStreetContentType_V2.vcParentGroupName = tree.vcParentGroupName,
+		     	 ftbStatHourStreetContentType_V2.vcGroupName = tree.vcGroupName
+			from ftbStatHourStreetContentType_V2,( select nmParentId,vcParentGroupName,nmGroupId,vcGroupName 
+			                                         from dtbGroupTree 
+			                                        where nmTypeId = 2
+              									      and nmLevelsId = 2 ) as tree
+		   where ftbStatHourStreetContentType_V2.nmParentId = tree.nmParentId 
+		     and ftbStatHourStreetContentType_V2.nmGroupId = tree.nmGroupId
+		    and ftbStatHourStreetContentType_V2.vcParentGroupName  is null
+		   and  ftbStatHourStreetContentType_V2.vcGroupName is null
+		     -- and intYear = #intYear# 
+		     and intMonth = #intMonth# 
+		     and intWeek = #intWeek# 
+		       and intDay <= (#intDay#+6)
+		       and intHour >= #intHour#
+		]]>
+	</update>
+
+	<!-- ===========空间SALEAREA业务===========（小时）2012年3月19日10:15:14 -->
+	<!-- =======业务表========= -->
+	<!-- 统计业务第2层 -->
+	<statement id="load_ftbStatHourSaleAreaBussType_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourSaleAreaBussType_V2 ( intSaleAreaId,nmParentId,nmGroupId,intRaitype,nmUsers,nmFlush,
+		                                            nmAppUpFlush,nmAppDownFlush,nmVisitCounts,intYear,intMonth,intWeek,intDay,
+		                                            intHour,dtStatTime,vcLocalIP	  , nmLocalFlush,nmLocalUsers )
+	      $option$
+		]]>
+	</statement>
+	<!-- 统计业务第2层 -->
+	<statement id="load_ftbStatHourSaleAreaBussTypeConTent_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourSaleAreaBussType_V2 ( intSaleAreaId,nmDimensId,nmGroupId,intRaitype,nmUsers,nmFlush,
+		                                            nmAppUpFlush,nmAppDownFlush,nmVisitCounts,intYear,intMonth,intWeek,intDay,
+		                                            intHour,dtStatTime,vcLocalIP 	  , nmLocalFlush,nmLocalUsers)
+	      $option$
+		]]>
+	</statement>
+
+	<!-- 翻譯數據统计业务 -->
+	<update id="trans_ftbStatHourSaleAreaBussType_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam">
+		<![CDATA[
+		  update ftbStatHourSaleAreaBussType_V2
+		     set ftbStatHourSaleAreaBussType_V2.vcParentGroupName = tree.vcParentGroupName,
+		     	 ftbStatHourSaleAreaBussType_V2.vcGroupName = tree.vcGroupName
+			from ftbStatHourSaleAreaBussType_V2,( select nmParentId,vcParentGroupName,nmGroupId,vcGroupName 
+			                                        from dtbGroupTree 
+			                                       where nmTypeId = 1
+              									     and nmLevelsId = 2 ) as tree
+		   where ftbStatHourSaleAreaBussType_V2.nmParentId = tree.nmParentId 
+		     and ftbStatHourSaleAreaBussType_V2.nmGroupId = tree.nmGroupId
+		    and ftbStatHourSaleAreaBussType_V2.vcParentGroupName  is null
+		    and ftbStatHourSaleAreaBussType_V2.vcGroupName is null
+		     -- and intYear = #intYear# 
+		     and intMonth = #intMonth# 
+		     and intWeek = #intWeek# 
+		       and intDay <= (#intDay#+6)
+		       and intHour >= #intHour#
+		]]>
+	</update>
+
+
+	<!-- =======内容表========= -->
+	<!-- 统计业务第2层 -->
+	<statement id="load_ftbStatHourSaleAreaContentType_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourSaleAreaContentType_V2 ( intSaleAreaId,nmParentId,nmGroupId,intRaitype,nmUsers,nmFlush,
+		                                               nmAppUpFlush,nmAppDownFlush,nmVisitCounts,intYear,intMonth,intWeek,intDay,
+		                                               intHour,dtStatTime,vcLocalIP 	  , nmLocalFlush,nmLocalUsers)
+	      $option$
+		]]>
+	</statement>
+	<statement id="load_ftbStatHourSaleAreaContentTypeConDetails_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourSaleAreaContentType_V2 ( intSaleAreaId,nmDimensId,nmGroupId,intRaitype,nmUsers,nmFlush,
+		                                               nmAppUpFlush,nmAppDownFlush,nmVisitCounts,intYear,intMonth,intWeek,intDay,
+		                                               intHour,dtStatTime,vcLocalIP 	  , nmLocalFlush,nmLocalUsers)
+	      $option$
+		]]>
+	</statement>
+
+	<!-- 翻譯數據统计业务 -->
+	<update id="trans_ftbStatHourSaleAreaContentType_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam">
+		<![CDATA[
+		  update ftbStatHourSaleAreaContentType_V2
+		     set ftbStatHourSaleAreaContentType_V2.vcParentGroupName = tree.vcParentGroupName,
+		     	 ftbStatHourSaleAreaContentType_V2.vcGroupName = tree.vcGroupName
+			from ftbStatHourSaleAreaContentType_V2,( select nmParentId,vcParentGroupName,nmGroupId,vcGroupName 
+			                                           from dtbGroupTree 
+			                                          where nmTypeId = 2
+              									        and nmLevelsId = 2 ) as tree
+		   where ftbStatHourSaleAreaContentType_V2.nmParentId = tree.nmParentId 
+		     and ftbStatHourSaleAreaContentType_V2.nmGroupId = tree.nmGroupId
+		    and ftbStatHourSaleAreaContentType_V2.vcParentGroupName is null
+		    and  ftbStatHourSaleAreaContentType_V2.vcGroupName  is null
+		     -- and intYear = #intYear# 
+		     and intMonth = #intMonth# 
+		     and intWeek = #intWeek# 
+		       and intDay <= (#intDay#+6)
+		       and intHour >= #intHour#
+		]]>
+	</update>
+
+	<!-- ===========空间分公司业务===========（小时）2012年3月19日10:18:13 -->
+	<!-- =======业务表========= -->
+	<!-- 统计业务第2层 -->
+	<statement id="load_ftbStatHourCompanyBussType_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourCompanyBussType_V2 ( intCompanyId,nmParentId,nmGroupId,intRaitype,nmUsers,nmFlush,
+		                                           nmAppUpFlush,nmAppDownFlush,nmVisitCounts,intYear,intMonth,intWeek,intDay,
+		                                           intHour,dtStatTime,vcLocalIP	  , nmLocalFlush,nmLocalUsers )
+	      $option$
+		]]>
+	</statement>
+	<statement id="load_ftbStatHourCompanyBussTypeConTent_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourCompanyBussType_V2 ( intCompanyId,nmDimensId,nmGroupId,intRaitype,nmUsers,nmFlush,
+		                                           nmAppUpFlush,nmAppDownFlush,nmVisitCounts,intYear,intMonth,intWeek,intDay,
+		                                           intHour,dtStatTime,vcLocalIP 	  , nmLocalFlush,nmLocalUsers)
+	      $option$
+		]]>
+	</statement>
+
+	<!-- 翻譯數據统计业务 -->
+	<update id="trans_ftbStatHourCompanyBussType_V2" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam">
+		<![CDATA[
+		  update ftbStatHourCompanyBussType_V2
+		     set ftbStatHourCompanyBussType_V2.vcParentGroupName = tree.vcParentGroupName,
+		     	 ftbStatHourCompanyBussType_V2.vcGroupName = tree.vcGroupName
+			from ftbStatHourCompanyBussType_V2,( select nmParentId,vcParentGroupName,nmGroupId,vcGroupName 
+			                                       from dtbGroupTree 
+			                                      where nmTypeId = 1
+              							            and nmLevelsId = 2 ) as tree
+		   where ftbStatHourCompanyBussType_V2.nmParentId = tree.nmParentId 
+		     and ftbStatHourCompanyBussType_V2.nmGroupId = tree.nmGroupId
+		    and ftbStatHourCompanyBussType_V2.vcParentGroupName is null
+		  and   ftbStatHourCompanyBussType_V2.vcGroupName is null
+		     -- and intYear = #intYear# 
+		     and intMonth = #intMonth# 
+		     and intWeek = #intWeek# 
+		       and intDay <= (#intDay#+6)
+		       and intHour >= #intHour#
+		]]>
+	</update>
+
+	<!-- =======内容表========= -->
+	<!-- 统计业务第2层 -->
+	<statement id="load_ftbStatHourCompanyContentType_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourCompanyContentType_V2 ( intCompanyId,nmParentId,nmGroupId,intRaitype,nmUsers,nmFlush,
+		                                              nmAppUpFlush,nmAppDownFlush,nmVisitCounts,intYear,intMonth,intWeek,intDay,
+		                                              intHour,dtStatTime,vcLocalIP	  , nmLocalFlush,nmLocalUsers )
+	      $option$
+		]]>
+	</statement>
+	<!-- 统计业务第2层 -->
+	<statement id="load_ftbStatHourCompanyContentTypeConDetails_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourCompanyContentType_V2 ( intCompanyId,nmDimensId,nmGroupId,intRaitype,nmUsers,nmFlush,
+		                                              nmAppUpFlush,nmAppDownFlush,nmVisitCounts,intYear,intMonth,intWeek,intDay,
+		                                              intHour,dtStatTime,vcLocalIP	  , nmLocalFlush,nmLocalUsers )
+	      $option$
+		]]>
+	</statement>
+
+	<!-- 翻譯數據统计业务 -->
+	<update id="trans_ftbStatHourCompanyContentType_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam">
+		<![CDATA[
+		  update ftbStatHourCompanyContentType_V2
+		     set ftbStatHourCompanyContentType_V2.vcParentGroupName = tree.vcParentGroupName,
+		     	 ftbStatHourCompanyContentType_V2.vcGroupName = tree.vcGroupName
+			from ftbStatHourCompanyContentType_V2,( select nmParentId,vcParentGroupName,nmGroupId,vcGroupName 
+			                                          from dtbGroupTree 
+			                                         where nmTypeId = 2
+              							               and nmLevelsId = 2 ) as tree
+		   where ftbStatHourCompanyContentType_V2.nmParentId = tree.nmParentId 
+		     and ftbStatHourCompanyContentType_V2.nmGroupId = tree.nmGroupId
+		    and ftbStatHourCompanyContentType_V2.vcParentGroupName  is null
+		    and  ftbStatHourCompanyContentType_V2.vcGroupName is null
+		     -- and intYear = #intYear# 
+		     and intMonth = #intMonth# 
+		     and intWeek = #intWeek# 
+		       and intDay <= (#intDay#+6)
+		       and intHour >= #intHour#
+		]]>
+	</update>
+
+	<!-- ===========空间自定義小區集业务===========（小时）22012年3月19日10:20:22 -->
+	<!-- =======业务表========= -->
+	<!-- 统计业务第2层 -->
+	<statement id="load_ftbStatHourGroupAreaBussType_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourGroupAreaBussType_V2 ( nmAreaId,nmParentId,nmGroupId,intRaitype,nmUsers,nmFlush,
+		                                   			 nmAppUpFlush,nmAppDownFlush,nmVisitCounts,intYear,intMonth,intWeek,intDay,
+		                                    		 intHour,dtStatTime,vcLocalIP 	  , nmLocalFlush,nmLocalUsers)
+	      $option$
+		]]>
+	</statement>
+	<!-- 统计业务第2层 -->
+	<statement id="load_ftbStatHourGroupAreaBussTypeConTent_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourGroupAreaBussType_V2 ( nmAreaId,nmDimensId,nmGroupId,intRaitype,nmUsers,nmFlush,
+		                                   			 nmAppUpFlush,nmAppDownFlush,nmVisitCounts,intYear,intMonth,intWeek,intDay,
+		                                    		 intHour,dtStatTime,vcLocalIP	  , nmLocalFlush,nmLocalUsers )
+	      $option$
+		]]>
+	</statement>
+
+	<!-- 翻譯數據统计业务 -->
+	<update id="trans_ftbStatHourGroupAreaBussType_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam">
+		<![CDATA[
+		  update ftbStatHourGroupAreaBussType_V2
+		     set ftbStatHourGroupAreaBussType_V2.vcParentGroupName = tree.vcParentGroupName,
+		     	 ftbStatHourGroupAreaBussType_V2.vcGroupName = tree.vcGroupName
+			from ftbStatHourGroupAreaBussType_V2,( select nmParentId,vcParentGroupName,nmGroupId,vcGroupName 
+			                                         from dtbGroupTree 
+			                                        where nmTypeId = 1
+              							              and nmLevelsId = 2 ) as tree
+		   where ftbStatHourGroupAreaBussType_V2.nmParentId = tree.nmParentId 
+		     and ftbStatHourGroupAreaBussType_V2.nmGroupId = tree.nmGroupId
+		    and  ftbStatHourGroupAreaBussType_V2.vcGroupName  is null
+		    and  ftbStatHourGroupAreaBussType_V2.vcParentGroupName  is null
+		     -- and intYear = #intYear# 
+		     and intMonth = #intMonth# 
+		     and intWeek = #intWeek# 
+		       and intDay <= (#intDay#+6)
+		       and intHour >= #intHour#
+		]]>
+	</update>
+
+	<!-- =======内容表========= -->
+	<!-- 统计业务第2层 -->
+	<statement id="load_ftbStatHourGroupAreaContentType_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourGroupAreaContentType_V2 ( nmAreaId,nmParentId,nmGroupId,intRaitype,nmUsers,nmFlush,
+		                                                nmAppUpFlush,nmAppDownFlush,nmVisitCounts,intYear,intMonth,intWeek,intDay,
+		                                                intHour,dtStatTime,vcLocalIP	  , nmLocalFlush,nmLocalUsers )
+	      $option$
+		]]>
+	</statement>
+	<!-- 统计业务第2层 -->
+	<statement id="load_ftbStatHourGroupAreaContentTypeConDetails_V2"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatHourGroupAreaContentType_V2 ( nmAreaId,nmDimensId,nmGroupId,intRaitype,nmUsers,nmFlush,
+		                                                nmAppUpFlush,nmAppDownFlush,nmVisitCounts,intYear,intMonth,intWeek,intDay,
+		                                                intHour,dtStatTime,vcLocalIP	  , nmLocalFlush,nmLocalUsers )
+	      $option$
+		]]>
+	</statement>
+
+	<!-- 翻譯數據统计业务 -->
+	<update id="trans_ftbStatHourGroupAreaContentType_V2"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam">
+		<![CDATA[
+		  update ftbStatHourGroupAreaContentType_V2
+		     set ftbStatHourGroupAreaContentType_V2.vcParentGroupName = tree.vcParentGroupName,
+		     	 ftbStatHourGroupAreaContentType_V2.vcGroupName = tree.vcGroupName
+			from ftbStatHourGroupAreaContentType_V2,( select nmParentId,vcParentGroupName,nmGroupId,vcGroupName 
+			                                            from dtbGroupTree 
+			                                           where nmTypeId = 2
+              							                 and nmLevelsId = 2 ) as tree
+		   where ftbStatHourGroupAreaContentType_V2.nmParentId = tree.nmParentId 
+		     and ftbStatHourGroupAreaContentType_V2.nmGroupId = tree.nmGroupId
+		    and ftbStatHourGroupAreaContentType_V2.vcParentGroupName is null
+		    and  ftbStatHourGroupAreaContentType_V2.vcGroupName is null
+		     -- and intYear = #intYear# 
+		     and intMonth = #intMonth# 
+		     and intWeek = #intWeek# 
+		       and intDay <= (#intDay#+6)
+		       and intHour >= #intHour#
+		]]>
+	</update>
+
+</sqlMap>

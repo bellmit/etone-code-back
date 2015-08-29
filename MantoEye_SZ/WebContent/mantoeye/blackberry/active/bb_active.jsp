@@ -1,0 +1,643 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<%@ page contentType="text/html;charset=utf-8"%>
+	<%@ include file="/include/session.jsp"%>
+	<%@ include file="/include/setcache.jsp"%>
+	<head>
+		<title>活跃用户呈现</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+		<link rel="stylesheet" type="text/css" href="/tools/gt-grid/gt_grid.css" />
+		<link type="text/css" rel="stylesheet" href="/skin//Default/css/maincontent.css" />
+		<link rel="stylesheet" href="/js/jquery/extend.tab/css/Toolbar.css" type="text/css"></link>
+		<link rel="stylesheet" href="/js/jquery/extend.tab/css/Toolbar.css"	type="text/css"></link>
+		<script type="text/javascript" src="/js/common.js"></script>
+		<script type="text/javascript" src="/tools/gt-grid/gt_msg_cn.js"></script>
+		<script type="text/javascript" src="/tools/gt-grid/gt_grid_all.js"></script>
+		<script language="javascript" type="text/javascript" src="/tools/datepicker/WdatePicker.js"></script>
+		<script type="text/javascript"	src="/js/jquery/extend.tab/js/Toolbar.js"></script>
+		<script type="text/javascript" src="/js/common_grid.js"></script>					
+			
+		<script type='text/javascript' src='/tools/autocomplete/lib/jquery.bgiframe.min.js'></script>
+		<script type='text/javascript' src='/tools/autocomplete/lib/thickbox-compressed.js'></script>
+		<script type='text/javascript' src='/tools/autocomplete/jquery.autocomplete.js'></script>
+		<link rel="stylesheet" type="text/css" href="/tools/autocomplete/jquery.autocomplete.css" />
+	</head>
+	<body onload="selChange()">
+		<table id="maincontent" cellspacing="0" cellpadding="0" border="0"
+			bgcolor="#D3E0F2" width="100%">
+			<tr>
+				<td colspan="2" height="5px"></td>
+			</tr>
+
+			<tr>
+				<td>
+					<table cellspacing="0" cellpadding="0" border="0" bgcolor="#ffffff"
+						style="width: 100%;">
+						<tr valign="top">
+							<td>
+								<table cellspacing="0" cellpadding="0" border="0" width="100%">
+									<tr valign="top" style="font-size: 1px;">
+										<td>
+										<table cellspacing="0" cellpadding="0" border="0" width="100%">
+											<tr>
+												<td style="font-size: 1px; width: 4px;">
+													<div class="leftcircle"></div>
+												</td>
+												<td width="100%">
+													<div class="middlecircle"></div>
+												</td>
+												<td width="4px">
+													<div class="rightcircle"></div>
+												</td>
+											</tr>										
+										</table>
+										</td>
+									</tr>
+									<tr valign="top">
+										<td width="100%" class="condition_down">
+											<table id="query_condition" cellspacing="0px"
+												cellpadding="0px;boder="0">
+												<tr>
+
+													<td class="condition_name">
+														活跃度定义：
+													</td>
+													<td style="width: 700px" colspan="7">
+														<div id="div_untry" style="float: left">
+															<select name="conditionType" id="conditionType"
+																style="height: 21px; width: 100px;"
+																onchange="changeConditionType(this.value)">
+																<option value="1" selected>
+																	国家(地区)
+																</option>
+																<option value="2">
+																	运营商
+																</option>
+															</select>
+														</div>
+														<div id="div_country" style="float: left">
+															<select name="countryId" id="countryId"
+																style="height: 21px; width: 120px;" onchange="">
+															</select>
+														</div>
+
+														<div id="div_country1" style="float: left; display: none;">
+															<select name="countryId1" id="countryId1"
+																style="height: 21px; width: 120px;" onchange="">
+															</select>
+														</div>
+														<div id="div_ldc" style="float: left; display: none;">
+															<select name="ldcId" id="ldcId"
+																style="height: 21px; width: 120px;" onchange="">
+																<option value="-1">
+																	--全部--
+																</option>
+															</select>
+														</div>
+														<div id="div_ldc1" style="float: left; display: none;">
+															<select name="ldcId1" id="ldcId1"
+																style="height: 21px; width: 120px;" onchange="">
+																<option value="-1">
+																	--全部--
+																</option>
+															</select>
+														</div>
+														<input type="text"
+															style="font-size: 11px; width: 150px; height: 16px;"
+															value="输入以快速查找" name="tttt" id="tttt"
+															size="25" onblur="checkBlur('tttt');"
+															onclick="checkFocus('tttt');"/>
+														<!--<input type="text"
+															style="font-size: 11px; width: 150px; height: 16px;"
+															value="输入以快速查找国家或地区" name="t" id="t"
+															onkeyup="checkSelct()" size="25" onblur="checkBlur();"
+															onfocus="checkFocus();" />
+														--><select name="d_condition" id="d_condition"
+															style="height: 21px; width: 120px">
+															<option value="1" selected>
+																使用天数大于
+															</option>
+															<option value="2">
+																使用天数小于
+															</option>
+															<option value="3">
+																使用天数等于
+															</option>
+														</select>
+														<input type="text" value="20" id="conditionVal"
+															style="height: 15px; width: 30px" onclick="" />
+													</td>
+
+												</tr>
+												<tr valign="middle">
+													<td class="condition_name" style="display: none">
+														时间粒度：
+													</td>
+													<td style="display: none">
+														<div class="select">
+															<div>
+																<select disabled name="d_timeLevel" id="d_timeLevel"
+																	style="height: 21px" onchange="selChange();">
+																	<!-- <option value="1"
+																		<c:if test="${fn:contains(timeLevel,'1') }">selected</c:if>>
+																		小时
+																	</option>
+																	<option value="2" selected
+																		<c:if test="${fn:contains(timeLevel,'2') }">selected</c:if>>
+																		天
+																	</option>
+
+																	<option value="3"
+																		<c:if test="${fn:contains(timeLevel,'3') }">selected</c:if>>
+																		周（周日~周六）
+																	</option> -->
+																	<option value="4"
+																		<c:if test="${fn:contains(timeLevel,'4') }">selected</c:if>>
+																		月
+																	</option>
+																</select>
+															</div>
+														</div>
+
+													</td>
+													<td class="condition_name">
+														时间：
+													</td>
+													<td>
+														<input type="text" class="Wdate" style="height: 15px;"
+															value="2010-04" onclick="preStartDate();"
+															name="searchDateStart" id="d_searchDateStart" />
+														<input type="hidden" id="d_searchDateEnd" />
+													</td>
+													<td class="condition_name">
+														&nbsp;
+													</td>
+													<td width="200px" colspan="2">
+														<div id="mainbtn">
+															<ul>
+																<li>
+																	<a href="javascript:query();" 　title="查询"><span>查询</span>
+																	</a>
+																</li>
+																<!--  
+																<li>
+																	<a href="javascript:reset();" title="重置"><span>重置</span>
+																	</a>
+																</li>
+																-->
+															</ul>
+														</div>
+
+													</td>
+
+
+												</tr>
+											</table>
+										</td>
+									</tr>
+
+									<tr>
+										<td height="5px" bgcolor="#D3E0F2" width="100%"></td>
+									</tr>
+									<tr>
+										<td>
+											<table cellspacing="0" cellpadding="0" border="0"
+												width="100%">
+												<tr>
+													<td width="4px" height="24px;">
+														<img
+															src="/skin/Default/images/MantoEye/maincontent/lefttitle.gif" />
+													</td>
+													<td width="100%"
+														style="background: url(/skin/Default/images/MantoEye/maincontent/middletitle.gif) repeat-x; padding-left: 10px; font-size: 12px; font-weight: bold; color: #FFFFFF; vertical-align: middle;">
+														黑莓活跃用户列表
+													</td>
+													<td width="4px">
+														<img
+															src="/skin/Default/images/MantoEye/maincontent/righttitle.gif" />
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+
+									<tr>
+										<td>
+											<div id="toolbar" style="height: 25px"></div>
+											<div class="gt-panel"
+												style="width: 100%; margin: 0px; margin-bottom: 2px;">
+												<div id="data_container"></div>
+											</div>
+										</td>
+									</tr>
+
+								</table>
+							</td>
+							<td width="2"></td>
+						</tr>
+					</table>
+	</td>
+	</tr>
+	</table>
+	</body>
+</html>
+
+<script type="text/javascript">
+//初始化查询时间
+//初始化查询时间
+var date=new Date();
+var yyear = date.getYear();
+var ymonth = date.getMonth();
+if(ymonth==0){
+	ymonth = 12;
+	yyear = yyear -1;
+}
+var hasinit = false;//第一次初始化图形数据标识
+var datachange = false;//第N次查询初始化数据标识
+var dataType_search = 1 ; //页面显示数据类型
+var timeLevel_search ='4';//查询时间粒度
+var time_search =yyear+'-'+''+((ymonth)>9?(ymonth):("0"+(ymonth))); //查询开始时间
+function reset(){
+	//$('#d_searchDateStart').attr("value",time_search);
+	$("#d_timeLevel").get(0).selectedIndex=1;
+	$("#countryId").attr("value",'-1');
+	$("#d_condition").attr("value",'1');
+	$("#conditionVal").attr("value",'20');
+}
+var countrys = [];
+var ldcs=[]; 
+$(document).ready(function(){	
+	//document.getElementById("d_searchDateStart").value=time_search;
+	//初始化国家选择框
+	getAllCountry();
+	//初始化运营商选择框
+	getAllLdc();
+	//初始化查询时间
+	$('#d_searchDateStart').attr("value",time_search);	
+});
+
+var dsConfig= {
+	//data : data1 ,
+	uniqueField : 'no' ,
+	fields :[
+		{name : 'fulldate'        },
+		{name : 'idc'      },
+		{name : 'cgi'      },
+		{name : 'vcBrandName'      },
+		{name : 'countryName'      },
+		{name : 'totalFlushMb'       },
+		{name : 'days'    },
+		{name : 'count'     },
+		{name : 'msisdn' },
+		{name : 'imsi' }
+	]
+};
+var colsConfig = [
+		{ id : 'fulldate'      , header : "时间" ,sortable:false  ,renderer: renderFormatMonthDate },
+		{ id : 'msisdn'     , header : "号码"  ,sortable:false   },
+		{ id : 'imsi'  , header : "IMSI" ,sortable:false },
+		{ id : 'cgi'    , header : "常在小区"  ,sortable:false  },	
+		{ id : 'vcBrandName'    , header : "所属分公司" ,sortable:false   },			
+		{ id : 'idc'    , header : "所属运营商"  ,sortable:false  },
+		{ id : 'countryName'    , header : "归属国家(地区)" ,sortable:false   },		
+		{ id : 'totalFlushMb' , header : "流量(MB)"  ,headAlign:'right' ,align:'right'   ,exportnumber:true  ,renderer:renderFormatDataInit2  },
+		{ id : 'count' , header : "业务使用次数"   ,headAlign:'right' ,align:'right'  ,exportnumber:true   },
+		{ id : 'days'      , header : "出现天数"  ,headAlign:'right' ,align:'right'  ,exportnumber:true  }
+];
+
+var gridConfig={
+	id : "datagrid",
+	/* loadURL 支持函数, 该函数返回值是response对象 */
+	loadURL :'/activeUser_query.do?1=1',
+	exportURL :'/activeUser_export.do?1=1' ,
+	dataset : dsConfig ,
+	columns : colsConfig ,
+	resizable : false,
+	showGridMenu : false,
+	container : 'data_container', 
+	beforeLoad:checkLogon,
+	toolbarPosition : 'bottom',
+	toolbarContent : 'nav | goto | pagesize | state' ,
+	pageSize : getDispalyPageSize(0,1) ,
+	remoteSort : false ,
+	pageSizeList : [10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,45,50,100],
+	onComplete:loadComplate
+};
+
+var datagrid=new GT.Grid( gridConfig );
+GT.Utils.onLoad( function(){
+	datagrid.render();
+} );
+
+var firstInit=true;
+var searchdate;
+var stattype;
+var conditionType;
+var countryId ;
+var	ldcId;
+var	condition;
+var conditionVal;
+
+function loadComplate(){
+	//grid列表初始化信息
+	var obj = new Object ();//使用对象传参,以防以后修改
+	obj.datagrid = datagrid;
+	obj.hideColumn = 0 ;//隐藏的列数目
+	obj.isCheckbox = false;//是否可选择
+	obj.otherHeight = 0 ; //必须定义,因为有些页面不同，所以此处指定预留高度
+
+	//判断是否查询到数据
+	judgeData(datagrid);
+	
+	//初始化grid
+	initGridInfo(obj);
+		
+	if(firstInit==true){
+		var pageSize=getDispalyPageSize(0,1);
+		var index=0;
+		$(".gt-pagesize-select option").each(function(i){
+			if(this.text==pageSize){
+				index=i;
+			}
+		})
+		firstInit=false;
+		$(".gt-pagesize-select").get(0).selectedIndex=index;
+	}
+	if($('#d_searchDateStart').attr("value")==''){
+		$('#d_searchDateStart').attr("value",time_search);
+	}	
+		searchdate =GT.U.getValue(GT.$('d_searchDateStart'));
+		stattype =GT.U.getValue(GT.$('d_timeLevel'));
+		conditionType = GT.U.getValue(GT.$('conditionType'));
+		countryId = GT.U.getValue(GT.$('countryId'));
+		ldcId =GT.U.getValue(GT.$('ldcId'));
+		condition = GT.U.getValue(GT.$('d_condition'));
+		conditionVal = GT.U.getValue(GT.$('conditionVal'));
+}
+
+
+//// 查询表单的查询函数 ////
+function query() {
+//重置分页数据
+	datagrid.setTotalRowNum(-1);
+
+	var ddate = GT.U.getValue(GT.$('d_searchDateStart'));
+	if(ddate==null){
+		alert("请选择时间!");
+		return ;
+	}
+		searchdate =GT.U.getValue(GT.$('d_searchDateStart'));
+		stattype =GT.U.getValue(GT.$('d_timeLevel'));
+		conditionType = GT.U.getValue(GT.$('conditionType'));
+		countryId = GT.U.getValue(GT.$('countryId'));
+		ldcId =GT.U.getValue(GT.$('ldcId'));
+		condition = GT.U.getValue(GT.$('d_condition'));
+		conditionVal = GT.U.getValue(GT.$('conditionVal'));
+		time_search = searchdate;
+		if(conditionVal>31||conditionVal<0){
+			alert('天数必须在0~31之间!');
+			return;
+		}
+	var param={
+		searchdate :searchdate,
+		stattype : stattype,
+		conditionType :conditionType,
+		countryId : countryId,
+		ldcId : ldcId,
+		condition : condition,
+		conditionVal : conditionVal
+	};
+	GT.$grid('datagrid').query( param );
+}
+//初始化grid工具栏
+$(document).ready(function(){
+      var toolbar = new Toolbar({
+        renderTo : 'toolbar',
+		//border: 'top',
+        items : [{
+          type : 'button',
+          text : '导出',
+          bodyStyle : 'xls',
+          useable : 'T',
+          handler : exportToXls
+        }]
+      });
+	  toolbar.render();
+});
+
+function exportToXls(){
+
+ 	var params={
+ 		searchdate :searchdate,
+		stattype : stattype,
+		conditionType :conditionType,
+		countryId : countryId,
+		ldcId : ldcId,
+		condition : condition,
+		conditionVal : conditionVal
+	};
+	if(conditionVal>31||conditionVal<0){
+			alert('天数必须在0~31之间!');
+			return;
+	}
+	//导出
+	var fileObj = new Object();
+	fileObj.fileName='黑莓活跃用户数列表';//('+startTime_search+'至'+endTime_search+')';//文件名称
+	fileObj.fileFormat = 'xls';//文件格式,后台暂支持xls格式
+	fileObj.gridObj = datagrid;//当前grid对象
+	fileObj.params = params;
+	exportFile(fileObj);
+ }
+//获取归属地数据
+function getAllCountry(){
+	$.ajax({
+		type : "post",
+		url : "/countryTopUser_findAllCountry.do",
+		dataType: 'json',
+		success : function(data) {
+			var jsn = eval(data);
+			var jn = jsn.datalist;
+			 $("#countryId").empty();
+			   $("#countryId1").empty();
+			var inhtml = "<option value ='-1'>--全部--</option>";
+			for(var i=0;i<jn.length;i++){
+				if(jn[i].id=='101'){
+					inhtml = inhtml + '<option value ="'+jn[i].id+'"  selected>'+jn[i].name+'</option>'
+				}else{
+					inhtml = inhtml + '<option value ="'+jn[i].id+'"  >'+jn[i].name+'</option>'
+				}
+				
+				countrys[i] =  {name:jn[i].name,id:jn[i].id};
+			}
+			 $(inhtml).appendTo("#countryId");//添加下拉框的option
+			// $("#countryId").attr("value",'101');
+			   $(inhtml).appendTo("#countryId1");//添加下拉框的option
+			 //$("#countryId1").attr("value",'101');
+			 
+			 resetautocomplete(countrys,'tttt','countryId');
+		},
+		error : function() {
+			alert('获取归属地数据失败!');
+		}
+	});
+}
+//获取运营商数据
+function getAllLdc(){
+	$.ajax({
+		type : "post",
+		url : "/countryTopUser_findAllLdc.do",
+		dataType: 'json',
+		success : function(data) {
+			var jsn = eval(data);
+			var jn = jsn.datalist;
+			 $("#ldcId").empty();
+			  $("#ldcId1").empty();
+			var inhtml = "<option value ='-1'>--全部--</option>";
+			for(var i=0;i<jn.length;i++){
+				inhtml = inhtml + '<option value ="'+jn[i].id+'"  >'+jn[i].name+'</option>';
+				ldcs[i] = {name:jn[i].name,id:jn[i].id};
+			}
+			 $(inhtml).appendTo("#ldcId");//添加下拉框的option
+			 $("#ldcId").attr("value",'101');
+			  $(inhtml).appendTo("#ldcId1");//添加下拉框的option
+			 $("#ldcId1").attr("value",'-1');
+		},
+		error : function() {
+			alert('获取运营商数据失败!');
+		}
+	});
+}
+function changeConditionType(val){
+	if(val==1){
+		/* $("#countryId").attr("value",'-1');
+		 $("#div_country").css("display",'block');
+		 $("#ldcId").attr("value",'-1');
+		 $("#div_ldc").css("display",'none');
+		  var tt=document.getElementById("t");
+		 tt.value="输入以快速查找国家或地区";*/
+		 $("#countryId").attr("value",'-1');
+		 $("#div_country").css("display",'block');
+		 $("#ldcId").attr("value",'-1');
+		 $("#div_ldc").css("display",'none');
+		 resetautocomplete(countrys,'tttt','countryId');
+	}else{
+		/* $("#countryId").attr("value",'-1');
+		 $("#div_country").css("display",'none');
+		 $("#ldcId").attr("value",'-1');
+		 $("#div_ldc").css("display",'block');
+		  var tt=document.getElementById("t");
+		 tt.value="输入以快速查找运营商";*/
+		 $("#countryId").attr("value",'-1');
+		 $("#div_country").css("display",'none');
+		 $("#ldcId").attr("value",'-1');
+		 $("#div_ldc").css("display",'block');
+		 resetautocomplete(ldcs,'tttt','ldcId');
+	}
+}
+/**
+脚本不出错
+*/
+$(document).ready(function(){
+	window.onerror = killErrors;
+})
+function killErrors() {
+	return true;
+}
+
+
+
+
+
+/*
+function checkBlur(){ 
+					if(document.all["t"].value=="" || document.all["t"].value=="输入以快速查找国家或地区"|| document.all["t"].value=="输入以快速查找运营商"){ 
+						if($('#conditionType').val()==1){
+							document.getElementById("t").value="输入以快速查找国家或地区";
+							os = document.all["countryId1"].options;
+							var tt = document.all["t"].value;  
+							for(i=0;i<os.length;i++){ 
+								o = os[i]; 
+								if(o.text.indexOf(tt)>=0){ 
+									var newOpt = new Option(o.text, o.value, false, false); 
+									document.all["countryId"].add(newOpt); 
+								} 
+							}
+						}else{
+							document.getElementById("t").value="输入以快速查找运营商";
+							os = document.all["ldcId1"].options;
+							var tt = document.all["t"].value;  
+							for(i=0;i<os.length;i++){ 
+								o = os[i]; 
+								if(o.text.indexOf(tt)>=0){ 
+									var newOpt = new Option(o.text, o.value, false, false); 
+									document.all["ldcId"].add(newOpt); 
+								} 
+							}
+						}
+					} 
+	}
+				
+				function checkFocus(){ 
+			
+					var tt=document.getElementById("t");
+					
+					if(tt.value=="输入以快速查找国家或地区"||tt.value=="输入以快速查找运营商" ){
+						tt.value="";
+					}
+					
+				} 
+				
+		function checkSelct(){ 
+				if($('#conditionType').val()==1){
+							os1 = document.all["countryId"].options; 
+							for(i=os1.length-1;i>=0;i--){ 
+							     document.all["countryId"].remove(i); 
+							} 
+						
+							var tt = document.all["t"].value; 
+							if(tt!=""){ 
+								os = document.all["countryId1"].options; 
+								for(i=0;i<os.length;i++){ 
+									o = os[i]; 
+									if(o.text.indexOf(tt)>=0){ 
+										var newOpt = new Option(o.text, o.value, false, false); 
+										document.all["countryId"].add(newOpt); 
+									} 
+								} 
+							}else{ 
+								os = document.all["countryId1"].options; 
+									for(i=0;i<os.length;i++){ 
+											o = os[i]; 
+											var newOpt = new Option(o.text, o.value, false, false); 
+											document.all["countryId"].add(newOpt); 
+									} 
+								} 
+						}else{
+						os1 = document.all["ldcId"].options; 
+							for(i=os1.length-1;i>=0;i--){ 
+							     document.all["ldcId"].remove(i); 
+							} 
+						
+							var tt = document.all["t"].value; 
+							if(tt!=""){ 
+								os = document.all["ldcId1"].options; 
+								for(i=0;i<os.length;i++){ 
+									o = os[i]; 
+									if(o.text.indexOf(tt)>=0){ 
+										var newOpt = new Option(o.text, o.value, false, false); 
+										document.all["ldcId"].add(newOpt); 
+									} 
+								} 
+							}else{ 
+								os = document.all["ldcId1"].options; 
+									for(i=0;i<os.length;i++){ 
+											o = os[i]; 
+											var newOpt = new Option(o.text, o.value, false, false); 
+											document.all["ldcId"].add(newOpt); 
+									} 
+								} 
+						}
+			}
+*/			
+</script>
+

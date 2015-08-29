@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+
+	<!-- 5.2.2.1 全网数据业务流量分布呈现（周） 2011年12月28日15:38:31 分佈式 -->
+	<select id="query_ftbStatWeekGprsTotalFlush" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		  <![CDATA[
+		  -- $option$
+		     select #intYear#,#intWeek#,nmUsers,getdate(),intRaitype,#vcLocalIP#
+		       from ftbStatWeekGprsTotalFlush
+		      where intYear = datepart(yy,#dtLoadedTime#) 
+		        and intWeek = datepart(wk,#dtLoadedTime#)
+		        and vcLocalIP is null
+		  ]]>
+	</select>
+
+	<!-- 5.2.3.1 空间分析呈现（周）BSC -->
+	<select id="query_ftbStatWeekBscGprsSpaceUsers" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intBscId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		from ftbStatApnNetSpaceHourUsers_week 
+		where intYear =	datepart(yy,#dtLoadedTime#) 
+		  and intWeek = datepart(wk,#dtLoadedTime#)  
+		  group by intBscId,intRaitype
+		]]>
+	</select>
+
+	<!-- SGSN -->
+	<select id="query_ftbStatWeekSgsnGprsSpaceUsers" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intSgsnId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		from ftbStatApnNetSpaceHourUsers_week 
+		where intYear =	datepart(yy,#dtLoadedTime#) 
+		  and intWeek = datepart(wk,#dtLoadedTime#)  
+		  group by	intSgsnId,intRaitype
+		]]>
+	</select>
+
+	<!-- 街道办 -->
+	<select id="query_ftbStatWeekStreetGprsSpaceUsers"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intStreetId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		from ftbStatNewBussTerminalHourUsers_week
+		where intYear =	datepart(yy,#dtLoadedTime#) 
+		 and intWeek = datepart(wk,#dtLoadedTime#)  
+		  group by	intStreetId,intRaitype
+		]]>
+	</select>
+
+	<!-- 营销片区 -->
+	<select id="query_ftbStatWeekSaleAreaGprsSpaceUsers"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intSaleAreaId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		from ftbStatApnAdminSpaceHourUsers_week
+		where intYear =	datepart(yy,#dtLoadedTime#) 
+		 and intWeek = datepart(wk,#dtLoadedTime#)  
+		  group by	intSaleAreaId,intRaitype
+		]]>
+	</select>
+
+	<!-- 分公司 -->
+	<select id="query_ftbStatWeekCompanyGprsSpaceUsers"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intBranchId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		from ftbStatApnAdminSpaceHourUsers_week
+		where intYear =	datepart(yy,#dtLoadedTime#) 
+		 and intWeek = datepart(wk,#dtLoadedTime#)  
+		  group by	intBranchId,intRaitype
+		]]>
+	</select>
+
+	<!-- 5.2.3.2 空间分析呈现_业务维（周）BSC -->
+	<select id="query_ftbStatWeekBscBussTypeUsers" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intBscId,nmBussinessId,nmBussinessTypeId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		from ftbStatBussNetSpaceHourUsers_week
+		where intYear =	datepart(yy,#dtLoadedTime#) 
+		  and intWeek = datepart(wk,#dtLoadedTime#)  
+		group by intBscId,nmBussinessId,nmBussinessTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- SGSN -->
+	<select id="query_ftbStatWeekSgsnBussTypeUsers" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intSgsnId,nmBussinessId,nmBussinessTypeId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		from ftbStatBussNetSpaceHourUsers_week
+		where intYear =	datepart(yy,#dtLoadedTime#) 
+		  and intWeek = datepart(wk,#dtLoadedTime#)  
+		group by intSgsnId,nmBussinessId,nmBussinessTypeId,intRaitype
+		]]>
+	</select>
+	<!-- 街道办 -->
+	<select id="query_ftbStatWeekStreetBussTypeUsers"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intStreetId,nmBussinessId,nmBussinessTypeId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		from ftbStatBussAdminSpaceHourUsers_week 
+		where intYear =	datepart(yy,#dtLoadedTime#) 
+		   and intWeek = datepart(wk,#dtLoadedTime#)  
+		group by intStreetId,nmBussinessId,nmBussinessTypeId,intRaitype
+		]]>
+	</select>
+	<!-- 营销片区 -->
+	<select id="query_ftbStatWeekSaleAreaBussTypeUsers"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intSaleAreaId,nmBussinessId,nmBussinessTypeId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		from ftbStatBussAdminSpaceHourUsers_week 
+		where intYear =	datepart(yy,#dtLoadedTime#) 
+		 and intWeek = datepart(wk,#dtLoadedTime#)  
+		group by intSaleAreaId,nmBussinessId,nmBussinessTypeId,intRaitype
+		]]>
+	</select>
+	<!-- 分公司 -->
+	<select id="query_ftbStatWeekCompanyBussTypeUsers"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intBranchId,nmBussinessId,nmBussinessTypeId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		from ftbStatBussAdminSpaceHourUsers_week 
+		where intYear =	datepart(yy,#dtLoadedTime#) 
+		 and intWeek = datepart(wk,#dtLoadedTime#)  
+		group by intBranchId,nmBussinessId,nmBussinessTypeId,intRaitype
+		]]>
+	</select><!-- 5.2.4 全网数据业务分析之业务 ?? -->
+	<select id="query_ftbStatWeekGprsBussTypeUsers" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select nmBussinessTypeId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		from ftbStatBussNetSpaceHourUsers_week
+		where intYear =	datepart(yy,#dtLoadedTime#) 
+		 and intWeek = datepart(wk,#dtLoadedTime#)  
+		group by nmBussinessTypeId,intRaitype
+		]]>
+	</select><!-- 5.2.5 全网数据业务分析之APN ?? -->
+	<select id="query_ftbStatWeekApnUsers" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intApnId,intApnTypeId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		from ftbStatApnNetSpaceHourUsers_week
+		where intYear =	datepart(yy,#dtLoadedTime#) 
+		 and intWeek = datepart(wk,#dtLoadedTime#)  
+		group by intApnId,intApnTypeId,intRaitype
+		]]>
+	</select>
+	<select id="query_ftbStatWeekApnTypeUsers" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intApnTypeId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		from ftbStatApnNetSpaceHourUsers_week 
+		where intYear =	datepart(yy,#dtLoadedTime#) 
+		 and intWeek = datepart(wk,#dtLoadedTime#)  
+		group by intApnTypeId,intRaitype
+		]]>
+	</select><!-- 5.2.6 全网数据业务分析之协议 -->
+	<select id="query_ftbStatWeekTcpProtocolUsers" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intProtocolTypeId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		from ftbStatProtocolHourUsers_week
+		where intYear =	datepart(yy,#dtLoadedTime#) 
+		 and intWeek = datepart(wk,#dtLoadedTime#)  
+		group by intProtocolTypeId,intRaitype
+		]]>
+	</select>
+	<select id="query_ftbStatWeekWapProtocolUsers" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intWapId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		from ftbStatWapHourUsers_week
+		where intYear =	datepart(yy,#dtLoadedTime#) 
+		 and intWeek = datepart(wk,#dtLoadedTime#)  
+		group by intWapId,intRaitype
+		]]>
+	</select><!-- 5.2.7 全网数据业务分析之用户归属 -->
+	<select id="query_ftbStatWeekUserBelongUsers" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intUserBelongId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		from ftbStatApnUserHourUsers_week
+		where intYear =	datepart(yy,#dtLoadedTime#) 
+		 and intWeek = datepart(wk,#dtLoadedTime#)  
+		group by intUserBelongId,intRaitype
+		]]>
+	</select>
+
+	<!-- 5.2.9 集团业务行为分析之空间 BSC -->
+	<select id="query_ftbStatWeekApnBscUsers" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intBscId,intApnId,intApnTypeId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		from ftbStatApnNetSpaceHourUsers_week
+		where intYear =	datepart(yy,#dtLoadedTime#) 
+		 and intWeek = datepart(wk,#dtLoadedTime#)  
+		  group by	intBscId,intApnId,intApnTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- SGSN -->
+	<select id="query_ftbStatWeekApnSgsnUsers" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intSgsnId,intApnId,intApnTypeId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		from ftbStatApnNetSpaceHourUsers_week
+		where intYear =	datepart(yy,#dtLoadedTime#) 
+		 and intWeek = datepart(wk,#dtLoadedTime#)  
+		  group by	intSgsnId,intApnId,intApnTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- 街道办 -->
+	<select id="query_ftbStatWeekApnStreetUsers" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intStreetId,intApnId,intApnTypeId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		from ftbStatApnAdminSpaceHourUsers_week
+		where intYear =	datepart(yy,#dtLoadedTime#) 
+		 and intWeek = datepart(wk,#dtLoadedTime#)  
+		  group by	intStreetId,intApnId,intApnTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- 营销片区 -->
+	<select id="query_ftbStatWeekApnSaleAreaUsers" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intSaleAreaId,intApnId,intApnTypeId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		from ftbStatApnAdminSpaceHourUsers_week
+		where intYear =	datepart(yy,#dtLoadedTime#) 
+		 and intWeek = datepart(wk,#dtLoadedTime#)  
+		  group by	intSaleAreaId,intApnId,intApnTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- 分公司 -->
+	<select id="query_ftbStatWeekApnCompanyUsers" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intBranchId,intApnId,intApnTypeId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		from ftbStatApnAdminSpaceHourUsers_week
+		where intYear =	datepart(yy,#dtLoadedTime#) 
+		 and intWeek = datepart(wk,#dtLoadedTime#)  
+		  group by	intBranchId,intApnId,intApnTypeId,intRaitype
+		]]>
+	</select><!-- 5.2.10 集团业务行为分析之用户归属 -->
+	<select id="query_ftbStatWeekApnUserBelongUsers" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intUserBelongId,intApnTypeId,intApnId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		from ftbStatApnUserHourUsers_week
+		where intYear =	datepart(yy,#dtLoadedTime#) 
+		 and intWeek = datepart(wk,#dtLoadedTime#)  
+		group by intUserBelongId,intApnTypeId,intApnId,intRaitype
+		]]>
+	</select>
+
+	<!-- bussiness ?? -->
+	<select id="query_ftbStatWeekGprsBussUsers" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select nmBussinessId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		from ftbStatBussNetSpaceHourUsers_week
+		where intYear =	datepart(yy,#dtLoadedTime#) 
+		 and intWeek = datepart(wk,#dtLoadedTime#)  
+		group by nmBussinessId,intRaitype
+		]]>
+	</select><!-- APN按区域分布(新增) hyjun 20100222 ftbGnSessionData -->
+	<!-- BSC -->
+	<select id="query_ftbStatWeekBscApnTypeUsers" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intBscId,intApnTypeId,#intYear#,#intWeek#,
+		count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		from ftbStatApnNetSpaceHourUsers_week 
+		where intYear =	datepart(yy,#dtLoadedTime#) 
+		and intWeek = datepart(wk,#dtLoadedTime#) 
+		group by intBscId,intApnTypeId,intRaitype
+		]]>
+	</select>
+	<!-- SGSN -->
+	<select id="query_ftbStatWeekSgsnApnTypeUsers" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intSgsnId,intApnTypeId,#intYear#,#intWeek#,
+		count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		from ftbStatApnNetSpaceHourUsers_week 
+		where intYear =	datepart(yy,#dtLoadedTime#) 
+		and intWeek = datepart(wk,#dtLoadedTime#) 
+		group by intSgsnId,intApnTypeId,intRaitype
+		]]>
+	</select>
+	<!-- 街道办 -->
+	<select id="query_ftbStatWeekStreetApnTypeUsers" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intStreetId,intApnTypeId,#intYear#,#intWeek#,
+		count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		from ftbStatApnAdminSpaceHourUsers_week
+		where intYear =	datepart(yy,#dtLoadedTime#) 
+		and intWeek = datepart(wk,#dtLoadedTime#) 
+		group by intStreetId,intApnTypeId,intRaitype
+		]]>
+	</select>
+	<!-- 营销片区 -->
+	<select id="query_ftbStatWeekSaleAreaApnTypeUsers"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intSaleAreaId,intApnTypeId,#intYear#,#intWeek#,
+		count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		from ftbStatApnAdminSpaceHourUsers_week
+		where intYear =	datepart(yy,#dtLoadedTime#) 
+		and intWeek = datepart(wk,#dtLoadedTime#)  
+		group by intSaleAreaId,intApnTypeId,intRaitype
+		]]>
+	</select>
+	<!-- 分公司 -->
+	<select id="query_ftbStatWeekCompanyApnTypeUsers"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select intBranchId,intApnTypeId,#intYear#,#intWeek#,
+		count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		from ftbStatApnAdminSpaceHourUsers_week
+		where intYear =	datepart(yy,#dtLoadedTime#) 
+		and intWeek = datepart(wk,#dtLoadedTime#) 
+		group by intBranchId,intApnTypeId,intRaitype
+		]]>
+	</select><!-- wuzhenzhen add 20110824 自定義小區集分析_常驻人口统计表（周） GROUPAREA ftbStatWeekGroupAreaGprsResidentUsers -->
+	<select id="query_ftbStatWeekGroupAreaGprsResidentUsers"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$ 		  
+		select resident.nmAreaId,#intYear#,#intWeek#,count(distinct(resident.nmImsi)),getdate(),resident.intRaitype,#vcLocalIP#
+		from (
+			select  nmAreaId,count(nmImsi) as imsiCount,nmImsi,intRaitype
+			from ftbStatGroupAreaHourUsers_week ,ftbResidentConfig 
+			where intYear =	#intYear# 
+			  and intWeek = #intWeek#  
+			  and ftbResidentConfig.intType=1  
+			  group by	nmAreaId,intRaitype ,nmImsi,ftbResidentConfig.intDay
+			  having imsiCount>=ftbResidentConfig.intDay
+			 ) as resident
+		where 1 = 1
+		  group by resident.nmAreaId,resident.intRaitype
+		]]>
+	</select><!-- Wu Zhenzhen 终端的区域分布_全網 add by 2011年10月24日21:20:09 -->
+	<select id="query_ftbStatWeekTerminalTypeGprsSpaceUsers"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select nmTerminalId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		  from ftbStatNetTerminalTypeHourUsers_week 
+		  where intYear =	datepart(yy,#dtLoadedTime#) 
+		    and intWeek = datepart(wk,#dtLoadedTime#)  
+	   group by nmTerminalId,intRaitype
+		]]>
+	</select>
+
+	<!-- Wu Zhenzhen 终端的区域分布_全網_業務 add by 2011年10月24日21:20:09 -->
+	<select id="query_ftbStatWeekTerminalTypeBussTypeUsers"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		 select nmTerminalId,nmBussinessId,nmBussinessTypeId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		   from ftbStatNetBussTerminalTypeHourUsers_week
+		  where intYear =	datepart(yy,#dtLoadedTime#) 
+		    and intWeek = datepart(wk,#dtLoadedTime#)  
+	   group by nmTerminalId,nmBussinessId,nmBussinessTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- Wu Zhenzhen 终端的区域分布_BSC add by 2011年10月24日21:20:09 -->
+	<select id="query_ftbStatWeekBscTerminalTypeGprsSpaceUsers"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select nmTerminalId,intBscId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		  from ftbStatNetTerminalTypeHourUsers_week 
+		  where intYear =	datepart(yy,#dtLoadedTime#) 
+		    and intWeek = datepart(wk,#dtLoadedTime#)  
+	   group by nmTerminalId,intBscId,intRaitype
+		]]>
+	</select>
+
+	<!-- Wu Zhenzhen 终端的区域分布_BSC_業務 add by 2011年10月24日21:20:09 -->
+	<select id="query_ftbStatWeekBscTerminalTypeBussTypeUsers"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		 select nmTerminalId,intBscId,nmBussinessId,nmBussinessTypeId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		   from ftbStatNetBussTerminalTypeHourUsers_week
+		  where intYear =	datepart(yy,#dtLoadedTime#) 
+		    and intWeek = datepart(wk,#dtLoadedTime#)  
+	   group by nmTerminalId,intBscId,nmBussinessId,nmBussinessTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- Wu Zhenzhen 终端的区域分布_SGSN add by 2011年10月24日21:20:09 -->
+	<select id="query_ftbStatWeekSgsnTerminalTypeGprsSpaceUsers"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select nmTerminalId,intSgsnId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		  from ftbStatNetTerminalTypeHourUsers_week 
+		  where intYear =	datepart(yy,#dtLoadedTime#) 
+		    and intWeek = datepart(wk,#dtLoadedTime#)  
+	   group by nmTerminalId,intSgsnId,intRaitype
+		]]>
+	</select>
+
+	<!-- Wu Zhenzhen 终端的区域分布_SGSN_業務 add by 2011年10月24日21:20:09 -->
+	<select id="query_ftbStatWeekSgsnTerminalTypeBussTypeUsers"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		 select nmTerminalId,intSgsnId,nmBussinessId,nmBussinessTypeId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		   from ftbStatNetBussTerminalTypeHourUsers_week
+		  where intYear =	datepart(yy,#dtLoadedTime#) 
+		    and intWeek = datepart(wk,#dtLoadedTime#)  
+	   group by nmTerminalId,intSgsnId,nmBussinessId,nmBussinessTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- Wu Zhenzhen 终端的区域分布_分公司 add by 2011年10月24日21:20:09 -->
+	<select id="query_ftbStatWeekBranchTerminalTypeGprsSpaceUsers"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select nmTerminalId,intBranchId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		  from ftbStatAdminTerminalTypeHourUsers_week 
+		  where intYear =	datepart(yy,#dtLoadedTime#) 
+		    and intWeek = datepart(wk,#dtLoadedTime#)  
+	   group by nmTerminalId,intBranchId,intRaitype
+		]]>
+	</select>
+
+	<!-- Wu Zhenzhen 终端的区域分布_分公司_業務 add by 2011年10月24日21:20:09 -->
+	<select id="query_ftbStatWeekBranchTerminalTypeBussTypeUsers"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		 select nmTerminalId,intBranchId,nmBussinessId,nmBussinessTypeId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		   from ftbStatAdminBussTerminalTypeHourUsers_week
+		  where intYear =	datepart(yy,#dtLoadedTime#) 
+		    and intWeek = datepart(wk,#dtLoadedTime#)  
+	   group by nmTerminalId,intBranchId,nmBussinessId,nmBussinessTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- Wu Zhenzhen 终端的区域分布_營銷片區 add by 2011年10月24日21:20:09 -->
+	<select id="query_ftbStatWeekSaleAreaTerminalTypeGprsSpaceUsers"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select nmTerminalId,intSaleAreaId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		  from ftbStatAdminTerminalTypeHourUsers_week 
+		  where intYear =	datepart(yy,#dtLoadedTime#) 
+		    and intWeek = datepart(wk,#dtLoadedTime#)  
+	   group by nmTerminalId,intSaleAreaId,intRaitype
+		]]>
+	</select>
+
+	<!-- Wu Zhenzhen 终端的区域分布_營銷片區_業務 add by 2011年10月24日21:20:09 -->
+	<select id="query_ftbStatWeekSaleAreaTerminalTypeBussTypeUsers"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		 select nmTerminalId,intSaleAreaId,nmBussinessId,nmBussinessTypeId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		   from ftbStatAdminBussTerminalTypeHourUsers_week
+		  where intYear =	datepart(yy,#dtLoadedTime#) 
+		    and intWeek = datepart(wk,#dtLoadedTime#)  
+	   group by nmTerminalId,intSaleAreaId,nmBussinessId,nmBussinessTypeId,intRaitype
+		]]>
+	</select>
+
+	<!-- Wu Zhenzhen 终端的区域分布_街道 add by 2011年10月24日21:20:09 -->
+	<select id="query_ftbStatWeekStreetTerminalTypeGprsSpaceUsers"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		select nmTerminalId,intStreetId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		  from ftbStatAdminTerminalTypeHourUsers_week 
+		  where intYear = datepart(yy,#dtLoadedTime#) 
+		    and intWeek = datepart(wk,#dtLoadedTime#)  
+	   group by nmTerminalId,intStreetId,intRaitype
+		]]>
+	</select>
+
+	<!-- Wu Zhenzhen 终端的区域分布_街道_業務 add by 2011年10月24日21:20:09 -->
+	<select id="query_ftbStatWeekStreeterminalTypeBussTypeUsers"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		$option$
+		 select nmTerminalId,intStreetId,nmBussinessId,nmBussinessTypeId,#intYear#,#intWeek#,count(distinct(nmImsi)),getdate(),intRaitype,#vcLocalIP#
+		   from ftbStatAdminBussTerminalTypeHourUsers_week
+		  where intYear =	datepart(yy,#dtLoadedTime#) 
+		    and intWeek = datepart(wk,#dtLoadedTime#)  
+	   group by nmTerminalId,intStreetId,nmBussinessId,nmBussinessTypeId,intRaitype
+		]]>
+	</select>
+</sqlMap>

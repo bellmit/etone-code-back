@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+	<!-- 數據庫配置文件 -->
+	<properties url="file:../etc/jdbc.properties" />
+
+	<!-- 數據庫配置信息 -->
+	<settings cacheModelsEnabled="true" enhancementEnabled="true"
+		lazyLoadingEnabled="false" maxRequests="10" maxSessions="10"
+		maxTransactions="10" useStatementNamespaces="false" />
+	<transactionManager type="JDBC">
+		<dataSource type="DBCP">
+			<property name="JDBC.Driver" value="${writeDriver}" />
+			<property name="JDBC.ConnectionURL" value="${writeUrl}" />
+			<property name="JDBC.Username" value="${writeUsername}" />
+			<property name="JDBC.Password" value="${writePassword}" />
+			<property name="JDBC.DefaultAutoCommit" value="true" />
+			<!-- OPTIONAL PROPERTIES BELOW -->
+			<property name="Pool.MaximumActiveConnections" value="10" />
+			<property name="Pool.MaximumIdleConnections" value="1" />
+			<property name="Pool.ValidationQuery" value="select 1 " />
+			<property name="Pool.MaximumWait" value="600000" />
+			<property name="Pool.LogAbandoned" value="false" />
+			<property name="Pool.RemoveAbandoned" value="true" />
+			<property name="Pool.RemoveAbandonedTimeout" value="500" />
+		</dataSource>
+	</transactionManager>
+
+	<!-- 功能map -->
+	<!-- 任務提取 -->
+	<sqlMap url="file:../etc/sybase/extract/dataGetterTask.xml" />
+	<!-- 自定義輸出 -->
+	<sqlMap url="file:../etc/sybase/extract/dataOutPutTask.xml" />
+	<!-- 業務健康度 -->
+	<sqlMap url="file:../etc/sybase/extract/netWorkTask.xml" />
+	<!-- 終端升級任務定制功能 -->
+	<sqlMap url="file:../etc/sybase/extract/terminalChangeTask.xml" />
+	<!-- 終端撥測任務 -->
+	<sqlMap url="file:../etc/sybase/extract/terminalPolicy.xml" />
+
+</sqlMapConfig>

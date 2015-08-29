@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<!-- 文件記錄日誌信息，ERROR、WARN、INFO -->
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Encoding" value="UTF-8" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH\:mm\:ss}][%5p]-%m [%l]-[%t]%n%n" />
+		</layout>
+	</appender>
+
+	<!-- 顯示org.myhkzhen包下的所有日誌信息 -->
+	<!-- <logger name="com.etone"> -->
+	<!-- <level value="debug" /> -->
+	<!-- </logger> -->
+
+	<root>
+		<!-- 關閉所有信息，然後按照自定義的方式顯示要顯示的日誌 -->
+		<level value="error" />
+		<appender-ref ref="console" />
+	</root>
+
+</log4j:configuration>

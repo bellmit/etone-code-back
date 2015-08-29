@@ -1,0 +1,65 @@
+/**
+ * z.z.w.quartz.job.TestQuartzJob.java
+ */
+package z.z.w.quartz.job;
+
+import java.util.Random;
+
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+import org.quartz.StatefulJob;
+
+import z.z.w.common.DateTools;
+import z.z.w.common.ThreadTools;
+import z.z.w.quartz.IUserJob;
+
+/**
+ * @author Wu Zhenzhen
+ * @version Dec 19, 2012 7:36:34 PM
+ */
+public class TestQuartzJob implements StatefulJob, IUserJob {
+
+	/**
+	 * <br>
+	 * Created on: Dec 19, 2012 7:36:34 PM
+	 */
+	public TestQuartzJob() {
+		System.out.println(DateTools.getCurrentDateStr()
+				+ " --- TestQuartzJob ----------------- ");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.quartz.Job#execute(org.quartz.JobExecutionContext)
+	 */
+	public void execute(JobExecutionContext arg0) throws JobExecutionException {
+		// System.out.println(DateTools.getCurrentDateStr()
+		//
+		// + " ---- EXCEUTE TestQuartzJob---" +
+		// Thread.currentThread().getName());
+
+		// ThreadTools.sleepSeconds(4);
+
+		Random rand = new Random(System.currentTimeMillis());
+		int index = (rand.nextInt(9999) % (9999 - 1 + 1) + 1);
+		// System.out.println(" thread sleep : [" + (index * 1.0 / 1000)
+		// + "]s.");
+		// ThreadTools.sleepSeconds(5);
+		ThreadTools.sleep(index);
+		// System.out.println("Index : " + index);
+
+		// try {
+		// // DateTools.getDate("fdsfsd");
+		// // } catch (ParseException e) {
+		// // throw new JobExecutionException("ERROR");
+		// } finally {
+		// System.out.println("********");
+		// }
+
+		System.out.println(DateTools.getCurrentDateStr() + " END use time :["
+				+ (index * 1.0 / 1000) + "]s.- TestQuartzJob --"
+				+ Thread.currentThread().getName());
+	}
+
+}

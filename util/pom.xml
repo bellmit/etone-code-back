@@ -1,0 +1,652 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.etone</groupId>
+	<artifactId>util</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>util</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.jolbox</groupId> -->
+<!-- 			<artifactId>bonecp</artifactId> -->
+<!-- 			<version>0.7.1.RELEASE</version> -->
+<!-- 		</dependency> -->
+
+		<dependency>
+			<groupId>etone</groupId>
+			<artifactId>SSMP</artifactId>
+			<version>1.0.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>EDSP</artifactId>
+			<version>2.0.0-ALPHA-2</version>
+			<type>pom.lastUpdated</type>
+		</dependency>
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>ssmp-service-gp</artifactId>
+			<version>3.2.2-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>ssmp-iq-cache-api</artifactId>
+			<version>3.2.2-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>ssmp-gp-cache-api</artifactId>
+			<version>3.2.2-SNAPSHOT</version>
+
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>ssmp-core</artifactId>
+			<version>3.2.2-SNAPSHOT</version>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>ssmp-service</artifactId>
+			<version>3.2.2-ALPHA-1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>pmc-war</artifactId>
+			<version>3.2.0-SNAPSHOT</version>
+			<type>war</type>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>pmc-service-part</artifactId>
+			<version>3.2.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>pmc-service</artifactId>
+			<version>3.2.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>edsp-pmc-parent</artifactId>
+			<version>3.2.0-SNAPSHOT</version>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>edsp-persistence</artifactId>
+			<version>3.2.0-SNAPSHOT</version>
+
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>edsp-common</artifactId>
+			<version>3.2.0-SNAPSHOT</version>
+
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>edsp-common</artifactId>
+			<version>3.2.0-SNAPSHOT</version>
+			<classifier>tests</classifier>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>edsp-persistence</artifactId>
+			<version>3.2.0-SNAPSHOT</version>
+			<classifier>tests</classifier>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>daemon-parent</artifactId>
+			<version>3.2.0-SNAPSHOT</version>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.daemon</groupId>
+			<artifactId>rem-common</artifactId>
+			<version>3.1.8.5-SNAPSHOT</version>
+
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.daemon</groupId>
+			<artifactId>cache-common</artifactId>
+			<version>3.1.8.4</version>
+
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.daemon</groupId>
+			<artifactId>rem-task</artifactId>
+			<version>3.1.8.2-SNAPSHOT</version>
+			<classifier>jar-with-dependencies</classifier>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.daemon</groupId>
+			<artifactId>rem-task</artifactId>
+			<version>3.1.8.2-SNAPSHOT</version>
+			<classifier>release</classifier>
+			<type>tar.gz</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.daemon</groupId>
+			<artifactId>rem-task</artifactId>
+			<version>3.1.8.2-SNAPSHOT</version>
+
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.daemon</groupId>
+			<artifactId>edsp-rem-projects</artifactId>
+			<version>3.1.8.2-SNAPSHOT</version>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.daemon</groupId>
+			<artifactId>cache-sync</artifactId>
+			<version>3.1.8.1</version>
+
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.daemon</groupId>
+			<artifactId>cache-query</artifactId>
+			<version>3.1.8.1</version>
+
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.etone.daemon</groupId>
+			<artifactId>cache-query</artifactId>
+			<version>3.1.8.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.daemon</groupId>
+			<artifactId>edsp-cache-projects</artifactId>
+			<version>3.1.8.1</version>
+			<type>pom</type>
+		</dependency>
+
+
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>persistence</artifactId>
+			<version>3.1.0-SNAPSHOT</version>
+
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>persistence</artifactId>
+			<version>3.1.0-SNAPSHOT</version>
+			<classifier>tests</classifier>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.etone.ejb.examples</groupId>
+			<artifactId>pmcWAR</artifactId>
+			<version>3.1.0-SNAPSHOT</version>
+
+		</dependency>
+
+
+
+		<dependency>
+			<groupId>com.etone.ejb.examples</groupId>
+			<artifactId>pmcEJBClient</artifactId>
+			<version>3.1.0-SNAPSHOT</version>
+			<classifier>tests</classifier>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.ejb.examples</groupId>
+			<artifactId>pmcEJB</artifactId>
+			<version>3.1.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.ejb.examples</groupId>
+			<artifactId>pmcEAR</artifactId>
+			<version>3.1.0-SNAPSHOT</version>
+			<type>ear</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.ejb.examples</groupId>
+			<artifactId>parent</artifactId>
+			<version>3.1.0-SNAPSHOT</version>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.ejb.examples</groupId>
+			<artifactId>initializeEJB</artifactId>
+			<version>3.1.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.ejb</groupId>
+			<artifactId>edspEJBClient</artifactId>
+			<version>3.1.0-SNAPSHOT</version>
+
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.ejb</groupId>
+			<artifactId>edspEJBClient</artifactId>
+			<version>3.1.0-SNAPSHOT</version>
+			<classifier>tests</classifier>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.ejb</groupId>
+			<artifactId>edspEJB</artifactId>
+			<version>3.1.0-SNAPSHOT</version>
+
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.ejb</groupId>
+			<artifactId>baseEJBClient</artifactId>
+			<version>3.1.0-SNAPSHOT</version>
+
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.ejb</groupId>
+			<artifactId>baseEJBClient</artifactId>
+			<version>3.1.0-SNAPSHOT</version>
+			<classifier>tests</classifier>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.ejb</groupId>
+			<artifactId>baseEJB</artifactId>
+			<version>3.1.0-SNAPSHOT</version>
+
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>edsp-j2ee-parent</artifactId>
+			<version>3.1.0-SNAPSHOT</version>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>daemon</artifactId>
+			<version>3.1.0-SNAPSHOT</version>
+
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>common</artifactId>
+			<version>3.1.0-SNAPSHOT</version>
+
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>common</artifactId>
+			<version>3.1.0-SNAPSHOT</version>
+			<classifier>tests</classifier>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.ejb</groupId>
+			<artifactId>edsp-base</artifactId>
+			<version>3.0.2</version>
+
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>edsp-extension</artifactId>
+			<version>3.0.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>edsp-core</artifactId>
+			<version>3.0.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>edsp-base</artifactId>
+			<version>3.0.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>sm-service</artifactId>
+			<version>3.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>sa-service</artifactId>
+			<version>3.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>omc-service</artifactId>
+			<version>3.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>export-war</artifactId>
+			<version>3.0.0-SNAPSHOT</version>
+			<type>war</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>export-service-client</artifactId>
+			<version>3.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>export-service</artifactId>
+			<version>3.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>edsp-export-parent</artifactId>
+			<version>3.0.0-SNAPSHOT</version>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>edsp-daemon-parent</artifactId>
+			<version>3.0.0-SNAPSHOT</version>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>edsp-console-parent</artifactId>
+			<version>3.0.0-SNAPSHOT</version>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>edsp-archetype-miniweb</artifactId>
+			<version>3.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>edsp-archetype-miniservice</artifactId>
+			<version>3.0.0-SNAPSHOT</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>mini-web</artifactId>
+			<version>3.0.0</version>
+			<type>war</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>mini-service</artifactId>
+			<version>3.0.0</version>
+			<classifier>tests</classifier>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>mini-clusters</artifactId>
+			<version>3.0.0</version>
+			<classifier>tests</classifier>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>edsp-deployer</artifactId>
+			<version>3.0.0</version>
+			<classifier>tests</classifier>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>edsp-nbsm-core</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>edsp-nbsm-core</artifactId>
+			<version>3.0.0</version>
+			<classifier>tests</classifier>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone</groupId>
+			<artifactId>SSMP</artifactId>
+			<version>2.1.0-SNAPSHOT</version>
+
+		</dependency>
+
+
+		<dependency>
+			<groupId>etone</groupId>
+			<artifactId>bean-mapper</artifactId>
+			<version>1.4.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>etone</groupId>
+			<artifactId>SSMP</artifactId>
+			<version>1.0.5</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>etone</groupId>
+			<artifactId>edsp-core</artifactId>
+			<version>1.0.19</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.was</groupId>
+			<artifactId>was-deps</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.itc.oms</groupId>
+			<artifactId>parent</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.itc.oms</groupId>
+			<artifactId>omsCrawler</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.ejb</groupId>
+			<artifactId>boce-extension</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.app.boce</groupId>
+			<artifactId>ws</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.app.boce</groupId>
+			<artifactId>demo</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.android</groupId>
+			<artifactId>android-framework</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<classifier>tests</classifier>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.etone.app.boce</groupId>
+			<artifactId>nbsmEJBClient</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.app.boce</groupId>
+			<artifactId>nbsmEJBClient</artifactId>
+			<version>1.0.0</version>
+			<classifier>tests</classifier>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.app.boce</groupId>
+			<artifactId>nbsmEJB</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.app.boce</groupId>
+			<artifactId>nbsmEJB</artifactId>
+			<version>1.0.0</version>
+			<classifier>tests</classifier>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.app.boce</groupId>
+			<artifactId>nbsmEJB</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.app.boce</groupId>
+			<artifactId>nbsmEJB</artifactId>
+			<version>1.0.0</version>
+			<classifier>tests</classifier>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.app.boce</groupId>
+			<artifactId>nbsm-parent</artifactId>
+			<version>1.0.0</version>
+			<type>pom</type>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.etone.app.boce</groupId>
+			<artifactId>nbsm</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.app.boce</groupId>
+			<artifactId>edspEJBClient</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.etone.app.boce</groupId>
+			<artifactId>edspEJBClient</artifactId>
+			<version>1.0.0</version>
+			<classifier>tests</classifier>
+		</dependency>
+
+
+
+		<dependency>
+			<groupId>com.etone.app.boce</groupId>
+			<artifactId>edspEJB</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
+
+
+		<dependency>
+			<groupId>com.etone.app.boce</groupId>
+			<artifactId>edspEJB</artifactId>
+			<version>1.0.0</version>
+			<classifier>tests</classifier>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.etone.demo</groupId>
+			<artifactId>server-node</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.demo</groupId>
+			<artifactId>client-node</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.nomc</groupId>
+			<artifactId>pagent4j</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.etone.nomc</groupId>
+			<artifactId>RequestObject</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+	</dependencies>
+</project>

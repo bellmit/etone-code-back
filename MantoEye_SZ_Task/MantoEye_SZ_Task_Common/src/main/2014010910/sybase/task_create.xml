@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+
+	<!-- 初始化任務列表 -->
+	<update id="initTaskList">
+	<![CDATA[
+		   update tbTask 
+			  set intTaskState = 0
+			where intTaskState = 1
+	]]>
+	</update>
+
+	<select id="getFactTableList"
+		resultClass="com.etone.mantoeye.analyse.domain.FactTableOperation">
+	<![CDATA[
+		   select top 1 intFtbOid,vcTableName,dtLoadedTime 
+			 from tbFactTableOperation
+			where chIndexComplete = '1' 
+			  and chTaskCreated = '0' 
+		 order by dtLoadedTime  
+	]]>
+	</select>
+	<select id="getSignalFactHourList"
+		resultClass="com.etone.mantoeye.analyse.domain.FactTableOperation">
+	<![CDATA[
+		   select intFtbOid,vcTableName,dtLoadedTime 
+			 from tbFactTableOperation
+			where chIndexComplete = '1' 
+			  and chTaskCreated = '0' 
+			  and (UPPER(vctablename) in ('FTBASSISTRULEDATA','FTBMAINRULEFLUSHDATA','FTBASSISTVETORRECOGNISEDATA')
+               or vctablename like '%ftbGnSignalData%')  
+		 order by dtLoadedTime desc 
+	]]>
+	</select>
+
+	<!-- 2012年5月16日22:23:15 是否存在任務狀態為4的事實表數據 -->
+	<select id="getRunningTaskHourFactInit" resultClass="java.lang.Integer">
+	<![CDATA[
+		   select count(1) 
+			 from tbFactTableOperation
+			where 1=1 
+			  and chTaskCreated in ('3','4') 
+	]]>
+	</select>
+
+	<select id="getRunningTaskHourFact" resultClass="java.lang.String">
+	<![CDATA[
+	   select case when t.sum = 0 then  '0'
+              else (
+                     case when t.sum > 0 and  t1.sum = 0 and t2.sum > 0 then  '1'
+                     else (
+                            case when t.sum > 0 and  t1.sum > 0   then  'signal' end
+                     ) end                                         
+              ) end tableNames  
+         from ( select count(1) as sum 
+				  from tbFactTableOperation  
+				 where 1=1 and chTaskCreated in ('3','4') 
+				   and vctablename like '%ftbGnAppData%' 
+              ) t,
+			  ( select count(1) as sum 
+				  from tbFactTableOperation 
+				 where 1=1 and chindexcomplete='1' and chtaskcreated='0'						 
+				   and (UPPER(vctablename) in ('FTBASSISTRULEDATA','FTBMAINRULEFLUSHDATA','FTBASSISTVETORRECOGNISEDATA')
+                    or vctablename like '%ftbGnSignalData%')  
+              ) t1,
+              ( select count(1) as sum  
+				  from tbFactTableOperation 
+				 where 1=1 and chindexcomplete='1' and chtaskcreated='0'						 
+				   and vctablename like '%ftbGnAppData%' 
+              ) t2
+	]]>
+	</select>
+
+	<select id="getFactTableListCreatHour"
+		resultClass="com.etone.mantoeye.analyse.domain.FactTableOperation">
+	<![CDATA[
+		   select intFtbOid,vcTableName,dtLoadedTime 
+			 from tbFactTableOperation
+			where chIndexComplete = '1' 
+			  and chTaskCreated = '2' 
+		 order by dtLoadedTime asc
+	]]>
+	</select>
+
+	<!-- 2012年5月11日10:47:19 添加小時臨時用戶表 -->
+	<update id="updateHourTempUsersFactTableStatus"
+		parameterClass="com.etone.mantoeye.analyse.domain.FactTableOperation">
+		<![CDATA[
+		 update tbFactTableOperation
+		    set chtaskcreated = #chTaskCreated# 
+		  where vcTableName = #vcTableName#
+		--	and (select count(1) from $vcTableName$ )>0
+			]]>
+	</update>
+
+	<parameterMap id="HourFactTable" class="map">
+		<parameter property="setChtaskcreated" jdbcType="VARCHAR"
+			javaType="java.lang.String" mode="INOUT" />
+		<parameter property="whereChtaskcreated" jdbcType="VARCHAR"
+			javaType="java.lang.String" mode="INOUT" />
+	</parameterMap>
+
+	<!-- 2012年5月16日19:03:40 -->
+	<update id="updateHourFactTableStatus" parameterMap="HourFactTable">
+		<![CDATA[
+		 update tbFactTableOperation
+		    set chtaskcreated = #setChtaskcreated# 
+		  where chtaskcreated = #whereChtaskcreated#
+			]]>
+	</update>
+
+	<!-- 2012年5月16日19:03:40 -->
+	<update id="initHourFactTableStatus">
+		<![CDATA[
+		 update tbFactTableOperation
+		    set chtaskcreated = '0' 
+		  where chtaskcreated in ('3','4') 
+			]]>
+	</update>
+
+	<!-- 2012年5月16日19:03:40 -->
+	<update id="updateHourFactTableStatus_3">
+		<![CDATA[
+		 update tbFactTableOperation
+		    set chtaskcreated = '0' 
+		  where chtaskcreated = '3' 
+			]]>
+	</update>
+
+	<!-- 2012年5月16日19:03:40 -->
+	<update id="updateHourFactTableStatus_4">	
+		<![CDATA[
+		update tbFactTableOperation
+		    set chtaskcreated = '2' 
+		  where chtaskcreated = '4' 
+			]]>
+	</update>
+
+	<!-- 2012年5月11日10:47:19 添加小時臨時用戶表 -->
+	<statement id="createHourTempUserTable" parameterClass="java.lang.String">
+	<![CDATA[
+    if exists (
+       select 1 from sys.systable 
+        where table_name = '$hourTempUserTableName$'
+          and table_type in ('BASE', 'GBL TEMP')
+              ) then
+         drop table $hourTempUserTableName$ 
+       end if;
+       
+       create table $hourTempUserTableName$ (	
+		   nmId                 NUMERIC(10)                    not null default autoincrement,
+		   intRaitype           int                            null,
+		   intBscId             int                            null,
+		   intStreetId          int                            null,  
+		   intProtocolTypeId    int                            null, 
+		   intWapId             int                            null,
+		   intDescSgsnId        int                            null,  
+		   intBranchId          int                            null,
+		   intSaleAreaId        int                            null,
+		   intApnTypeId         int                            null,
+		   intApnId             int                            null, 
+		   intUserBelongId      int                            null, 
+		   nmBussinessId        numeric(6,0)                   null,
+		   nmBussinessTypeId    numeric(3,0)                   null,
+		   nmImsi               numeric(20)                    null, 
+		   nmMsisdn             numeric(20)                    null, 
+		   intAppSuccessful     int                            null,
+		   intAppUpFlush        numeric(15,0)                  null,
+		   intAppDownFlush      numeric(15,0)                  null, 
+		   intYear              int                            null,
+		   intMonth             int                            null,
+		   intDay               int                            null,
+		   intWeek              int                            null,
+		   intHour              int                            null,
+		   nmAreaId             numeric(10,0)                  null,
+		   nmTerminalId         numeric(5,0)                   null,
+		   ProductDimens        numeric(20,0)                  null,
+		   constraint PK_FTBGNAPPDATA primary key (nmId)
+		);
+	]]>
+	</statement>
+
+	<!-- 2012年5月11日11:09:21 向臨時小時用戶表中添加數據 -->
+	<select id="query_hourTempUserTable" parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		  <![CDATA[
+		   $option$
+		     select intRaitype,intBscId,intStreetId,intProtocolTypeId,intWapId,intDescSgsnId,intBranchId,intSaleAreaId,
+		            intApnTypeId,intApnId,intUserBelongId,nmImsi,nmMsisdn,intAppSuccessful,sum(intAppUpFlush),sum(intAppDownFlush),
+		            intYear,intMonth,intDay,intWeek,intHour,nmAreaId,nmTerminalId,ProductDimens,nmBussinessTypeId,nmBussinessId
+			   from $sourceTableName$
+		   group by ProductDimens,nmBussinessId,nmTerminalId,nmBussinessTypeId,nmAreaId,nmImsi,nmMsisdn,intBscId,intStreetId,
+		   			intProtocolTypeId,intWapId,intDescSgsnId,intBranchId,intSaleAreaId,intApnTypeId,intApnId,intUserBelongId,
+		   			intAppSuccessful,intYear,intMonth,intDay,intWeek,intHour,intRaitype
+		  ]]>
+	</select>
+
+	<!-- 2012年5月11日11:09:21 向臨時小時用戶表中添加數據 -->
+	<statement id="load_hourTempUserTable"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam">
+		<![CDATA[
+		LOAD TABLE $sourceTableName$ ( intRaitype,intBscId,intStreetId,intProtocolTypeId,intWapId,intDescSgsnId,intBranchId,
+                                     intSaleAreaId,intApnTypeId,intApnId,intUserBelongId,nmImsi,nmMsisdn,intAppSuccessful,
+                                     intAppUpFlush,intAppDownFlush,intYear,intMonth,intDay,intWeek,intHour,
+                                     nmAreaId,nmTerminalId,ProductDimens,nmBussinessTypeId,nmBussinessId )
+              $option$
+		]]>
+	</statement>
+
+	<statement id="setTemporaryOption">
+		set temporary option TEMP_EXTRACT_NAME1 = '';
+		set temporary option TEMP_EXTRACT_APPEND = 'OFF';
+		set temporary option
+		TEMP_EXTRACT_COLUMN_DELIMITER = ';';
+	</statement>
+
+	<!-- 將任務插入tbTask裱中 2011年11月28日21:15:57 -->
+	<insert id="createHourTaskList" parameterClass="java.lang.Long">
+	<![CDATA[
+		 insert into tbTask (intTaskInfoId,vcTaskName,dtStatTime,chGranularity,intTaskPriority,intTaskState,dtCompleteTime,vcFactTableName,intFtbOid)
+		 select t.intTaskInfoId,t.vcTaskName,f.dtLoadedTime,t.chGranularity,t.intTaskPriority,0,null,
+		        case when UPPER(substr(f.vcTableName,0,length('ftbGnAppData')))!=UPPER('ftbGnAppData') then f.vcTableName 
+ 				     when UPPER(substr(f.vcTableName,0,length('ftbGnAppData')))=UPPER('ftbGnAppData') 
+ 				      and (
+ 				          vcTaskName like '%彩信%' 
+ 				       or vcTaskName like '%CMNET数据文件%' 
+ 				       or vcTaskName like '%宏观呈现%'
+ 				       or vcTaskName like '%高交%'
+ 				       or vcTaskName like '%全部%'
+ 				       or vcTaskName like '%TOP100小区%'
+ 				          ) 
+ 				     then f.vcTableName else string('temp_',f.vcTableName)
+ 				 end as factTableName,f.intFtbOid
+		   from tbFactTableOperation f,tbTaskInfo t
+		  where f.intFtbOid = #intFtbOid#
+			and UPPER(t.vcFactTableName) = UPPER(substr(f.vcTableName,0,length(t.vcFactTableName)))
+			and f.chIndexComplete = '1'
+			and isnull(f.chTaskCreated,'2') = '2'
+			and t.chFlag = '0'
+			and t.chGranularity = '0' 
+		  union
+		 select t.intTaskInfoId,t.vcTaskName,f.dtloadedtime,t.chGranularity,t.intTaskPriority,0,null,f.vcTableName,f.intFtbOid
+		   from tbFactTableOperation f,tbTaskInfo t
+		  where f.intFtbOid = #intFtbOid#
+			and UPPER(t.vcFactTableName) = UPPER(substr(f.vcTableName,0,length(t.vcFactTableName)))
+			and f.chIndexComplete = '1'
+			and isnull(f.chTaskCreated,'2') = '2'
+			and t.chFlag = '0'
+			and t.chGranularity = '1' 
+			and UPPER(t.vcFactTableName) in ('FTBASSISTRULEDATA','FTBMAINRULEFLUSHDATA','FTBASSISTVETORRECOGNISEDATA')
+	]]>
+		<selectKey resultClass="java.lang.Long">
+		<![CDATA[
+			 select count(*) as num 
+			   from ( select 1 as num 
+						from tbFactTableOperation f,tbTaskInfo t 
+					   where f.intFtbOid = #intFtbOid#
+						 and UPPER(t.vcFactTableName) = UPPER(substr(f.vcTableName,0,length(t.vcFactTableName))) 
+						 and f.chIndexComplete = '1' 
+						 and isnull(f.chTaskCreated,'2') = '2'
+						 and t.chFlag = '0' 
+						 and t.chGranularity = '0' 
+				   union all
+					  select 1 
+						from tbFactTableOperation f,tbTaskInfo t 
+					   where f.intFtbOid = #intFtbOid#
+						 and UPPER(t.vcFactTableName) = UPPER(substr(f.vcTableName,0,length(t.vcFactTableName))) 
+						 and f.chIndexComplete = '1' 
+						 and isnull(f.chTaskCreated,'2') = '2'
+						 and t.chFlag = '0' 
+						 and t.chGranularity = '1' 
+						 and UPPER(t.vcFactTableName) in ('FTBASSISTRULEDATA','FTBMAINRULEFLUSHDATA','FTBASSISTVETORRECOGNISEDATA')
+					) as t
+		]]>
+		</selectKey>
+	</insert>
+
+	<!-- 读当前要执行的任务 2011年11月28日21:16:06 -->
+	<select id="getCurrentTaskList" resultClass="com.etone.mantoeye.analyse.domain.CurrentTask">
+	<![CDATA[
+			 select t.intTaskId,t.intTaskInfoId,t.vcTaskName,t.dtStatTime,t.chGranularity,t.intTaskPriority,
+					t.intTaskState,t.dtCompleteTime,t.vcFactTableName,t.intFtbOid,vcSqlId 
+			   from tbTask t,tbTaskInfo i 
+			  where t.intTaskState = 0 
+				and t.intTaskInfoId = i.intTaskInfoId
+                     order by t.chGranularity,t.dtStatTime,t.intTaskPriority,t.intTaskId 
+                     --order by t.dtStatTime,t.chGranularity,t.intTaskPriority,t.intTaskId 
+		  -- order by t.intTaskPriority,t.dtStatTime,t.intTaskId,t.chGranularity desc
+		   --order by t.dtStatTime desc,t.intTaskPriority,t.intTaskId,t.chGranularity desc
+	]]>
+	</select>
+
+	<!-- 根据生成要执行的任务去更新tbfacttableoperation表的信息 2011年11月28日21:16:03 -->
+	<update id="updateFactTableByTaskCreated">
+		<![CDATA[
+		 update tbFactTableOperation
+		    set chtaskcreated = '1',IntTaskNum = #intTaskNum#,dtTaskCreateTime = #dtTaskCreateTime#
+		  where intFtbOid = #intFtbOid#
+			]]>
+	</update>
+
+	<!-- 如果任务运行时,则更新任务为执行状态 2011年11月28日21:16:09 -->
+	<update id="updateCurrentTaskState">
+	<![CDATA[
+		 update tbTask
+			set intTaskState = #intTaskState# 
+		  where intTaskId = #intTaskId#
+	]]>
+	</update>
+	<!-- 如果任务运行时,则更新任务为执行状态 2011年11月28日21:16:09 -->
+	<update id="updateCurrentTaskStateList">
+	<![CDATA[
+		 update tbTask
+			set intTaskState = 0 
+		  where intTaskId in ( $intTaskIds$ )
+	]]>
+	</update>
+
+	<!-- 根據ID得到當前任務對象 2011年11月28日21:16:13 -->
+	<select id="getCurrentTask" resultClass="com.etone.mantoeye.analyse.domain.CurrentTask">
+	<![CDATA[
+		 select intTaskId,intTaskInfoId,vcTaskName,vcFactTableName,dtStatTime,chGranularity,intTaskPriority,intTaskState,dtCompleteTime,intFtbOid 
+		   from tbTask
+		  where intTaskId = #intTaskId#
+	]]>
+	</select>
+
+	<!-- 根據ID得到當前任務對象 2011年11月28日21:16:13 -->
+	<select id="completeCurrentTaskList" resultClass="com.etone.mantoeye.analyse.domain.CurrentTask">
+	<![CDATA[
+		 select intTaskId,intTaskInfoId,vcTaskName,vcFactTableName,dtStatTime,chGranularity,intTaskPriority,intTaskState,dtCompleteTime,intFtbOid* 
+		   from tbTask
+		  where intTaskId in ($intTaskIds$) 
+	]]>
+	</select>
+
+
+	<!-- 写统计任务日志表 2011年11月28日21:16:16 -->
+	<insert id="writeCurrentTaskLog">
+		<![CDATA[
+	  	 insert into tbTaskLog(vcFactTableName,intTaskInfoId,vcTaskName,dtStatTime,chGranularity,dtCompleteTime)
+		      values (#vcFactTableName#,#intTaskInfoId#,#vcTaskName#,#dtStatTime#,#chGranularity#,#dtCompleteTime#)
+	  	]]>
+	</insert>
+
+	<!-- 删除当前执行任务 2011年11月28日21:16:19 -->
+	<delete id="deleteCurrentTask">
+		<![CDATA[
+		 delete tbTask
+		  where intTaskId = #intTaskId#
+			]]>
+	</delete>
+
+	<!-- 根据完成执行的任务去更新tbFactTableOperation表的信息 2011年11月28日21:16:23 -->
+	<update id="updateTaskCompleted">
+		<![CDATA[
+		 update tbFactTableOperation
+		    set intTaskCompleteNum = isnull(intTaskCompleteNum,0)+1,
+		        dtTaskCompleteTime = #dtCompleteTime#,
+		        chTaskComplete = (case when isnull(intTaskCompleteNum,0)+1 = intTaskNum then '1' else '0' end)
+		  where intFtbOid = #intFtbOid#
+			]]>
+	</update>
+
+	<!-- 第二天早上执行 新的 FTBASSISTRULEDATA等会写日志表 2011年9月22日15:54:44 -->
+	<insert id="createDayTaskList">
+		<![CDATA[
+		 insert into tbtask (inttaskinfoid,vctaskname,dtstattime,chgranularity,inttaskpriority,inttaskstate,dtcompletetime,vcfacttablename,intFtbOid)
+		      select t.inttaskinfoid,t.vctaskname,convert(datetime,dateformat(days(getdate(),-1),'yyyy-mm-dd')+' 00:00:00'),
+		             t.chgranularity,t.inttaskpriority,0,null,trim(vcFactTableName)+'_'+dateformat(days(getdate(),-1),'yyyymmdd'),0
+		        from tbtaskinfo t
+		       where t.chFlag = '0'
+		         and t.chGranularity = '1'
+                 and ( select count(1) 
+                         from tbtasklog d 
+                        where d.chgranularity='0' 
+                          and dateformat(d.dtstattime,'yyyy-mm-dd') = dateformat(days(getdate(),-1),'yyyy-mm-dd')
+                          and UPPER('ftbGnAppData') = UPPER(substr(d.vcfacttablename,0,length('ftbGnAppData')))
+                     ) > 0
+                 and not exists ( select 1 
+                                    from tbtasklog d  
+                                   where d.chgranularity='1' and dateformat(d.dtstattime,'yyyy-mm-dd') = dateformat(days(getdate(),-1),'yyyy-mm-dd')
+		                             and t.inttaskinfoid = d.inttaskinfoid  
+		                        )
+		         and not exists ( select 1 
+		                            from tbtask d  
+		                           where d.chgranularity='1' and dateformat(d.dtstattime,'yyyy-mm-dd') = dateformat(days(getdate(),-1),'yyyy-mm-dd')
+		                             and t.inttaskinfoid = d.inttaskinfoid  
+		                        )
+                 and UPPER(t.vcfacttablename) not in ('FTBASSISTRULEDATA','FTBMAINRULEFLUSHDATA','FTBASSISTVETORRECOGNISEDATA','FTBBLACKBERRY')
+               union
+   		      select t.inttaskinfoid,t.vctaskname,convert(datetime,dateformat(days(getdate(),-1),'yyyy-mm-dd')+' 00:00:00'),t.chgranularity,
+   		             t.inttaskpriority,0,null,trim(vcFactTableName)+'_'+dateformat(days(getdate(),-1),'yyyymmdd'),0
+		        from tbtaskinfo t
+		       where t.chFlag = '0' and t.chGranularity = '1'
+                 and not exists ( select 1 
+                                    from tbtasklog d 
+                                   where d.chgranularity='1' and dateformat(d.dtstattime,'yyyy-mm-dd') = dateformat(days(getdate(),-1),'yyyy-mm-dd')
+		                             and t.inttaskinfoid = d.inttaskinfoid  
+		                        )
+		         and not exists ( select 1 
+		                            from tbtask d 
+		                           where d.chgranularity='1' and dateformat(d.dtstattime,'yyyy-mm-dd') = dateformat(days(getdate(),-1),'yyyy-mm-dd')
+		                             and t.inttaskinfoid = d.inttaskinfoid 
+		                        )
+                 and UPPER(t.vcfacttablename) in ('FTBBLACKBERRY')
+		]]>
+	</insert>
+
+	<!-- 以周为粒度的业务处理 2011年9月23日10:31:20 -->
+	<insert id="createWeekTaskList">
+		<![CDATA[
+		 insert into tbtask ( inttaskinfoid,vctaskname,dtstattime,chgranularity,inttaskpriority,inttaskstate,dtcompletetime,vcfacttablename,intFtbOid)
+		      select t.inttaskinfoid,t.vctaskname,convert(datetime,dateformat(days(getdate(),-6),'yyyy-mm-dd')+' 00:00:00'),
+		             t.chgranularity,t.inttaskpriority,0,null,vcFactTableName,0
+		        from tbtaskinfo t
+		       where t.chFlag = '0'
+		         and t.chGranularity = '2' 
+		]]>
+	</insert>
+
+	<!-- 以月为粒度的业务处理 2011年11月28日21:16:29 -->
+	<insert id="createMonthTaskList">
+		<![CDATA[
+		 insert into tbtask ( inttaskinfoid,vctaskname,dtstattime,chgranularity,inttaskpriority,inttaskstate,dtcompletetime,vcfacttablename,intFtbOid )
+	 	      select t.inttaskinfoid,t.vctaskname,convert(datetime,dateformat(days(getdate(),-20),'yyyy-mm-dd')+' 00:00:00'),
+	 	             t.chgranularity,t.inttaskpriority,0,null,vcFactTableName,0
+		        from tbtaskinfo t
+		       where t.chFlag = '0'
+		         and t.chGranularity = '3' 
+		]]>
+	</insert>
+
+	<!-- 每天8点后检查昨天的天任务在tasklog与task中有没有?如果没有.则补任务 -->
+	<insert id="redoDayTask">
+		<![CDATA[
+		 insert into tbtask (inttaskinfoid,vctaskname,dtstattime,chgranularity,inttaskpriority,inttaskstate,dtcompletetime,vcfacttablename,intFtbOid)
+		      select t.inttaskinfoid,t.vctaskname,convert(datetime,dateformat(days(getdate(),-1),'yyyy-mm-dd')+' 00:00:00'),
+		             t.chgranularity,t.inttaskpriority,0,null,trim(t.vcFactTableName)+'_'+dateformat(days(getdate(),-1),'yyyymmdd'),0
+			    from tbtaskinfo t
+			   where t.chFlag = '0'
+				 and t.chGranularity = '1' 
+				 and datepart(hh,getdate()) >= 7
+				 and dateformat(days(getdate(),-1),'yyyy-mm-dd') >'2010-03-30'
+				 and ( select count(1) 
+				         from tbtasklog d 
+				        where d.chgranularity='0' 
+				          and dateformat(d.dtstattime,'yyyy-mm-dd') = dateformat(days(getdate(),-1),'yyyy-mm-dd')
+				          and UPPER('ftbGnAppData') = UPPER(substr(d.vcfacttablename,0,length('ftbGnAppData')))) > 0
+				 and not exists ( select 1 
+				                    from tbtasklog d  
+				                   where d.chgranularity='1'  
+				                     and dateformat(d.dtstattime,'yyyy-mm-dd') = dateformat(days(getdate(),-1),'yyyy-mm-dd')
+		                             and t.inttaskinfoid = d.inttaskinfoid
+		                         )
+				 and not exists ( select 1 
+				                    from tbtask d  
+				                   where d.chgranularity='1'  
+				                     and dateformat(d.dtstattime,'yyyy-mm-dd') = dateformat(days(getdate(),-1),'yyyy-mm-dd')
+		                             and t.inttaskinfoid = d.inttaskinfoid
+								)
+		         and UPPER(t.vcfacttablename) not in ('FTBASSISTRULEDATA','FTBMAINRULEFLUSHDATA','FTBASSISTVETORRECOGNISEDATA','FTBBLACKBERRY')
+		       union
+		   	  select t.inttaskinfoid,t.vctaskname,convert(datetime,dateformat(days(getdate(),-1),'yyyy-mm-dd')+' 00:00:00'),
+		   	         t.chgranularity,t.inttaskpriority,0,null,trim(vcFactTableName)+'_'+dateformat(days(getdate(),-1),'yyyymmdd'),0
+			    from tbtaskinfo t
+			   where t.chFlag = '0' 
+			     and t.chGranularity = '1'
+				 and datepart(hh,getdate()) >= 7
+		         and not exists ( select 1 
+		                            from tbtasklog d 
+		                           where d.chgranularity='1' 
+		                             and dateformat(d.dtstattime,'yyyy-mm-dd') = dateformat(days(getdate(),-1),'yyyy-mm-dd')
+				                     and t.inttaskinfoid = d.inttaskinfoid
+								)
+				 and not exists ( select 1 
+				                    from tbtask d 
+				                   where d.chgranularity='1'  
+				                     and dateformat(d.dtstattime,'yyyy-mm-dd') = dateformat(days(getdate(),-1),'yyyy-mm-dd')
+				                     and t.inttaskinfoid = d.inttaskinfoid
+								)
+		         and UPPER(t.vcfacttablename) in ('FTBBLACKBERRY')
+		]]>
+	</insert>
+
+	<!-- 每周二8点后检查上周的任务在tasklog与task中有没有?如果没有.则补任务 -->
+	<insert id="redoWeekTask">
+		<![CDATA[
+		 insert into tbtask (inttaskinfoid,vctaskname,dtstattime,chgranularity,inttaskpriority,inttaskstate,dtcompletetime,vcfacttablename,intFtbOid)
+			  select t.inttaskinfoid,t.vctaskname,convert(datetime,dateformat(weeks(getdate(),-1),'yyyy-mm-dd')+' 00:00:00'),
+			         t.chgranularity,t.inttaskpriority,0,null,vcFactTableName,0
+			    from tbtaskinfo t
+			   where t.chFlag = '0'
+				 and t.chGranularity = '2' 
+				 and datepart(hh,getdate()) >= 7
+                 and datepart(dw,getdate()) >= 2
+                 and datepart(dw,getdate()) <= 5
+                 and dateformat(days(getdate(),-1),'yyyy-mm-dd') >='2010-03-21'
+		      	 and not exists ( select 1 
+		      	                    from tbtasklog d 
+					               where d.chgranularity='2' 
+					                 and datepart(wk,d.dtstattime) = datepart(wk,weeks(getdate(),-1))
+					                 and datepart(yy,d.dtstattime) = datepart(yy,weeks(getdate(),-1))
+		                             and t.inttaskinfoid = d.inttaskinfoid
+								)
+				 and not exists ( select 1 
+				                    from tbtask d 
+					               where d.chgranularity='2' 
+					                 and datepart(wk,d.dtstattime) = datepart(wk,weeks(getdate(),-1))
+					                 and datepart(yy,d.dtstattime) = datepart(yy,weeks(getdate(),-1))
+		                             and t.inttaskinfoid = d.inttaskinfoid
+								)
+		]]>
+	</insert>
+
+	<!-- 每月二号8点后检查上周的任务在tasklog与task中有没有?如果没有.则补任务 -->
+	<insert id="redoMonthTask">
+		<![CDATA[
+		 insert into tbtask (inttaskinfoid,vctaskname,dtstattime,chgranularity,inttaskpriority,inttaskstate,dtcompletetime,vcfacttablename,intFtbOid)
+		      select t.inttaskinfoid,t.vctaskname,convert(datetime,dateformat(MONTHS(getdate(),-1),'yyyy-mm-dd')+' 00:00:00'),
+		             t.chgranularity,t.inttaskpriority,0,null,vcFactTableName,0
+		        from tbtaskinfo t
+		       where t.chFlag = '0'
+			   	 and t.chGranularity = '3' 
+				 and datepart(hh,getdate()) >= 7
+                 and datepart(dd,getdate()) >= 2
+                 and dateformat(days(getdate(),-1),'yyyy-mm-dd') >='2010-04-02'
+		      	 and not exists ( select 1 
+		      	                    from tbtasklog d 
+					               where d.chgranularity='3' 
+					                 and datepart(mm,d.dtstattime) = datepart(mm,MONTHS(getdate(),-1))
+					                 and datepart(yy,d.dtstattime) = datepart(yy,MONTHS(getdate(),-1))
+		                             and t.inttaskinfoid = d.inttaskinfoid
+					            )
+				 and not exists ( select 1 
+				                    from tbtask d 
+					               where d.chgranularity='3' 
+					                 and datepart(mm,d.dtstattime) = datepart(mm,MONTHS(getdate(),-1))
+					                 and datepart(yy,d.dtstattime) = datepart(yy,MONTHS(getdate(),-1))
+		                             and t.inttaskinfoid = d.inttaskinfoid
+		                        )
+		]]>
+	</insert>
+
+	<select id="tableIsLocks" resultClass="java.lang.Integer"
+		parameterClass="java.lang.String">
+	<![CDATA[
+		select count(1) 
+		  from sp_iqlocks(0,#tableName#,0,'t') 
+		 where lock_type like '%W%'
+			]]>
+	</select>
+
+	<!-- truncate table from wzz_test -->
+</sqlMap>

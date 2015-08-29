@@ -1,0 +1,96 @@
+/**
+ * z.z.w.quartz.job.TestQuartzJob3.java
+ */
+package z.z.w.quartz.job;
+
+import org.dom4j.DocumentException;
+import org.dom4j.Node;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+
+import z.z.w.common.DateTools;
+import z.z.w.common.FileTools;
+import z.z.w.common.XmlTools;
+import z.z.w.env.Config;
+import z.z.w.quartz.BaseQuartzServiceUpgradeTest;
+
+/**
+ * @author Wu Zhenzhen
+ * @version Dec 23, 2012 10:11:32 PM
+ */
+public class TestQuartzJob3 implements Job {
+	public static boolean isStop = false;
+	private Config conf = new Config();
+
+	private static BaseQuartzServiceUpgradeTest test = null;
+	
+	
+
+	/**
+	 * <br>
+	 * Created on: Dec 23, 2012 10:14:30 PM
+	 */
+	public TestQuartzJob3() {
+
+		conf.setRootKey("common.util");
+
+	}
+
+	private void open() {
+		try {
+			XmlTools.openXml(FileTools.replaceProHome(conf
+					.getString("xml-file")));
+		} catch (DocumentException e) {
+
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.quartz.Job#execute(org.quartz.JobExecutionContext)
+	 */
+	public void execute(JobExecutionContext arg0) throws JobExecutionException {
+		// while (true) {
+
+		if (isStop) {
+			System.out.println(DateTools.getCurrentDateStr() + " --- stop ---"+ Thread.currentThread().getName());
+			// break;
+			TestQuartzJob3.test.stop();
+		}
+
+		open();
+		System.out.println(" - TestQuartzJob3 - ");
+
+		Node node = XmlTools.getSingleNode("//server");
+
+		isStop = ((XmlTools.getSingleAttrValue(node, "stop")
+				.equalsIgnoreCase("1")) ? true : false);
+		closeXml();
+		System.out.println(isStop + " - TestQuartzJob3 -- " + Thread.currentThread().getName());
+		System.out.println("  -- " + TestQuartzJob3.test);
+		// }
+
+
+	}
+	
+	 
+	/**
+	 * <br>
+	 * Created on: Dec 9, 2012 5:22:07 PM
+	 */
+	private void closeXml() {
+		XmlTools.closeXml();
+	}
+
+	/**
+	 * <br>
+	 * Created on: Dec 23, 2012 10:21:52 PM
+	 * 
+	 * @param test
+	 */
+	public static void setTest(BaseQuartzServiceUpgradeTest test) {
+		TestQuartzJob3.test = test;
+	}
+}

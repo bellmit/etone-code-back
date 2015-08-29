@@ -1,0 +1,35 @@
+<root>
+<chart id="1" name="2009年10月流量用户数天走势图" fields="流量|用户数">
+<data label="2009-10-1" shortlabel="1" total="444" up="383" down="111" imsis="70" count="421" value="1200"/>
+<data label="2009-10-2" shortlabel="2" total="494" up="373" down="21" imsis="80" count="901" value="1400"/>
+<data label="2009-10-3" shortlabel="3" total="474" up="363" down="611" imsis="750" count="781" value="1800"/>
+<data label="2009-10-4"  shortlabel="4" total="644" up="353" down="181" imsis="700" count="41" value="7300"/>
+<data label="2009-10-5" shortlabel="5"  total="49" up="343" down="141" imsis="270" count="121" value="5200"/>
+<data label="2009-10-6"  shortlabel="6" total="143" up="333" down="211" imsis="170" count="661" value="4700"/>
+<data label="2009-10-7"  shortlabel="7" total="444" up="383" down="111" imsis="70" count="421" value="1200"/>
+<data label="2009-10-8"  shortlabel="8" total="494" up="373" down="21" imsis="80" count="901" value="1400"/>
+<data label="2009-10-9"  shortlabel="9" total="474" up="363" down="611" imsis="750" count="781" value="1800"/>
+<data label="2009-10-10"  shortlabel="10" total="644" up="353" down="181" imsis="700" count="41" value="7300"/>
+<data label="2009-10-11"  shortlabel="11" total="49" up="343" down="141" imsis="270" count="121" value="5200"/>
+<data label="2009-10-12"  shortlabel="12" total="143" up="333" down="211" imsis="170" count="661" value="4700"/>
+<data label="2009-10-13"  shortlabel="13" total="444" up="383" down="111" imsis="70" count="421" value="1200"/>
+<data label="2009-10-14"  shortlabel="14" total="494" up="373" down="21" imsis="80" count="901" value="1400"/>
+<data label="2009-10-15"  shortlabel="15" total="474" up="363" down="611" imsis="750" count="781" value="1800"/>
+<data label="2009-10-16"  shortlabel="16" total="644" up="353" down="181" imsis="700" count="41" value="7300"/>
+<data label="2009-10-17"  shortlabel="17" total="49" up="343" down="141" imsis="270" count="121" value="5200"/>
+<data label="2009-10-18"  shortlabel="18" total="143" up="333" down="211" imsis="170" count="661" value="4700"/>
+<data label="2009-10-19"  shortlabel="19" total="474" up="363" down="611" imsis="750" count="781" value="1800"/>
+<data label="2009-10-20"  shortlabel="20" total="644" up="353" down="181" imsis="700" count="41" value="7300"/>
+<data label="2009-10-21"  shortlabel="21" total="444" up="383" down="111" imsis="70" count="421" value="1200"/>
+<data label="2009-10-22"  shortlabel="22" total="494" up="373" down="21" imsis="80" count="901" value="1400"/>
+<data label="2009-10-23" shortlabel="23"  total="474" up="363" down="611" imsis="750" count="781" value="1800"/>
+<data label="2009-10-24"  shortlabel="24" total="644" up="353" down="181" imsis="700" count="41" value="7300"/>
+<data label="2009-10-25" shortlabel="25"  total="49" up="343" down="141" imsis="270" count="121" value="5200"/>
+<data label="2009-10-26"  shortlabel="26" total="143" up="333" down="211" imsis="170" count="661" value="4700"/>
+<data label="2009-10-27" shortlabel="27"  total="444" up="383" down="111" imsis="70" count="421" value="1200"/>
+<data label="2009-10-28"  shortlabel="28" total="494" up="373" down="21" imsis="80" count="901" value="1400"/>
+<data label="2009-10-29" shortlabel="29"  total="474" up="363" down="611" imsis="750" count="781" value="1800"/>
+<data label="2009-10-30"  shortlabel="30" total="644" up="353" down="181" imsis="700" count="41" value="7300"/>
+<data label="2009-10-31" shortlabel="31"  total="49" up="343" down="141" imsis="270" count="121" value="5200"/>
+</chart>
+</root>

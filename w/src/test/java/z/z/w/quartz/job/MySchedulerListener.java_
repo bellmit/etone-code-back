@@ -1,0 +1,115 @@
+/**
+ * z.z.w.quartz.job.MySchedulerListener.java
+ */
+package z.z.w.quartz.job;
+
+import org.quartz.SchedulerException;
+import org.quartz.SchedulerListener;
+import org.quartz.Trigger;
+
+import z.z.w.common.DateTools;
+
+/**
+ * @author Wu Zhenzhen
+ * @version Dec 24, 2012 10:08:48 AM
+ */
+public class MySchedulerListener implements SchedulerListener {
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.quartz.SchedulerListener#jobScheduled(org.quartz.Trigger)
+	 */
+	public void jobScheduled(Trigger arg0) {
+		System.out.println(DateTools.getCurrentDateStr()
+				+ "  --MySchedulerListener-- jobScheduled  -- " + arg0.getName());
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.quartz.SchedulerListener#jobUnscheduled(java.lang.String,
+	 * java.lang.String)
+	 */
+	public void jobUnscheduled(String arg0, String arg1) {
+		System.out.println(DateTools.getCurrentDateStr()
+				+ "  --MySchedulerListener-- jobUnscheduled  -- " + arg0 + "  -- " + arg1);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.quartz.SchedulerListener#jobsPaused(java.lang.String,
+	 * java.lang.String)
+	 */
+	public void jobsPaused(String arg0, String arg1) {
+		System.out.println(DateTools.getCurrentDateStr()
+				+ "  --MySchedulerListener-- jobsPaused  -- " + arg0 + "  -- " + arg1);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.quartz.SchedulerListener#jobsResumed(java.lang.String,
+	 * java.lang.String)
+	 */
+	public void jobsResumed(String arg0, String arg1) {
+		System.out.println(DateTools.getCurrentDateStr()
+				+ " --MySchedulerListener-- jobsResumed  -- " + arg0 + "  -- " + arg1);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.quartz.SchedulerListener#schedulerError(java.lang.String,
+	 * org.quartz.SchedulerException)
+	 */
+	public void schedulerError(String arg0, SchedulerException arg1) {
+		System.out.println(DateTools.getCurrentDateStr()
+				+ "  --MySchedulerListener-- schedulerError  -- " + arg0 + "  -- " + arg1);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.quartz.SchedulerListener#schedulerShutdown()
+	 */
+	public void schedulerShutdown() {
+		System.out.println(DateTools.getCurrentDateStr()
+				+ "   MySchedulerListener --schedulerShutdown--   ");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.quartz.SchedulerListener#triggerFinalized(org.quartz.Trigger)
+	 */
+	public void triggerFinalized(Trigger arg0) {
+		System.out.println(DateTools.getCurrentDateStr()
+				+ "  --MySchedulerListener-- triggerFinalized  -- " + arg0.getName());
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.quartz.SchedulerListener#triggersPaused(java.lang.String,
+	 * java.lang.String)
+	 */
+	public void triggersPaused(String arg0, String arg1) {
+		System.out.println(DateTools.getCurrentDateStr()
+				+ " --MySchedulerListener-- triggersPaused  -- " + arg0 + "  -- " + arg1);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.quartz.SchedulerListener#triggersResumed(java.lang.String,
+	 * java.lang.String)
+	 */
+	public void triggersResumed(String arg0, String arg1) {
+		System.out.println(DateTools.getCurrentDateStr()
+				+ " --MySchedulerListener-- triggersPaused  -- " + arg0 + "  -- " + arg1);
+
+	}
+
+}

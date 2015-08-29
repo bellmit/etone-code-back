@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 初始化業務健康度任務 -->
+	<statement id="init_NetWorkTask">
+		<![CDATA[
+		set temporary option TEMP_EXTRACT_NAME1='';
+		set temporary option TEMP_EXTRACT_APPEND='OFF';
+		]]>
+	</statement>
+
+	<!-- 業務健康度任務 -->
+	<select id="getFtbNetworkTaskList"
+		resultClass="com.etone.mantoeye.analyse.domain.network.FtbNetworkTask">
+		<![CDATA[
+		select top 1 nmNetworkTaskId,intTaskDelong,vcTaskName,intTaskType,dtOrderTime,vcTaskOrder,
+		       dtStartTime,dtEndTime,bitTaskActiveFlag,intTaskStatus,nmBussinessId,intActiveDay
+		  from ftbNetworkTask
+		 where 1 = 1 
+		   and intTaskDelong = 1 and intTaskType = 1
+		   and bitTaskActiveFlag = 1 and intTaskStatus = 0
+	  order by dtOrderTime 
+		]]>
+	</select>
+
+	<!-- 業務健康度任務 -->
+	<select id="getFtbNetworkTask"
+		resultClass="com.etone.mantoeye.analyse.domain.network.FtbNetworkTask">
+		<![CDATA[
+		select top 1 nmNetworkTaskId,intTaskDelong,vcTaskName,intTaskType,dtOrderTime,vcTaskOrder,
+		       dtStartTime,dtEndTime,bitTaskActiveFlag,intTaskStatus,nmBussinessId,intActiveDay
+		  from ftbNetworkTask
+		 where 1 = 1 
+		   and intTaskDelong = 1 and intTaskType = 1
+		   and bitTaskActiveFlag = 1 and intTaskStatus = 0
+	  order by nmNetworkTaskId
+		]]>
+	</select>
+
+	<!-- 業務健康度任務 -->
+	<select id="getRunningTask" resultClass="java.lang.Integer">
+		<![CDATA[
+		select count(1)
+		  from ftbNetworkTask
+		 where 1 = 1 
+		   and intTaskStatus = 1 
+		]]>
+	</select>
+
+	<!-- 更新数据提取任务状态 -->
+	<update id="updateFtbNetworkTask"
+		parameterClass="com.etone.mantoeye.analyse.domain.network.FtbNetworkTask">
+		<![CDATA[
+		update ftbNetworkTask 
+		   set intTaskStatus = #intTaskStatus#
+		 where nmNetworkTaskId = #nmNetworkTaskId#
+		]]>
+	</update>
+
+	<!-- param的Map影射 -->
+	<parameterMap id="getterBussHealth2FX" class="map">
+		<parameter property="nmNetworkTaskId" jdbcType="VARCHAR"
+			javaType="java.lang.Long" mode="INOUT" />
+		<!-- <parameter property="dtStartTime" jdbcType="VARCHAR" -->
+		<!-- javaType="java.lang.String" mode="INOUT" /> -->
+		<!-- <parameter property="dtEndTime" jdbcType="VARCHAR" javaType="java.lang.String" -->
+		<!-- mode="INOUT" /> -->
+		<!-- <parameter property="nmBussinessId" jdbcType="VARCHAR" -->
+		<!-- javaType="java.lang.String" mode="INOUT" /> -->
+		<!-- <parameter property="intActiveDay" jdbcType="VARCHAR" -->
+		<!-- javaType="java.lang.String" mode="INOUT" /> -->
+		<!-- <parameter property="intTaskType" jdbcType="VARCHAR" -->
+		<!-- javaType="java.lang.String" mode="INOUT" /> -->
+	</parameterMap>
+
+	<!-- 自定義輸出數據提取的存儲過程 -->
+	<procedure id="proc_create_view_BussHealth2FX" parameterMap="getterBussHealth2FX"
+		resultClass="java.lang.String">
+		<![CDATA[
+		{call proc_create_view_BussHealth2FX(?)}
+		]]>
+	</procedure>
+
+	<!-- 業務健康度結果集 2011年11月17日11:09:56 -->
+	<select id="getFtbNetworkConfigureList"
+		resultClass="com.etone.mantoeye.analyse.domain.network.FtbNetworkConfigure">
+		<![CDATA[
+		 select nmNetworkConfigureId,vcName,intType,intLow,intCommon,intExcellent,intTop,intScale,vcNote
+		   from ftbNetworkConfigure
+		]]>
+	</select>
+
+	<!-- 業務健康度任務 -->
+	<select id="getFtbNetworkConfigure"
+		resultClass="com.etone.mantoeye.analyse.domain.network.FtbNetworkConfigure">
+		<![CDATA[
+		 select nmNetworkConfigureId,vcName,intType,intLow,intCommon,intExcellent,intTop,intScale,vcNote
+		   from ftbNetworkConfigure
+		  where 1 = 1 
+		    and intType = #intType#  
+		]]>
+	</select>
+
+	<!-- 業務健康度任務 -->
+	<select id="getNetWorkCount" resultClass="java.lang.Double"
+		remapResults="true">
+		<![CDATA[
+		 select $selectSql$
+		   from $tableName$
+		  where 1 = 1 
+		    and nmNetworkTaskId = #nmNetworkTaskId#
+		]]>
+	</select>
+
+	<!-- 業務健康度任務 -->
+	<insert id="addNetWorkResult">
+		<![CDATA[
+	  	 insert into ftbNetworkResult(nmNetworkTaskId,intType,intScale,intCount,intMark,dtStatTime)
+		      values (#nmNetworkTaskId#,#intType#,#intSale#,#intCount#,#markValue#,getDate())
+	  	]]>
+	</insert>
+
+	<!-- 更新数据提取任务状态 -->
+	<update id="updateNetWorkTaskData"
+		parameterClass="com.etone.mantoeye.analyse.domain.network.FtbNetworkTask">
+		<![CDATA[
+		update $vcTaskName$ set vcLocalIP = #vcLocalIP#
+		where nmNetworkTaskId=#nmNetworkTaskId#
+		]]>
+	</update>
+
+</sqlMap>

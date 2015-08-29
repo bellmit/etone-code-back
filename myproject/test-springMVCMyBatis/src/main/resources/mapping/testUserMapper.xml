@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="z.z.w.project.test.dao.TestUserDao">
+	<insert id="insert" parameterType="z.z.w.project.test.entity.TestUser">
+		INSERT INTO
+		testuser
+		(
+		name
+		)
+		VALUE (
+		#{name}
+		);
+	</insert>
+	<!-- #{id,jdbcType=INTEGER}, -->
+	<!-- #{name,jdbcType=VARCHAR} -->
+	<resultMap id="userResultMap" type="z.z.w.project.test.entity.TestUser">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="selectAll" resultMap="userResultMap">
+		select ID, NAME from testuser
+	</select>
+	<select id="selectUserById" parameterType="java.lang.String"
+		resultMap="userResultMap">
+		select ID, NAME from
+		testuser where
+		id= #{id,jdbcType=INTEGER}
+	</select>
+</mapper>

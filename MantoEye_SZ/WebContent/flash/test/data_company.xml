@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="gb2312"?>
+<Data>
+<Stat id="company" unit="MB" dataNumber="4" title="2009年10月10日分公司{dataname}分布" trip="流量用户数统计{br}分公司：{name}{br}总流量：{total}MB{br}上行流量：{up}MB{br}下行流量：{down}MB{br}用户数：{imsis}">
+<Statdata name="宝安" total="399" up="89" down="310" imsis="1571"/>
+<Statdata name="南山" total="795" up="338" down="457" imsis="4590"/>
+<Statdata name="福田" total="668" up="453" down="215" imsis="2888"/>
+<Statdata name="罗湖" total="367" up="203" down="164" imsis="1053"/>
+<Statdata name="龙岗" total="568" up="54" down="514" imsis="3944"/>
+<Statdata name="盐田" total="533" up="294" down="239" imsis="4761"/>
+</Stat>
+</Data>

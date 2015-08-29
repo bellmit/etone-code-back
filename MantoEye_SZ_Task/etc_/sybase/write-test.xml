@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<parameterMap id="parameterMap" class="java.util.Map">
+		<parameter property="userName" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<parameter property="userPassword" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<parameter property="updateTime" javaType="java.util.Date" jdbcType="DATETIME" />
+	</parameterMap>
+	
+	<insert id="insert_wzz_test_param" parameterMap="parameterMap">
+		insert into
+		wzz_test(userName,userPassword,updateTime)
+		values(?,?,?)
+	</insert>
+	
+	<insert id="insert_wzz_test"> 
+		insert into
+		wzz_test(userName,userPassword,updateTime)
+		values('admin','1111',(getDate()))
+	</insert>
+	
+	<delete id="delete_wzz_test">
+		delete from wzz_test where userPassword = '1111'
+	</delete>
+	
+	<delete id="delete_wzz_test_param" parameterClass="java.lang.String">
+		delete from wzz_test where userName like #userName#
+	</delete>
+
+	<update id="update_wzz_test" parameterClass="java.lang.Integer">	
+		update wzz_test set userName = string('user_',cast((rand()*(100000-1)+1) as int))
+	</update>	
+
+	<update id="update_wzz_test_param" parameterClass="java.lang.Integer">	
+		update wzz_test set userName = 'admin' where userId = #userId# 
+	</update>	
+
+	<select id="query_wzz_test" resultClass="java.lang.Long">
+		select userId from wzz_test
+	</select>
+
+	<select id="query_wzz_test_param" resultClass="java.lang.Long" parameterClass="java.lang.Long">
+		<![CDATA[
+			select userId from wzz_test where userId <= #userId#
+		]]>
+	</select>
+
+	<select id="query_obj_wzz_test_param" resultClass="java.lang.Long" parameterClass="java.lang.String">
+		select userId from wzz_test where userName = #userName#
+	</select>
+
+	<!-- truncate table from wzz_test -->
+</sqlMap>

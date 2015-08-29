@@ -1,0 +1,67 @@
+/**
+ * z.z.w.quartz.job.MyTriggerListener.java
+ */
+package z.z.w.quartz.job;
+
+import org.quartz.JobExecutionContext;
+import org.quartz.Trigger;
+import org.quartz.TriggerListener;
+
+import z.z.w.common.DateTools;
+
+/**
+ * @author Wu Zhenzhen
+ * @version Dec 23, 2012 11:59:54 PM
+ */
+public class MyTriggerListener implements TriggerListener {
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.quartz.TriggerListener#getName()
+	 */
+	public String getName() {
+		return "MyTriggerListener";
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.quartz.TriggerListener#triggerComplete(org.quartz.Trigger,
+	 * org.quartz.JobExecutionContext, int)
+	 */
+	public void triggerComplete(Trigger arg0, JobExecutionContext arg1, int arg2) {
+		System.out.println(DateTools.getCurrentDateStr()
+				+ " ---- triggerComplete -- " + arg0.getName() + " -- "
+				+ arg1.getJobDetail().getName() + " -- "
+				+ Thread.currentThread().getName());
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.quartz.TriggerListener#triggerFired(org.quartz.Trigger,
+	 * org.quartz.JobExecutionContext)
+	 */
+	public void triggerFired(Trigger arg0, JobExecutionContext arg1) {
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.quartz.TriggerListener#triggerMisfired(org.quartz.Trigger)
+	 */
+	public void triggerMisfired(Trigger arg0) {
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.quartz.TriggerListener#vetoJobExecution(org.quartz.Trigger,
+	 * org.quartz.JobExecutionContext)
+	 */
+	public boolean vetoJobExecution(Trigger arg0, JobExecutionContext arg1) {
+		return false;
+	}
+
+}

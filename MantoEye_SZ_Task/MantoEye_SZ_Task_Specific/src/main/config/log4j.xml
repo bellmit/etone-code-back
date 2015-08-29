@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<!-- ERROR、WARN、INFO、DEBUG -->
+	<!-- ERROR 表示只打開ERROR級別的日誌 -->
+	<!-- WARN 表示打開ERROR、WARN級別的日誌 -->
+	<!-- INFO 表示打開ERROR、WARN、INFO級別的日誌 -->
+	<!-- DEBUG 表示打開ERROR、WARN、INFO、DEBUG級別的日誌 -->
+
+	<!-- 文件記錄日誌信息，ERROR、WARN、INFO -->
+	<appender name="infoFile" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<param name="File" value="../logs/infoFile.log" />
+		<param name="Encoding" value="UTF-8" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH\:mm\:ss}]%5p - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="allInfoFile" class="org.apache.log4j.FileAppender">
+		<param name="File" value="../logs/allInfoFile.log" />
+		<param name="Encoding" value="UTF-8" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%d{yyyy-MM-dd HH\:mm\:ss}]%-5p - %m%n-MainClass:[%l]%n-Thread:[%t]%n%n" />
+		</layout>
+	</appender>
+
+
+	<!-- 文件記錄錯誤日誌 ERROR 簡單記錄 -->
+	<appender name="errorFile" class="org.apache.log4j.FileAppender">
+		<param name="File" value="../logs/errorFile.log" />
+		<param name="Encoding" value="UTF-8" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%n[%d{yyyy-MM-dd HH\:mm\:ss}] -------------------------------------------------------Error Start--------------------------------------------------------%n [%t] %-5p %m : %l%n[%d{yyyy-MM-dd HH\:mm\:ss}] --------------------------------------------------------Error End---------------------------------------------------------%n%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="levelMin" value="ERROR" />
+			<param name="levelMax" value="ERROR" />
+		</filter>
+	</appender>
+
+	<!-- 顯示com.etone.mantoeye包下的所有日誌信息 -->
+	<logger name="com.etone.mantoeye">
+		<level value="INFO" />
+	</logger>
+
+	<logger name="org.myhkzhen.util">
+		<level value="WARN" />
+	</logger>
+
+	<logger name="org.myhkzhen.dao">
+		<level value="WARN" />
+	</logger>
+
+	<logger name="com.ibatis">
+		<level value="ERROR" />
+	</logger>
+
+	<logger name="java.sql.Connection">
+		<level value="ERROR" />
+	</logger>
+
+	<logger name="java.sql.Statement">
+		<level value="ERROR" />
+	</logger>
+
+	<logger name="java.sql.PreparedStatement">
+		<level value="ERROR" />
+	</logger>
+
+	<logger name="com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate">
+		<level value="ERROR" />
+	</logger>
+
+	<logger name="com.ibatis.common.jdbc.ScriptRunner">
+		<level value="ERROR" />
+	</logger>
+
+	<logger name="com.ibatis.common.jdbc.SimpleDataSource">
+		<level value="ERROR" />
+	</logger>
+
+	<root>
+		<!-- 關閉所有信息，然後按照自定義的方式顯示要顯示的日誌 -->
+		<level value="ERROR" />
+		<appender-ref ref="infoFile" />
+		<appender-ref ref="allInfoFile" />
+		<appender-ref ref="errorFile" />
+	</root>
+
+</log4j:configuration>

@@ -1,0 +1,150 @@
+package com.symbol.wp.core.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+/**
+ * TbBasePermissions entity. @author MyEclipse Persistence Tools
+ */
+@Entity
+@Table(name = "tbBasePermissions", schema = "dbo", catalog = "WCMP")
+public class TbBasePermissions implements java.io.Serializable {
+
+	// Fields
+
+	private Long nmPermId;
+	private String vcParentNo;
+	private String vcMenuName;
+	private String vcRedirectUrl;
+	private String vcPermNo;
+	private Integer nmOrderNum;
+	private String txtPermMemo;
+	private Boolean btDeleted;
+	private Short tiPermType;
+	private Boolean btShow;
+
+	// Constructors
+
+	/** default constructor */
+	public TbBasePermissions() {
+	}
+
+	/** minimal constructor */
+	public TbBasePermissions(Boolean btDeleted, Boolean btShow) {
+		this.btDeleted = btDeleted;
+		this.btShow = btShow;
+	}
+
+	/** full constructor */
+	public TbBasePermissions(String vcParentNo, String vcMenuName,
+			String vcRedirectUrl, String vcPermNo, Integer nmOrderNum,
+			String txtPermMemo, Boolean btDeleted, Short tiPermType,
+			Boolean btShow) {
+		this.vcParentNo = vcParentNo;
+		this.vcMenuName = vcMenuName;
+		this.vcRedirectUrl = vcRedirectUrl;
+		this.vcPermNo = vcPermNo;
+		this.nmOrderNum = nmOrderNum;
+		this.txtPermMemo = txtPermMemo;
+		this.btDeleted = btDeleted;
+		this.tiPermType = tiPermType;
+		this.btShow = btShow;
+	}
+
+	// Property accessors
+	@Id
+	@GeneratedValue
+	@Column(name = "nmPermId", unique = true, nullable = false, precision = 10, scale = 0)
+	public Long getNmPermId() {
+		return this.nmPermId;
+	}
+
+	public void setNmPermId(Long nmPermId) {
+		this.nmPermId = nmPermId;
+	}
+
+	@Column(name = "vcParentNo", length = 64)
+	public String getVcParentNo() {
+		return this.vcParentNo;
+	}
+
+	public void setVcParentNo(String vcParentNo) {
+		this.vcParentNo = vcParentNo;
+	}
+
+	@Column(name = "vcMenuName", length = 30)
+	public String getVcMenuName() {
+		return this.vcMenuName;
+	}
+
+	public void setVcMenuName(String vcMenuName) {
+		this.vcMenuName = vcMenuName;
+	}
+
+	@Column(name = "vcRedirectUrl")
+	public String getVcRedirectUrl() {
+		return this.vcRedirectUrl;
+	}
+
+	public void setVcRedirectUrl(String vcRedirectUrl) {
+		this.vcRedirectUrl = vcRedirectUrl;
+	}
+
+	@Column(name = "vcPermNo", length = 64)
+	public String getVcPermNo() {
+		return this.vcPermNo;
+	}
+
+	public void setVcPermNo(String vcPermNo) {
+		this.vcPermNo = vcPermNo;
+	}
+
+	@Column(name = "nmOrderNum", precision = 5, scale = 0)
+	public Integer getNmOrderNum() {
+		return this.nmOrderNum;
+	}
+
+	public void setNmOrderNum(Integer nmOrderNum) {
+		this.nmOrderNum = nmOrderNum;
+	}
+
+	@Column(name = "txtPermMemo")
+	public String getTxtPermMemo() {
+		return this.txtPermMemo;
+	}
+
+	public void setTxtPermMemo(String txtPermMemo) {
+		this.txtPermMemo = txtPermMemo;
+	}
+
+	@Column(name = "btDeleted", nullable = false)
+	public Boolean getBtDeleted() {
+		return this.btDeleted;
+	}
+
+	public void setBtDeleted(Boolean btDeleted) {
+		this.btDeleted = btDeleted;
+	}
+
+	@Column(name = "tiPermType")
+	public Short getTiPermType() {
+		return this.tiPermType;
+	}
+
+	public void setTiPermType(Short tiPermType) {
+		this.tiPermType = tiPermType;
+	}
+
+	@Column(name = "btShow", nullable = false)
+	public Boolean getBtShow() {
+		return this.btShow;
+	}
+
+	public void setBtShow(Boolean btShow) {
+		this.btShow = btShow;
+	}
+
+}

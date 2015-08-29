@@ -1,0 +1,117 @@
+html{border:0;height:auto;position:absolute;left:0; top:0px;}
+body{width:1024px; margin:0px;border:0px;font:12px 宋体,tahoma,arial,helvetica,sans-serif; height:100%;SCROLLBAR-BASE-COLOR: #E5EFFF;}
+
+
+a{text-DECORATION:none;}
+#header{
+	height: 44px;
+	width:100%;
+	background: url(../images/header/dhbackdh.gif)  repeat-x left top;
+	position:relative;
+	left:0px;
+	top:0px;
+}
+
+#header .logo{
+	 position:absolute;
+	 left: 10px;
+	 top: 0px;
+	 width:445px;
+	 height: 44px;
+	 background: url(../images/header/logo.gif) no-repeat left top;
+}
+
+#header .backdw{
+	background: url(../images/header/star.gif) no-repeat left top;
+	position: absolute;
+	height: 44px;
+	width: 425px;
+	left: 455px;
+	top:0px;
+	text-valign:bottom;
+	
+}
+
+
+
+#header .systemBtn{
+	position:absolute;
+	right: 30px;
+	top: 0px;
+}
+
+#header .systemBtn a{
+	margin-right:5px;
+	margin-left:5px;
+	color: #C6D9EB;
+}
+
+#header .systemBtn span{
+	color: #C6D9EB;
+}
+
+#header .userInfo{
+	position:absolute;
+	top: 90px;
+	left: 10px;
+	font-size:14px;
+	color: #89D4F5;
+}
+/*一级菜单按钮*/
+
+#button
+{
+		position:absolute;
+		top:57px;
+		right:20px;
+		line-height:20px;
+      	FONT-SIZE: 14px; 
+		FLOAT: right;  /* FireFox */
+}
+
+*html #button { top:71px;
+				right:20px;
+				line-height:20px;
+      			FONT-SIZE: 14px; 
+				FLOAT: right;}} /* ie6 fixed */
+
+
+*+html #button { position:absolute;
+		top:71px;
+		right:20px;
+		line-height:20px;
+      	FONT-SIZE: 14px; 
+		FLOAT: right;} /* ie7 fixed, 注意顺序 */
+#button ul {
+		text-align:right;float:right;
+      PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 0px; margin-left:0px;  PADDING-TOP: 10px; LIST-STYLE-TYPE: none;
+}
+#button ul li {
+			display: inline;
+			FLOAT: left;
+         margin-right: 0px;  
+			padding-left: 5px; 
+			
+}
+#button ul li a {
+        PADDING-RIGHT:0px; DISPLAY: block; PADDING-LEFT: 0px;  BACKGROUND: url(../images/header/left.gif) no-repeat left top; FLOAT: left; PADDING-BOTTOM: 0px; COLOR:#000000; PADDING-TOP: 5px; TEXT-DECORATION: none;
+}
+
+#button ul li span {
+        PADDING-RIGHT:20px; padding-left: 14px; DISPLAY: block; FONT-WEIGHT: bold; BACKGROUND: url(../images/header/right.gif) no-repeat right top; FLOAT: right; PADDING-BOTTOM: 3px; COLOR:#000000; PADDING-TOP: 6px; 
+		 	margin-top:-5px;margin-left:6px;
+}
+
+#button ul li span {
+	float:none;
+}
+
+#button ul li A:hover {
+        COLOR: #3AA7ED;
+}
+#button ul li.current  a{
+        BACKGROUND-IMAGE: url(../images/header/left_on.gif);
+}
+#button ul li.current a span{
+        BACKGROUND-IMAGE: url(../images/header/right_on.gif); 
+}

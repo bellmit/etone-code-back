@@ -1,0 +1,23 @@
+/**
+ * z.z.w.quartz.job.thread.QueueTest.java
+ */
+package z.z.w.quartz.job.thread;
+
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+
+/**
+ * @author Wu Zhenzhen
+ * @version Dec 21, 2012 9:45:13 PM
+ */
+public class QueueTest {
+	public static final BlockingQueue<Integer> TASK_STATISTICS_QUEUE = new LinkedBlockingQueue<Integer>();
+
+	/**
+	 * <br>
+	 * Created on: Dec 21, 2012 9:45:13 PM
+	 */
+	private QueueTest() {
+	}
+
+}

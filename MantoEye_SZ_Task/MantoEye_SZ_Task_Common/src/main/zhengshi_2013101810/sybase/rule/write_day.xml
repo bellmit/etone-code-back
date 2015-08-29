@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+
+	<!-- ［统计表］［业务规则］［天］辅规则不匹配统计表 -->
+	<statement id="load_ftbStatDayAssistRule" resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbStatDayAssistRule
+		( nmBusinessMainVetorId,
+		  intYear ,
+		  intMonth ,
+		  intWeek,
+		  intDay ,
+		  nmUnMatchCount,
+		  dtStatTime)
+		    $option$
+		]]>
+	</statement>
+	<!-- ［统计表］［业务规则］［天］主向量规则流量统计表 ftbMainRuleFlushData -->
+	<statement id="exec_ftbStatDayMainRuleFlush"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		insert into ftbStatDayMainRuleFlush
+		( intYear,
+		  intMonth,
+		  intWeek,
+		  intDay ,
+		  nmConflictCount,
+		  nmFlush,
+		  dtStatTime,
+		  nmBusinessMainVetorId)
+		 select datepart(yy,dtTime),datepart(mm,dtTime),datepart(wk,dtTime),datepart(dd,dtTime),sum(nmConflictCount),sum(nmFlush),getdate(),nmBusinessMainVetorId
+		from ftbMainRuleFlushData 
+		where datepart(yy,dtTime) =	datepart(yy,#dtLoadedTime#) 
+		  and datepart(mm,dtTime) = datepart(mm,#dtLoadedTime#) 
+		  and datepart(dd,dtTime) = datepart(dd,#dtLoadedTime#)  
+		  group by datepart(yy,dtTime),datepart(mm,dtTime),datepart(wk,dtTime),datepart(dd,dtTime),nmBusinessMainVetorId;
+		]]>
+	</statement>
+
+	<!-- ［统计表］［业务规则］［天］主向量规则流量统计表 <用VIEW实现,不用> -->
+	<statement id="update_ftbStatDayMainRuleFlush"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+	 update ftbStatDayMainRuleFlush set
+	 	 flFlushRate =round( ftbStatDayMainRuleFlush.nmFlush /
+	 	 (select sum(h.nmFlush)  from ftbMainRuleFlushData h
+	 	 where  datepart(yy,h.dtTime) =	datepart(yy,#dtLoadedTime#) 
+		  and datepart(mm,h.dtTime) = datepart(mm,#dtLoadedTime#) 
+		  and datepart(wk,h.dtTime) = datepart(wk,#dtLoadedTime#) ),2),
+		 flConflictCountRate =round( ftbStatDayMainRuleFlush.nmConflictCount /
+	 	 (select sum(h.nmConflictCount)  from ftbMainRuleFlushData h
+	 	 where  datepart(yy,h.dtTime) =	datepart(yy,#dtLoadedTime#) 
+		  and datepart(mm,h.dtTime) = datepart(mm,#dtLoadedTime#) 
+		  and datepart(wk,h.dtTime) = datepart(wk,#dtLoadedTime#) ),2) 
+	 	 where
+		    ftbStatDayMainRuleFlush.intYear = datepart(yy,#dtLoadedTime#) 
+		    and ftbStatDayMainRuleFlush.intMonth =datepart(mm,#dtLoadedTime#) 
+		    and ftbStatDayMainRuleFlush.intDay =  datepart(dd,#dtLoadedTime#);
+		]]>
+	</statement>
+
+
+	<!-- ［业务规则］全量辅规则识别 -->
+	<statement id="exec_delete_ftbAssistVetorRecognise"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		truncate table ftbAssistVetorRecognise;
+    ]]>
+	</statement>
+
+	<!-- ［业务规则］全量辅规则识别 -->
+	<statement id="exec_ftbAssistVetorRecognise"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		LOAD TABLE ftbAssistVetorRecognise (nmBussinessId,vcServerIp,intPort,vcUrl,vcUserAgent,vcApn,dtFirstTime,dtLastTime)
+		from '/opt/wzz/ftbAssistVetorRecognise.txt' delimited by '	'  escapes off quotes off with checkpoint on;
+		]]>
+	</statement>
+
+	<statement id="exec_delete_ftbAssistVetorRecogniseData"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		delete from ftbAssistVetorRecogniseData 
+		   where datepart(yy,dtTime) = datepart(yy,#dtLoadedTime#) 
+		     and datepart(mm,dtTime) = datepart(mm,#dtLoadedTime#) 
+		     and datepart(dd,dtTime) = datepart(dd,#dtLoadedTime#);
+    ]]>
+	</statement>
+
+	<!-- ［统计表］［业务规则］［天］业务流量排名Top1000 -->
+	<parameterMap id="top1000Param" class="map">
+		<parameter property="statdate" jdbcType="DATE" javaType="java.util.Date"
+			mode="INOUT" />
+	</parameterMap>
+	<procedure id="proc_create_data_ruletop1000" parameterMap="top1000Param"
+		resultClass="java.lang.String">
+		{call proc_create_data_ruletop1000(?)}
+	</procedure>
+
+	<!-- ［统计表］［业务规则］［天］业务规则_业务流量排名Top1000 2011年12月28日11:22:40 分佈式 -->
+	<statement id="load_RuleTop1000"
+		parameterClass="com.etone.mantoeye.analyse.domain.AnalyseParam"
+		resultClass="java.lang.String">
+		<![CDATA[
+		 LOAD TABLE ftbStatDayBusFlushOrder (vcMainBussiness,vcServerIp,nmFlush,intOrder,dtStatTime,vcGuessBusiness,isFind,vcLocalIP)
+		   $option$
+		]]>
+	</statement>
+</sqlMap>

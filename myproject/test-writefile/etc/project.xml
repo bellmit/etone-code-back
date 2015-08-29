@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+
+	<global dataDelayTime="360000" dataDelaySize="666" />
+
+	<adapter name="TestWriterFile" priority="10">
+		<type name="TestWriterFile" class="z.z.w.project.test.writefile.TestWriterFile"
+			local="etc/gn" fieldSplit="\x2c" rowSplit="\x0a" fileSuffix=".csv"
+			delayTime="26666" buffSize="182828" />
+	</adapter>
+
+</server>

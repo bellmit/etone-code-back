@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="gb2312"?>
+<Data>
+<Stat id="company" unit="MB" title="2009年10月10日BSC{dataname}分布" trip="流量用户数统计{br}BSC：{name}{br}总流量：{total}MB{br}上行流量：{up}MB{br}下行流量：{down}MB{br}用户数：{imsis}">
+<Statdata name="RNC696" total="676" up="397" down="279" imsis="510"/>
+<Statdata name="RNC700" total="519" up="333" down="186" imsis="4480"/>
+<Statdata name="RNC692" total="422" up="113" down="309" imsis="176"/>
+<Statdata name="RNC693" total="669" up="213" down="456" imsis="4105"/>
+<Statdata name="RNC694" total="706" up="192" down="514" imsis="1982"/>
+<Statdata name="RNC695" total="826" up="342" down="484" imsis="4748"/>
+<Statdata name="RNC699" total="888" up="382" down="506" imsis="2259"/>
+<Statdata name="RNC686" total="1004" up="491" down="513" imsis="4119"/>
+<Statdata name="RNC687" total="326" up="268" down="58" imsis="2922"/>
+<Statdata name="RNC688" total="465" up="177" down="288" imsis="429"/>
+<Statdata name="RNC690" total="636" up="120" down="516" imsis="4892"/>
+<Statdata name="RNC685" total="446" up="312" down="134" imsis="4764"/>
+<Statdata name="RNC681" total="853" up="464" down="389" imsis="1103"/>
+<Statdata name="RNC680" total="426" up="150" down="276" imsis="4524"/>
+<Statdata name="RNC697" total="370" up="175" down="195" imsis="2580"/>
+<Statdata name="RNC682" total="605" up="481" down="124" imsis="3969"/>
+<Statdata name="RNC683" total="723" up="423" down="300" imsis="3107"/>
+<Statdata name="RNC698" total="731" up="217" down="514" imsis="3263"/>
+<Statdata name="RNC684" total="477" up="369" down="108" imsis="5041"/>
+<Statdata name="RNC689" total="792" up="517" down="275" imsis="788"/>
+<Statdata name="RNC691" total="827" up="527" down="300" imsis="2095"/>
+</Stat>
+</Data>

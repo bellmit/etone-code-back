@@ -1,0 +1,490 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<%@ page contentType="text/html;charset=utf-8"%>
+	<%@ include file="/include/session.jsp"%>
+	<%@ include file="/include/setcache.jsp"%>
+	<head>
+		<title>主页面</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+		<link rel="stylesheet" type="text/css"
+			href="/tools/gt-grid/gt_grid.css" />
+		<link type="text/css" rel="stylesheet"
+			href="/skin/Default/css/maincontent.css" />
+		<script type="text/javascript" src="/tools/gt-grid/gt_msg_cn.js"></script>
+		<script type="text/javascript" src="/tools/gt-grid/gt_grid_all.js"></script>
+		<script language="javascript" type="text/javascript"
+			src="/tools/datepicker/WdatePicker.js"></script>
+		<!-- 列表工具栏 -->
+		<link rel="stylesheet" href="/js/jquery/extend.tab/css/Toolbar.css"
+			type="text/css"></link>
+		<script type="text/javascript"
+			src="/js/jquery/extend.tab/js/Toolbar.js"></script>
+		<script type="text/javascript" src="/js/common_grid.js"></script>
+		<!-- OFC图表 -->
+		<script type="text/javascript" src="/flash/js/swfobject.js"></script>
+		<script type="text/javascript" src="/flash/js/json/json2.js"></script>
+		<script type="text/javascript" src="/flash/js/BarChartUtil.js"></script>
+		<script type="text/javascript" src="/flash/js/ParseUtils.js"></script>
+	</head>
+	<body>
+		<table id="maincontent" cellspacing="0" cellpadding="0" border="0"
+			bgcolor="#D3E0F2" width="100%" height="100%">
+			<tr>
+				<td colspan="2" height="5px"></td>
+			</tr>
+
+			<tr>
+				<td>
+					<table cellspacing="0" cellpadding="0" border="0" bgcolor="#ffffff"
+						style="width: 100%;">
+						<tr valign="top">
+							<td>
+								<table cellspacing="0" cellpadding="0" border="0" width="100%">
+									<tr valign="top" style="font-size:1px;">
+										<table cellspacing="0" cellpadding="0" border="0" width="100%">
+											<tr>
+												<td style="font-size: 1px; width: 4px;">
+													<div class="leftcircle"></div>
+												</td>
+												<td width="100%">
+													<div class="middlecircle"></div>
+												</td>
+												<td width="4px">
+													<div class="rightcircle"></div>
+												</td>
+											</tr>
+										</table>
+
+									</tr>
+									<tr valign="top">
+										<td width="100%" class="condition_down">
+											<table id="query_condition" cellspacing="0px"
+												cellpadding="0px;boder="0">
+												<tr valign="middle">																							
+													<td class="condition_name">
+														时间：
+													</td>
+													<td class="condition_value">
+														<input type="text" class="Wdate"
+															style="display: block; height: 17px;"
+															onclick="selectTime()" id="time_search" />
+													</td>
+													<td width="*"></td>
+													<td width="200px">
+														<div id="mainbtn">
+															<ul>
+																<li>
+																	<a href="javascript:query();" 　title="查询"><span>查询</span>
+																	</a>
+																</li>
+																<li>
+																	<a href="javascript:reset();" title="重置"><span>重置</span>
+																	</a>
+																</li>
+															</ul>
+														</div>
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td height="5px" bgcolor="#D3E0F2" width="100%"></td>
+						</tr>
+
+						<tr>
+							<td>
+								<table cellspacing="0" cellpadding="0" border="0" width="100%"
+									class="menubar">
+									<tr valign="top">
+										<td width="4px" height="24px">
+											<div class="lefttitle"></div>
+										</td>
+										<td width="100%" height="24px">
+											<div class="middletitle">
+												流量TOP10图形
+											</div>
+											<input type="hidden" value="" id="chartxmldata1" />
+											<input type="hidden" value="" id="chartxmldata2" />
+											<input type="hidden" value="" id="chartxmldata3" />
+										</td>
+										<td width="4px">
+											<div class="righttitle"></div>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+
+						<tr>
+							<td height="230px" width="100%"
+								style="padding: 15px 20px; background: #ffffff">
+							<div id="imgareas" style="width: 100%; height: 100%;border: 2px solid #008BD1;">
+							<div id="imgarea1" style="width: 80%; height: 100%"></div>
+							<div class="gt-panel"
+									style="width: 19%; margin: 0px; margin-bottom: 2px;">
+									<div id="data_container"></div>
+								</div>
+							</div>
+							</td>
+						</tr>
+
+						<tr>
+							<td height="5px" bgcolor="#D3E0F2" width="100%"></td>
+						</tr>
+
+						<tr>
+							<td>
+								<table cellspacing="0" cellpadding="0" border="0" width="100%"
+									class="menubar">
+									<tr valign="top">
+										<td width="4px" height="24px">
+											<div class="lefttitle"></div>
+										</td>
+										<td width="100%" height="24px">
+											<div class="middletitle">
+												流量TOP10数据
+											</div>
+										</td>
+										<td width="4px">
+											<div class="righttitle"></div>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+<!-- 自定义列表头. -->
+<!-- <table id="myHead" style="display:none">
+<tr>
+	<td rowspan="2" columnId='tops'>排名</td>
+	<td rowspan="2" columnId='fullDate'>时间</td>
+	<td colspan="3">十大业务</td>
+	<td colspan="3">十大WAP网站</td>
+	<td colspan="3">移动十大自有业务</td>
+</tr>
+<tr>
+	<td columnId='businessName'>业务名称</td>
+	<td columnId='flush'>流量(GB)</td>
+	<td columnId='detail1'>查看</td>
+	<td columnId='wapBusinessName'>网站名称</td>	
+	<td columnId='wapFlush'>流量(GB)</td>
+	<td columnId='detail2'>查看</td>
+	<td columnId='cmccBusinessName'>业务名称</td>
+	<td columnId='cmccFlush'>流量(GB)</td>
+	<td columnId='detail3'>查看</td>
+</tr>
+</table>	-->		
+						<tr>
+							<td>
+								<div id="toolbar" style="height: 25px"></div>
+								
+							</td>
+						</tr>
+
+					</table>
+				</td>
+				<td width="2px"></td>
+			</tr>
+			<tr>
+				<td colspan="2" height="5px"></td>
+			</tr>
+		</table>
+	</body>
+</html>
+<script type="text/javascript">
+
+var date=new Date();
+date=date.valueOf();
+date=date-24*60*60*1000;
+date=new Date(date); 
+var initChartAgain = false;//判断是否再次初始化图形
+var dataType_search = 1 ; //页面显示数据类型
+var timeLevel_search =parent.total_obj.total_time_level==null?'2':parent.total_obj.total_time_level;//查询时间粒度
+var defaulettime =date.getYear()+'-'+''+((date.getMonth()+1)>9?(date.getMonth()+1):("0"+(date.getMonth()+1)))+'-'+''+(date.getDate()>9?date.getDate():("0"+date.getDate())); //查询开始时间
+var time_search = parent.total_obj.total_time_search==null?defaulettime:parent.total_obj.total_time_search;
+var dsConfig= {
+	//data : data1 ,
+	uniqueField : 'no' ,
+	fields :[
+		{name : 'tops'        },
+		{name : 'fullDate'        },
+		{name : 'businessName'      },
+		{name : 'wapBusinessName'    },
+		{name : 'cmccBusinessName'   },
+		{name : 'flush'    },
+		{name : 'wapFlush'    },
+		{name : 'cmccFlush'   }
+	]
+};
+var colsConfig = [
+		{ id : 'tops'      , header : "排名" ,  sortable:false,width:40},
+		//{ id : 'fullDate'      , header : "时间"    ,  sortable:false },
+		{ id : 'businessName'      , header : "业务名称"   ,  sortable:false ,headAlign:'right' ,align:'right',width:78 },
+		{ id : 'flush'    , header : "流量(GB)"   ,headAlign:'right' ,align:'right',exportnumber:true ,renderer:renderFormatB2Gb ,width:78}
+		//{ id : 'detail1'    , header : "查看"   ,exportable:false,  sortable:false ,renderer:renderUrl },
+		//{ id : 'wapBusinessName'      , header : "网站名称" ,  sortable:false ,headAlign:'right' ,align:'right'   },
+		//{ id : 'wapFlush'     , header : "流量(GB)"    ,headAlign:'right' ,align:'right' ,exportnumber:true,renderer:renderFormatB2Gb },
+		//{ id : 'detail2'    , header : "查看"   ,exportable:false,  sortable:false ,renderer:renderUrl },
+		//{ id : 'cmccBusinessName'      , header : "业务名称"  ,  sortable:false  ,headAlign:'right' ,align:'right' },
+		//{ id : 'cmccFlush'  , header : "流量(GB)"  ,headAlign:'right' ,align:'right' ,exportnumber:true,renderer:renderFormatB2Gb },
+		//{ id : 'detail3'    , header : "查看"   ,exportable:false,  sortable:false ,renderer:renderUrl }
+];
+function renderUrl(value ,record,columnObj,grid,colNo,rowNo){
+	//return value+'    <a href="#">时间走势</a><a href="#">空间分布</a>'; 
+	 return '<table><tr><td><img class="handImg1" style="cursor: hand" src="/skin/Default/images/MantoEye/icon/map.png" alt="空间分布" onclick="openSapceDistribute(1,\'\');" /></td>'
+					+'</td><td></div><img class="handImg2" style="cursor: hand" src="/skin/Default/images/MantoEye/icon/time.png" alt="流量时段走势" onclick="openSapceDistribute(2,\'\');" /></td>'
+					+'</tr></table>';
+}
+function renderFormatB2Gb(value ,record,columnObj,grid,colNo,rowNo){
+	var gbv = value/(1024*1024*1024);
+	return myFloatFormat(2,gbv);
+}
+var gridConfig={
+	id : "datagrid",
+	loadURL :'/mainIndex_query.do?1=1',
+	exportURL :'/mainIndex_export.do?1=1' ,
+	dataset : dsConfig ,
+	columns : colsConfig ,
+	width:200,
+	height:300,
+	container : 'data_container', 
+	toolbarContent : 'state' ,
+	pageSize : 10 ,
+	remoteSort : false ,
+	pageSizeList : [10,20,50,100],
+	//customHead : 'myHead',
+	//display:2,
+	onComplete:loadComplate
+};
+
+var datagrid=new GT.Grid( gridConfig );
+GT.Utils.onLoad( function(){
+	datagrid.render();
+} );
+
+
+//grid回调函数
+function loadComplate(){
+	var  obj = new Object ();//使用对象传参,以防以后修改
+	obj.datagrid = datagrid;
+	obj.hideColumn = 0 ;//隐藏的列数目
+	obj.isCheckbox = false;//是否可选择
+	obj.otherHeight = 0 ; //必须定义,因为有些页面不同，所以此处指定预留高度
+	//判断是否查询到数据
+	//judgeData(datagrid);
+	//选择呈现单位 
+	//buildUnit();
+	//初始化grid
+	//initMyWHGridInfo(obj);
+	//组装图形数据
+	buildChartData(datagrid.getAllRows().length);
+	
+}
+//初始化grid多表头高宽等信息,使高宽满屏
+function initMyWHGridInfo(obj) {
+	var datagrid = obj.datagrid;
+	var otherHeight = obj.otherHeight;//预留高度
+	var otherWidth = obj.otherWidth;//预留高度
+	var realWidth = 1045;
+	
+	//初始化高度满屏
+	var parentHeight = parent.document.getElementById("container_content").offsetHeight;//整个编辑区的高度
+	var yy = window.screen.availHeight;
+	var yyy = window.screenTop;
+	var parentHeight = yy - yyy;
+	var $toolbarObj = $("#toolbar");//toolbar对象
+	var tHeight = $toolbarObj.offset().top + 25;//toolbar相对位置
+	var IEHeight = 23 - otherHeight;
+	if (checkIE() == "IE6") {
+		width_1280 = width_1280 + 15;
+	}
+	var totalRecords = datagrid.getAllRows().length;
+	var dWidth = (totalRecords) * 22 + 93;
+	if (width == 1024) {
+		var width_1024 = parentHeight - tHeight - IEHeight - 3;
+		datagrid.setSize(796, dWidth > width_1024 ? dWidth : width_1024);//设置列表的宽高
+		$toolbarObj.css("width", "796px");//设置列表toolbar的宽高
+		realWidth = 796;
+	} else {
+		var width_1280 = parentHeight - tHeight - IEHeight;//满屏高度
+		datagrid.setSize(1061, dWidth > width_1280 ? dWidth : width_1280);
+		$toolbarObj.css("width", "1061px");
+		realWidth = 1052;
+	}
+	//初始化宽度满屏	
+	for (var j in datagrid.columnMap) {
+		if(j=='tops'){
+			datagrid.getColumn(j).setWidth(40);
+		}else{
+			datagrid.getColumn(j).setWidth(80);
+		}
+	}
+	columninit2 = true;
+}
+///////////////////图表////////////////////////
+///////////////////图表(柱状图)////////////////////////
+/*图表是否已经初始化*/
+var barchartinit = false;
+var flushchartjson="";
+/*组装图形数据*/
+function buildChartData(totalRecords){
+	var str1 ="";
+	/*保存图形数据，排序时不用重新查询*/
+	str1 = buildChartJsonStr(totalRecords);
+	if(!barchartinit){
+		barchartinit = true;
+		document.getElementById("chartxmldata1").value=str1;
+		swfobject.embedSWF("/flash/open-flash-chart-mw.swf?id=flush", "imgarea1", "80%", "100%", "9.0.0","expressInstall.swf",'',{"wmode":"opaque"});
+	}else{
+	  	var tmp1 = findSWF("imgarea1");	  	
+  		tmp1.load(str1);	
+	}
+}
+///////////////////////////////////////////
+function buildChartJsonStr(totalRecords){
+	var chartTime ='';
+	var title = '';
+	var xlabels = [] ;
+	var datas1 = [] ;
+	
+	if(typeof(datagrid.getRecord(0))!="undefined"){
+	var dtg = datagrid.getAllFreezeRows();
+		for(var i = 0 ; i<totalRecords;i++){
+			var record = datagrid.getRecord(i);	 	
+			if(title==''){
+		 		chartTime = record.fullDate;
+		 		title = chartTime+" 流量图";
+		 	}				
+		 	xlabels[i] = record.businessName; 	
+		 	//如果柱状图需要添加点击，必须以如下的方法设置个点的值	
+		 	datas1[i] = addCallFunction(record.businessName,StringToFloat(record.flush)/(1024*1024));			
+
+		}
+	}
+	//格式化X轴
+	 xlabels = formatXDateStrLables(xlabels);
+	var tdatas = [];
+	 
+	//格式化Y轴数据（流量）
+	var lobj = formatObjDataBy1024(datas1,"MB");
+	var lunit="流量";
+	if(lobj.unit!=""){
+		lunit = lunit +"@@"+lobj.unit;
+	}
+	tdatas[0] = lobj.datas;
+	
+	 //如果有单位  则label与单位间用@@分开
+	var labels = [lunit];	
+
+	
+	var jsons1 = buildSingleChartData(title,labels,xlabels,tdatas);
+	var str1 = JSON.stringify(jsons1);
+
+	return str1;
+}
+/*初始化图表*/
+function open_flash_chart_data(id)
+{
+	if(id=='flush'){
+		return document.getElementById("chartxmldata1").value;
+	}else if(id=='wap'){
+		return document.getElementById("chartxmldata2").value;
+	}else{
+		return document.getElementById("chartxmldata3").value;
+	}
+}
+/*图表回调函数*/
+function callback(label){
+	alert("label:"+label);
+}
+
+///////////////////////////////////////////
+
+
+//grid查询
+function query() {
+	initChartAgain = true;
+	time_search = $('#time_search').attr("value");
+	if(time_search=='' ){
+		alert('请选择时间!');
+		return ;
+	}
+	var param={
+		searchDateStart:time_search
+	};
+	GT.$grid('datagrid').query( param );
+}
+
+/*****************查询条件**********************/
+//设置页面显示的数据类型
+function showDataType(type){
+	dataType_search = type ;
+}
+//时间改变事件
+function changeTimeLevel(){
+	$('#time_search').attr("value","");
+}
+//时间选择事件
+function selectTime(){	
+	new WdatePicker({dateFmt:'yyyy-MM-dd'});
+}
+//重置查询条件
+function reset(){
+	$('#time_search').attr("value","");
+}
+
+//初始化查询时间
+$(document).ready(function(){
+	$('#time_search').attr('value',time_search);//从菜单中打开tab
+});
+/*****************查询条件结束**********************/
+
+/***************初始化toolbar***************************/
+$(document).ready(function(){
+      var toolbar = new Toolbar({
+        renderTo : 'toolbar',
+		//border: 'top',
+        items : [{
+          type : 'button',
+          text : '导出',
+          bodyStyle : 'xls',
+          useable : 'T',
+          handler : function(){
+            //参数
+			var params={
+				searchDateStart:time_search
+			};
+			//导出
+			var fileObj = new Object();
+			fileObj.fileName=time_search+'流量TOP10数据';
+			fileObj.fileFormat = 'xls';//文件格式,后台暂支持xls格式
+			fileObj.gridObj = datagrid;//当前grid对象
+			fileObj.params = params;
+			exportFile(fileObj);
+          }
+        }]
+      });
+	  toolbar.render();
+    });
+/***************初始化toolbar结束***************************/
+
+
+/**
+脚本不出错
+
+$(document).ready(function(){
+	window.onerror = killErrors;
+})
+function killErrors() {
+	return true;
+}
+
+*/
+
+</script>
+
+
+

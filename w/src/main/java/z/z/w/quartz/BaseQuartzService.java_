@@ -1,0 +1,99 @@
+/**
+ * z.z.w.quartz.BaseQuartzService.java
+ */
+package z.z.w.quartz;
+
+import java.text.ParseException;
+
+import org.quartz.CronTrigger;
+import org.quartz.JobDetail;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.quartz.Trigger;
+import org.quartz.TriggerUtils;
+
+import z.z.w.common.DateTools;
+
+/**
+ * @author Wu Zhenzhen
+ * @version Dec 19, 2012 5:23:22 PM
+ */
+public abstract class BaseQuartzService {
+
+	protected static final String QUARTZ_TRIGGER = "_TRIGGER";
+	protected static final String QUARTZ_JOB = "_JOB";
+	protected static final String QUARTZ_GROUP = "_GROUP";
+
+	protected abstract void scheduleJob(Scheduler scheduler);
+
+	/**
+	 * <br>
+	 * Created on: Dec 19, 2012 5:23:22 PM
+	 */
+	protected BaseQuartzService() {
+		super();
+	}
+
+	/**
+	 * 
+	 * <br>
+	 * Created on: Dec 19, 2012 5:28:15 PM
+	 * 
+	 * @param scheduler
+	 * @param jobClass
+	 *            exec task class
+	 * @param minute
+	 *            every min exec times
+	 * @throws SchedulerException
+	 */
+	protected void callSchedulerJob(Scheduler scheduler, Class<?> jobClass,
+			int minute) throws SchedulerException {
+
+		String classSimpleName = jobClass.getSimpleName();
+		String triggerName = classSimpleName + QUARTZ_TRIGGER;
+		String jobName = classSimpleName + QUARTZ_JOB;
+		String groupName = classSimpleName + QUARTZ_GROUP;
+
+		Trigger trigger = TriggerUtils.makeMinutelyTrigger(minute);
+		trigger.setName(triggerName);
+		trigger.setStartTime(DateTools.getCurrentDate());
+
+		// JOB
+		JobDetail execJob = new JobDetail(jobName, groupName, jobClass);
+
+		scheduler.scheduleJob(execJob, trigger);
+	}
+
+	/**
+	 * 
+	 * <br>
+	 * Created on: Dec 19, 2012 7:28:30 PM
+	 * 
+	 * @param scheduler
+	 * @param jobClass
+	 *            exec task class
+	 * @param cronSchedule
+	 *            cron expression [sec] [min] [hour] [day] [month] [week] [year]
+	 *            ex:(0/5 * * * * ?)
+	 * @throws ParseException
+	 * @throws SchedulerException
+	 */
+	protected void callSchedulerJob(Scheduler scheduler, Class<?> jobClass,
+			String cronSchedule) throws ParseException, SchedulerException {
+
+		String classSimpleName = jobClass.getSimpleName();
+		String triggerName = classSimpleName + QUARTZ_TRIGGER;
+		String jobName = classSimpleName + QUARTZ_JOB;
+		String groupName = classSimpleName + QUARTZ_GROUP;
+
+		JobDetail execJob = new JobDetail(jobName, groupName, jobClass);
+		CronTrigger trigger = new CronTrigger(triggerName, groupName, jobName,
+				groupName, cronSchedule);
+
+		trigger.setStartTime(DateTools.getCurrentDate());
+
+		scheduler.scheduleJob(execJob, trigger);
+
+	}
+
+}

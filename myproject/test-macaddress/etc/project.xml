@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+
+	<adapter name="TestMacAddress" priority="10">
+		<type name="TestMacAddress" class="z.z.w.project.test.macaddress.TestMacAddress" />
+	</adapter>
+
+</server>

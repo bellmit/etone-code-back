@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+
+	<adapter name="FsTestSpaceMoniter" priority="10">
+		<type name="TestSpaceMoniter" class="z.z.w.project.fs.space.moniter.TestSpaceMoniter"
+			local="D:/09_study/media/TAKARAZUKA" detelehour="1h" fileSuffix=".csv"
+			filePrefix="*G" />
+	</adapter>
+
+</server>

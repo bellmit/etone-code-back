@@ -1,0 +1,36 @@
+/**
+ * z.z.w.quartz.MainClass.java
+ */
+package z.z.w.quartz;
+
+import org.quartz.SchedulerException;
+
+import z.z.w.common.DateTools;
+import z.z.w.quartz.job.TestQuartzJob3;
+
+/**
+ * @author Wu Zhenzhen
+ * @version Dec 23, 2012 11:49:07 PM
+ */
+public class MainClass {
+	/**
+	 * <br>
+	 * Created on: Dec 20, 2012 10:48:33 AM
+	 * 
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		try {
+			BaseQuartzServiceUpgradeTest test = new BaseQuartzServiceUpgradeTest();
+			test.scheduleJob();
+			test.scheduleJobStart();
+
+			TestQuartzJob3.setTest(test);
+
+			System.out.println(DateTools.getCurrentDateStr()
+					+ " ---- JOB Start ----");
+		} catch (SchedulerException e) {
+			e.printStackTrace();
+		}
+	}
+}

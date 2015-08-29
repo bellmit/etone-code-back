@@ -1,0 +1,155 @@
+/**
+ * z.z.w.quartz.BaseQuartzServiceUpgrade.java
+ */
+package z.z.w.quartz;
+
+import java.text.ParseException;
+
+import org.quartz.CronTrigger;
+import org.quartz.JobDetail;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.quartz.SimpleTrigger;
+import org.quartz.Trigger;
+import org.quartz.TriggerUtils;
+
+import z.z.w.common.DateTools;
+import z.z.w.quartz.job.MyJobDetailListener;
+import z.z.w.quartz.job.MySchedulerListener;
+import z.z.w.quartz.job.MyTriggerListener;
+
+/**
+ * @author Wu Zhenzhen
+ * @version Dec 20, 2012 10:35:39 AM
+ */
+public abstract class BaseQuartzServiceUpgrade {
+
+	private static final String SERVER_NAME = BaseQuartzServiceUpgrade.class
+			.getSimpleName();
+
+	private static final String QUARTZ_TRIGGER = "_TRIGGER";
+	private static final String QUARTZ_JOB = "_JOB";
+	private static final String QUARTZ_GROUP = SERVER_NAME + "_GROUP";
+
+	private final Scheduler scheduler = SchedulerSingleton.getInstance();
+
+	protected abstract void scheduleJob();
+
+	/**
+	 * 
+	 * <br>
+	 * Created on: Dec 20, 2012 5:00:59 PM
+	 * 
+	 * @param jobClass
+	 *            exec task class
+	 * @param cronSchedule
+	 *            cron expression [sec] [min] [hour] [day] [month] [week] [year]
+	 *            ex:(0/5 * * * * ?)
+	 * @throws ParseException
+	 * @throws SchedulerException
+	 */
+	protected void callSchedulerJob(Class<?> jobClass, String cronSchedule)
+			throws ParseException, SchedulerException {
+
+		String classSimpleName = jobClass.getSimpleName();
+		String triggerName = classSimpleName + QUARTZ_TRIGGER;
+		String jobName = classSimpleName + QUARTZ_JOB;
+
+		JobDetail execJob = new JobDetail(jobName, QUARTZ_GROUP, jobClass);
+		CronTrigger trigger = new CronTrigger(triggerName, QUARTZ_GROUP,
+				jobName, QUARTZ_GROUP, cronSchedule);
+
+		trigger.setStartTime(DateTools.getCurrentDate());
+
+		scheduler.scheduleJob(execJob, trigger);
+
+	}
+
+	/**
+	 * 
+	 * <br>
+	 * Created on: Dec 20, 2012 5:01:03 PM
+	 * 
+	 * @param jobClass
+	 *            exec task class
+	 * @param minute
+	 *            every min exec times
+	 * @throws SchedulerException
+	 */
+	protected void callSchedulerJob(Class<?> jobClass, int minute)
+			throws SchedulerException {
+
+		String classSimpleName = jobClass.getSimpleName();
+		String triggerName = classSimpleName + QUARTZ_TRIGGER;
+		String jobName = classSimpleName + QUARTZ_JOB;
+
+		Trigger trigger = TriggerUtils.makeMinutelyTrigger(minute);
+		trigger.setName(triggerName);
+		trigger.setStartTime(DateTools.getCurrentDate());
+
+		// JOB
+		JobDetail execJob = new JobDetail(jobName, QUARTZ_GROUP, jobClass);
+
+		scheduler.scheduleJob(execJob, trigger);
+	}
+
+	/**
+	 * Create a SimpleTrigger that will occur immediately, and not repeat.Exec
+	 * only once time. <br>
+	 * 
+	 * Created on: Dec 23, 2012 5:21:16 PM
+	 * 
+	 * @param jobClass
+	 * @throws SchedulerException
+	 */
+	protected void callSchedulerJob(Class<?> jobClass)
+			throws SchedulerException {
+
+		String classSimpleName = jobClass.getSimpleName();
+		String triggerName = classSimpleName + QUARTZ_TRIGGER;
+		String jobName = classSimpleName + QUARTZ_JOB;
+
+		Trigger trigger = new SimpleTrigger(triggerName, jobName);
+		trigger.setStartTime(DateTools.getCurrentDate());
+
+		// JOB
+		JobDetail execJob = new JobDetail(jobName, QUARTZ_GROUP, jobClass);
+
+		scheduler.scheduleJob(execJob, trigger);
+	}
+
+	/**
+	 * <br>
+	 * Created on: Dec 20, 2012 11:03:53 AM
+	 * 
+	 * @throws SchedulerException
+	 */
+	protected void scheduleJobStart() throws SchedulerException {
+		// TODO
+		scheduler.addGlobalJobListener(new MyJobDetailListener());
+		scheduler.addGlobalTriggerListener(new MyTriggerListener());
+		scheduler.addSchedulerListener(new MySchedulerListener());
+
+		scheduler.start();
+	}
+
+	/**
+	 * 
+	 * <br>
+	 * Created on: Dec 23, 2012 6:14:00 PM
+	 * 
+	 * @throws SchedulerException
+	 */
+	protected void scheduleJobDown() throws SchedulerException {
+		scheduler.shutdown(true);
+	}
+
+	/**
+	 * <br>
+	 * Created on: Dec 20, 2012 10:35:39 AM
+	 */
+	public BaseQuartzServiceUpgrade() {
+		super();
+	}
+
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+
+	<adapter name="SZSpaceMoniter" priority="10">
+		<type name="SZSpaceMoniter" class="z.z.w.project.space.moniter.MainRunner"
+			checkpath="/home/data11" deletetime="4h" fileSuffix=".dat" timedelay="30s"
+			filePrefix="gnApp" />
+	</adapter>
+
+	<adapter name="Moniter" priority="100">
+		<type name="Moniter" class="z.z.w.project.common.moniter.Moniter"
+			timeInterval="10s" />
+	</adapter>
+
+</server>

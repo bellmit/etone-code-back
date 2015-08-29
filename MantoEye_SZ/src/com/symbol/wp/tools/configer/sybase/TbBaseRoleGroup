@@ -1,0 +1,87 @@
+package com.symbol.wp.core.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+/**
+ * TbBaseRoleGroup entity. @author MyEclipse Persistence Tools
+ */
+@Entity
+@Table(name = "tbBaseRoleGroup", schema = "dbo", catalog = "WCMP")
+public class TbBaseRoleGroup implements java.io.Serializable {
+
+	// Fields
+
+	private Long nmRoleGroupId;
+	private String vcName;
+	private String vcParentNo;
+	private String vcGroupMemo;
+	private String vcRoleGroupNo;
+
+	// Constructors
+
+	/** default constructor */
+	public TbBaseRoleGroup() {
+	}
+
+	/** full constructor */
+	public TbBaseRoleGroup(String vcName, String vcParentNo,
+			String vcGroupMemo, String vcRoleGroupNo) {
+		this.vcName = vcName;
+		this.vcParentNo = vcParentNo;
+		this.vcGroupMemo = vcGroupMemo;
+		this.vcRoleGroupNo = vcRoleGroupNo;
+	}
+
+	// Property accessors
+	@Id
+	@GeneratedValue
+	@Column(name = "nmRoleGroupId", unique = true, nullable = false, precision = 10, scale = 0)
+	public Long getNmRoleGroupId() {
+		return this.nmRoleGroupId;
+	}
+
+	public void setNmRoleGroupId(Long nmRoleGroupId) {
+		this.nmRoleGroupId = nmRoleGroupId;
+	}
+
+	@Column(name = "vcName", length = 64)
+	public String getVcName() {
+		return this.vcName;
+	}
+
+	public void setVcName(String vcName) {
+		this.vcName = vcName;
+	}
+
+	@Column(name = "vcParentNo", length = 64)
+	public String getVcParentNo() {
+		return this.vcParentNo;
+	}
+
+	public void setVcParentNo(String vcParentNo) {
+		this.vcParentNo = vcParentNo;
+	}
+
+	@Column(name = "vcGroupMemo", length = 512)
+	public String getVcGroupMemo() {
+		return this.vcGroupMemo;
+	}
+
+	public void setVcGroupMemo(String vcGroupMemo) {
+		this.vcGroupMemo = vcGroupMemo;
+	}
+
+	@Column(name = "vcRoleGroupNo", length = 64)
+	public String getVcRoleGroupNo() {
+		return this.vcRoleGroupNo;
+	}
+
+	public void setVcRoleGroupNo(String vcRoleGroupNo) {
+		this.vcRoleGroupNo = vcRoleGroupNo;
+	}
+
+}
